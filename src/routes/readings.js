@@ -1,13 +1,21 @@
 const { Router } = require('express');
 const db = require('../db');
+const { validateTimestamp } = require('../middleware/timestamp');
 
 const router = Router();
 
 router.post('/', (req, res) => {
-  const { reading_type, bg_value, meal_id, raw_input } = req.body;
+  const { reading_type, bg_value, meal_id, raw_input, timestamp } = req.body;
 
   if (!reading_type || bg_value == null) {
     return res.status(400).json({ error: 'reading_type and bg_value are required' });
+  }
+
+  let ts = null;
+  if (timestamp) {
+    const result = validateTimestamp(timestamp);
+    if (!result.valid) return res.status(400).json({ error: result.error });
+    ts = result.value;
   }
 
   if (meal_id) {
@@ -17,11 +25,15 @@ router.post('/', (req, res) => {
     }
   }
 
-  const stmt = db.prepare(
-    `INSERT INTO readings (reading_type, bg_value, meal_id, raw_input)
-     VALUES (?, ?, ?, ?)`
-  );
-  const result = stmt.run(reading_type, bg_value, meal_id || null, raw_input || null);
+  const stmt = ts
+    ? db.prepare(`INSERT INTO readings (timestamp, reading_type, bg_value, meal_id, raw_input) VALUES (?, ?, ?, ?, ?)`)
+    : db.prepare(`INSERT INTO readings (reading_type, bg_value, meal_id, raw_input) VALUES (?, ?, ?, ?)`);
+
+  const args = ts
+    ? [ts, reading_type, bg_value, meal_id || null, raw_input || null]
+    : [reading_type, bg_value, meal_id || null, raw_input || null];
+
+  const result = stmt.run(...args);
 
   const reading = db.prepare('SELECT * FROM readings WHERE id = ?').get(result.lastInsertRowid);
   res.status(201).json(reading);

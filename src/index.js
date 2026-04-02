@@ -8,10 +8,13 @@ const medicationsRouter = require('./routes/medications');
 const dayRouter = require('./routes/day');
 const naturalRouter = require('./routes/natural');
 
+const path = require('path');
+
 const app = express();
 const PORT = process.env.PORT || 3000;
 const SERVER = process.env.SERVER || 'unknown';
 
+app.use(express.static(path.join(__dirname, '..', 'public')));
 app.use(express.json());
 
 app.get('/health', (req, res) => {

@@ -1,0 +1,114 @@
+@import url('https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=DM+Sans:wght@400;500;700&display=swap');
+
+/* --- Dark mode (default) --- */
+:root {
+  --bg-base: #0A0A0A;
+  --bg-surface: #141414;
+  --bg-raised: #1C1C1C;
+  --bg-input: #1C1C1C;
+  --border: #2A2A2A;
+  --border-subtle: #1C1C1C;
+  --accent: #00C896;
+  --accent-dim: rgba(0, 200, 150, 0.12);
+  --accent-glow: rgba(0, 200, 150, 0.25);
+  --text-primary: #F0F0F0;
+  --text-secondary: #808080;
+  --text-muted: #444444;
+  --reading-green: #00C896;
+  --reading-amber: #F5A623;
+  --reading-red: #E24B4A;
+  --reading-green-bg: rgba(0, 200, 150, 0.1);
+  --reading-amber-bg: rgba(245, 166, 35, 0.1);
+  --reading-red-bg: rgba(226, 75, 74, 0.1);
+}
+
+/* --- Light mode via class toggle --- */
+:root.light {
+  --bg-base: #F4F4F4;
+  --bg-surface: #FFFFFF;
+  --bg-raised: #EFEFEF;
+  --bg-input: #E8E8E8;
+  --border: #DCDCDC;
+  --border-subtle: #EFEFEF;
+  --accent: #0A8F68;
+  --accent-dim: rgba(10, 143, 104, 0.1);
+  --accent-glow: rgba(10, 143, 104, 0.2);
+  --text-primary: #0A0A0A;
+  --text-secondary: #555555;
+  --text-muted: #AAAAAA;
+  --reading-green: #0A8F68;
+  --reading-amber: #C47F00;
+  --reading-red: #C0392B;
+  --reading-green-bg: rgba(10, 143, 104, 0.08);
+  --reading-amber-bg: rgba(196, 127, 0, 0.08);
+  --reading-red-bg: rgba(192, 57, 43, 0.08);
+}
+
+/* --- Light mode via OS preference (only if no explicit class) --- */
+@media (prefers-color-scheme: light) {
+  :root:not(.dark) {
+    --bg-base: #F4F4F4;
+    --bg-surface: #FFFFFF;
+    --bg-raised: #EFEFEF;
+    --bg-input: #E8E8E8;
+    --border: #DCDCDC;
+    --border-subtle: #EFEFEF;
+    --accent: #0A8F68;
+    --accent-dim: rgba(10, 143, 104, 0.1);
+    --accent-glow: rgba(10, 143, 104, 0.2);
+    --text-primary: #0A0A0A;
+    --text-secondary: #555555;
+    --text-muted: #AAAAAA;
+    --reading-green: #0A8F68;
+    --reading-amber: #C47F00;
+    --reading-red: #C0392B;
+    --reading-green-bg: rgba(10, 143, 104, 0.08);
+    --reading-amber-bg: rgba(196, 127, 0, 0.08);
+    --reading-red-bg: rgba(192, 57, 43, 0.08);
+  }
+}
+
+/* --- Reset --- */
+*, *::before, *::after {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html, body {
+  height: 100%;
+  width: 100%;
+  overflow: hidden;
+  background: var(--bg-base);
+  color: var(--text-primary);
+  font-family: 'DM Sans', system-ui, sans-serif;
+  font-size: 16px;
+  font-weight: 400;
+  line-height: 1.5;
+  -webkit-font-smoothing: antialiased;
+  -webkit-tap-highlight-color: transparent;
+  -webkit-text-size-adjust: 100%;
+}
+
+input, button, textarea, select {
+  font: inherit;
+  color: inherit;
+  border: none;
+  outline: none;
+  background: none;
+}
+
+button {
+  cursor: pointer;
+  -webkit-user-select: none;
+  user-select: none;
+}
+
+a { color: inherit; text-decoration: none; }
+
+/* --- Typography helpers --- */
+.mono { font-family: 'DM Mono', monospace; }
+.text-secondary { color: var(--text-secondary); font-size: 13px; }
+.text-muted { color: var(--text-muted); }
+.text-label { font-size: 11px; font-family: 'DM Mono', monospace; text-transform: uppercase; letter-spacing: 0.04em; }
+.text-micro { font-size: 10px; font-family: 'DM Mono', monospace; }

@@ -1,6 +1,7 @@
 const { Router } = require('express');
 const Anthropic = require('@anthropic-ai/sdk');
 const db = require('../db');
+const { validateTimestamp } = require('../middleware/timestamp');
 
 const router = Router();
 
@@ -35,7 +36,14 @@ Rules:
 - Return ONLY the JSON object, nothing else`;
 
 router.post('/', async (req, res) => {
-  const { text } = req.body;
+  const { text, timestamp } = req.body;
+
+  let ts = null;
+  if (timestamp) {
+    const tsResult = validateTimestamp(timestamp);
+    if (!tsResult.valid) return res.status(400).json({ signal: 'lost', error: tsResult.error });
+    ts = tsResult.value;
+  }
 
   if (!text || typeof text !== 'string' || !text.trim()) {
     return res.status(400).json({ signal: 'lost', error: 'text is required' });
@@ -76,10 +84,13 @@ router.post('/', async (req, res) => {
         medication_snapshot = meds.map(med => med.name).join(', ') || null;
       }
 
-      const result = db.prepare(
-        `INSERT INTO meals (meal_type, description, medication_taken, medication_snapshot, raw_input)
-         VALUES (?, ?, ?, ?, ?)`
-      ).run(m.meal_type, m.description, medTaken, medication_snapshot, text);
+      const mealStmt = ts
+        ? db.prepare(`INSERT INTO meals (timestamp, meal_type, description, medication_taken, medication_snapshot, raw_input) VALUES (?, ?, ?, ?, ?, ?)`)
+        : db.prepare(`INSERT INTO meals (meal_type, description, medication_taken, medication_snapshot, raw_input) VALUES (?, ?, ?, ?, ?)`);
+      const mealArgs = ts
+        ? [ts, m.meal_type, m.description, medTaken, medication_snapshot, text]
+        : [m.meal_type, m.description, medTaken, medication_snapshot, text];
+      const result = mealStmt.run(...mealArgs);
 
       mealId = result.lastInsertRowid;
       saved.meal = db.prepare('SELECT * FROM meals WHERE id = ?').get(mealId);
@@ -91,10 +102,13 @@ router.post('/', async (req, res) => {
         return res.status(500).json({ signal: 'lost', error: 'Parser returned incomplete reading data' });
       }
 
-      const result = db.prepare(
-        `INSERT INTO readings (reading_type, bg_value, meal_id, raw_input)
-         VALUES (?, ?, ?, ?)`
-      ).run(r.reading_type, r.bg_value, mealId, text);
+      const readStmt = ts
+        ? db.prepare(`INSERT INTO readings (timestamp, reading_type, bg_value, meal_id, raw_input) VALUES (?, ?, ?, ?, ?)`)
+        : db.prepare(`INSERT INTO readings (reading_type, bg_value, meal_id, raw_input) VALUES (?, ?, ?, ?)`);
+      const readArgs = ts
+        ? [ts, r.reading_type, r.bg_value, mealId, text]
+        : [r.reading_type, r.bg_value, mealId, text];
+      const result = readStmt.run(...readArgs);
 
       saved.reading = db.prepare('SELECT * FROM readings WHERE id = ?').get(result.lastInsertRowid);
     }

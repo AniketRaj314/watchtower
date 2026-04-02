@@ -1,13 +1,21 @@
 const { Router } = require('express');
 const db = require('../db');
+const { validateTimestamp } = require('../middleware/timestamp');
 
 const router = Router();
 
 router.post('/', (req, res) => {
-  const { meal_type, description, medication_taken, raw_input } = req.body;
+  const { meal_type, description, medication_taken, raw_input, timestamp } = req.body;
 
   if (!meal_type || !description) {
     return res.status(400).json({ error: 'meal_type and description are required' });
+  }
+
+  let ts = null;
+  if (timestamp) {
+    const result = validateTimestamp(timestamp);
+    if (!result.valid) return res.status(400).json({ error: result.error });
+    ts = result.value;
   }
 
   let medication_snapshot = null;
@@ -16,11 +24,15 @@ router.post('/', (req, res) => {
     medication_snapshot = meds.map(m => m.name).join(', ') || null;
   }
 
-  const stmt = db.prepare(
-    `INSERT INTO meals (meal_type, description, medication_taken, medication_snapshot, raw_input)
-     VALUES (?, ?, ?, ?, ?)`
-  );
-  const result = stmt.run(meal_type, description, medication_taken ? 1 : 0, medication_snapshot, raw_input || null);
+  const stmt = ts
+    ? db.prepare(`INSERT INTO meals (timestamp, meal_type, description, medication_taken, medication_snapshot, raw_input) VALUES (?, ?, ?, ?, ?, ?)`)
+    : db.prepare(`INSERT INTO meals (meal_type, description, medication_taken, medication_snapshot, raw_input) VALUES (?, ?, ?, ?, ?)`);
+
+  const args = ts
+    ? [ts, meal_type, description, medication_taken ? 1 : 0, medication_snapshot, raw_input || null]
+    : [meal_type, description, medication_taken ? 1 : 0, medication_snapshot, raw_input || null];
+
+  const result = stmt.run(...args);
 
   const meal = db.prepare('SELECT * FROM meals WHERE id = ?').get(result.lastInsertRowid);
   res.status(201).json(meal);

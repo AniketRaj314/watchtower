@@ -1,0 +1,216 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover, user-scalable=no">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="theme-color" content="#0A0A0A">
+  <title>Watchtower</title>
+  <link rel="manifest" href="/manifest.json">
+  <link rel="apple-touch-icon" href="/icons/icon-192.png">
+  <link rel="stylesheet" href="/css/base.css">
+  <link rel="stylesheet" href="/css/layout.css">
+  <link rel="stylesheet" href="/css/log.css">
+  <link rel="stylesheet" href="/css/today.css">
+  <script src="/config.js"></script>
+</head>
+
+<body>
+
+  <!-- Toast -->
+  <div id="toast" class="toast">
+    <div class="toast-dot"></div>
+    <div class="toast-text" id="toast-text"></div>
+  </div>
+
+  <!-- PIN Screen -->
+  <div id="pin-screen" class="pin-screen hidden">
+    <div id="pin-title" class="pin-title">SET UP PIN</div>
+    <div id="pin-subtitle" class="pin-subtitle">Choose a 4-digit PIN</div>
+    <div id="pin-dots" class="pin-dots">
+      <div class="pin-dot"></div>
+      <div class="pin-dot"></div>
+      <div class="pin-dot"></div>
+      <div class="pin-dot"></div>
+    </div>
+    <div id="pin-keypad" class="pin-keypad">
+      <button class="pin-key" data-val="1">1</button>
+      <button class="pin-key" data-val="2">2</button>
+      <button class="pin-key" data-val="3">3</button>
+      <button class="pin-key" data-val="4">4</button>
+      <button class="pin-key" data-val="5">5</button>
+      <button class="pin-key" data-val="6">6</button>
+      <button class="pin-key" data-val="7">7</button>
+      <button class="pin-key" data-val="8">8</button>
+      <button class="pin-key" data-val="9">9</button>
+      <button class="pin-key empty"></button>
+      <button class="pin-key" data-val="0">0</button>
+      <button class="pin-key backspace" data-val="back">
+        <svg viewBox="0 0 24 24">
+          <path d="M9 14l2-2m0 0l2-2m-2 2l-2-2m2 2l2 2m5-2a9 9 0 11-6.219-8.56" />
+        </svg>
+      </button>
+    </div>
+    <button id="pin-confirm" class="pin-confirm" disabled>CONFIRM</button>
+    <div id="pin-lockout" class="pin-lockout"></div>
+  </div>
+
+  <!-- App shell -->
+  <div id="app" class="hidden">
+    <header class="header">
+      <div class="wordmark">
+        <span class="wordmark-watch">WATCH</span><span class="wordmark-tower">TOWER</span>
+      </div>
+      <button id="theme-toggle" class="theme-toggle" aria-label="Toggle theme">
+        <svg id="icon-sun" viewBox="0 0 24 24">
+          <circle cx="12" cy="12" r="5" />
+          <line x1="12" y1="1" x2="12" y2="3" />
+          <line x1="12" y1="21" x2="12" y2="23" />
+          <line x1="4.22" y1="4.22" x2="5.64" y2="5.64" />
+          <line x1="18.36" y1="18.36" x2="19.78" y2="19.78" />
+          <line x1="1" y1="12" x2="3" y2="12" />
+          <line x1="21" y1="12" x2="23" y2="12" />
+          <line x1="4.22" y1="19.78" x2="5.64" y2="18.36" />
+          <line x1="18.36" y1="5.64" x2="19.78" y2="4.22" />
+        </svg>
+        <svg id="icon-moon" viewBox="0 0 24 24" style="display:none">
+          <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z" />
+        </svg>
+      </button>
+    </header>
+
+    <!-- Screens -->
+    <div id="screen-log" class="screen active">
+
+      <!-- Reading card -->
+      <div class="log-card">
+        <div class="log-card-label">LOG READING</div>
+
+        <div class="ts-row">
+          <input id="reading-date" type="date" class="ts-input ts-date">
+          <input id="reading-time" type="time" class="ts-input ts-time">
+        </div>
+
+        <div class="reading-input-area">
+          <div id="reading-display" class="reading-display">—</div>
+          <div class="reading-unit">mg/dL</div>
+          <input id="reading-input" type="number" inputmode="numeric" pattern="[0-9]*"
+                 class="reading-hidden-input" aria-label="Blood glucose value">
+        </div>
+
+        <div class="chip-row" id="reading-type-chips">
+          <button class="chip active" data-val="fasting">FASTING</button>
+          <button class="chip" data-val="post-meal">POST-MEAL</button>
+          <button class="chip" data-val="pre-meal">PRE-MEAL</button>
+          <button class="chip" data-val="random">RANDOM</button>
+          <button class="chip" data-val="bedtime">BEDTIME</button>
+        </div>
+
+        <div id="range-indicator" class="range-indicator"></div>
+
+        <div id="meal-link-section" class="meal-link-section" style="display:none">
+          <label class="field-label" for="meal-link-select">LINK TO MEAL</label>
+          <select id="meal-link-select" class="field-select">
+            <option value="">No link</option>
+          </select>
+        </div>
+
+        <button id="reading-send" class="send-btn" disabled>SEND SIGNAL</button>
+      </div>
+
+      <!-- Meal card -->
+      <div class="log-card">
+        <div class="log-card-label">LOG MEAL</div>
+
+        <div class="ts-row">
+          <input id="meal-date" type="date" class="ts-input ts-date">
+          <input id="meal-time" type="time" class="ts-input ts-time">
+        </div>
+
+        <div class="chip-row" id="meal-type-chips">
+          <button class="chip" data-val="breakfast">BREAKFAST</button>
+          <button class="chip" data-val="lunch">LUNCH</button>
+          <button class="chip" data-val="dinner">DINNER</button>
+          <button class="chip" data-val="snack">SNACK</button>
+        </div>
+
+        <textarea id="meal-desc" class="meal-textarea" placeholder="What did you eat?" rows="3"></textarea>
+
+        <div class="meds-row">
+          <span class="meds-label">Took meds with this meal</span>
+          <button id="meds-toggle" class="toggle" role="switch" aria-checked="false">
+            <span class="toggle-thumb"></span>
+          </button>
+        </div>
+        <div id="meds-hint" class="meds-hint" style="display:none">Active meds will be logged automatically</div>
+
+        <button id="meal-send" class="send-btn" disabled>SEND SIGNAL</button>
+      </div>
+
+    </div>
+    <div id="screen-today" class="screen">
+      <div class="today-header">
+        <div id="today-date" class="today-date"></div>
+        <div id="today-header-badges" class="today-header-badges"></div>
+      </div>
+      <div id="today-stats" class="today-stats">
+        <div class="stat-cell">
+          <div class="stat-label">FASTING</div>
+          <div class="stat-value" id="stat-fasting">—</div>
+        </div>
+        <div class="stat-cell">
+          <div class="stat-label">POST-MEAL</div>
+          <div class="stat-value" id="stat-postmeal">—</div>
+        </div>
+      </div>
+      <div class="today-section-label">TODAY'S SIGNAL</div>
+      <div id="today-timeline" class="today-timeline"></div>
+    </div>
+    <div id="screen-insights" class="screen">
+      <div class="screen-placeholder">insights</div>
+    </div>
+    <div id="screen-settings" class="screen">
+      <div class="screen-placeholder">settings</div>
+    </div>
+
+    <!-- Bottom nav -->
+    <nav class="bottom-nav">
+      <button class="nav-item active" data-screen="log">
+        <svg viewBox="0 0 24 24">
+          <rect x="4" y="4" width="16" height="16" rx="3" />
+          <line x1="12" y1="9" x2="12" y2="15" />
+          <line x1="9" y1="12" x2="15" y2="12" />
+        </svg>
+        <span>Log</span>
+      </button>
+      <button class="nav-item" data-screen="today">
+        <svg viewBox="0 0 24 24">
+          <circle cx="12" cy="12" r="9" />
+          <polyline points="12 7 12 12 15 15" />
+        </svg>
+        <span>Today</span>
+      </button>
+      <button class="nav-item" data-screen="insights">
+        <svg viewBox="0 0 24 24">
+          <polyline points="4 18 8 12 12 14 16 8 20 10" />
+        </svg>
+        <span>Insights</span>
+      </button>
+      <button class="nav-item" data-screen="settings">
+        <svg viewBox="0 0 24 24">
+          <circle cx="12" cy="8" r="4" />
+          <path d="M4 21v-1a6 6 0 0 1 16 0v1" />
+        </svg>
+        <span>Settings</span>
+      </button>
+    </nav>
+  </div>
+
+  <script src="/js/app.js"></script>
+  <script src="/js/log.js"></script>
+  <script src="/js/today.js"></script>
+</body>
+
+</html>
