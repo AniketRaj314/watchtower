@@ -70,7 +70,7 @@
 
   function getCurrentTimestamp() {
     const now = new Date();
-    const date = now.toISOString().split('T')[0];
+    const date = `${now.getFullYear()}-${String(now.getMonth() + 1).padStart(2, '0')}-${String(now.getDate()).padStart(2, '0')}`;
     const time = now.toTimeString().slice(0, 5);
     return { date, time };
   }
@@ -146,10 +146,10 @@
     }
   });
 
-  // Fetch today's meals for linking
-  async function loadTodayMeals() {
+  // Fetch all meals for linking (latest first)
+  async function loadMealOptions() {
     try {
-      const res = await fetch(`${API}/api/meals/today`, { headers });
+      const res = await fetch(`${API}/api/meals`, { headers });
       if (!res.ok) return;
       const meals = await res.json();
 
@@ -158,12 +158,16 @@
 
       meals.forEach(m => {
         const ts = m.timestamp.endsWith('Z') ? m.timestamp : m.timestamp + 'Z';
-        const time = new Date(ts).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit', hour12: false });
+        const dateObj = new Date(ts);
+        const day = String(dateObj.getDate()).padStart(2, '0');
+        const month = String(dateObj.getMonth() + 1).padStart(2, '0');
+        const year = dateObj.getFullYear();
+        const dateLabel = `${day}/${month}/${year}`;
         const type = m.meal_type.charAt(0).toUpperCase() + m.meal_type.slice(1);
         const desc = m.description.length > 24 ? m.description.slice(0, 24) + '...' : m.description;
         const opt = document.createElement('option');
         opt.value = m.id;
-        opt.textContent = `${type} · ${time} — ${desc}`;
+        opt.textContent = `[${dateLabel}] - ${type} - ${desc}`;
         mealLinkSelect.appendChild(opt);
       });
     } catch (_) { /* silent */ }
@@ -198,7 +202,7 @@
       readingDisplay.classList.remove('green', 'amber', 'red');
       readingSend.disabled = true;
       renderRange(selectedReadingType, null);
-      loadTodayMeals();
+      loadMealOptions();
     } catch (_) {
       showToast('Signal lost — try again.', true);
       readingSend.disabled = false;
@@ -280,7 +284,7 @@
       medsToggle.setAttribute('aria-checked', 'false');
       medsHint.style.display = 'none';
       mealSend.disabled = true;
-      loadTodayMeals();
+      loadMealOptions();
     } catch (_) {
       showToast('Signal lost — try again.', true);
       mealSend.disabled = false;
@@ -291,5 +295,5 @@
   window.WT_LOG = window.WT_LOG || {};
   window.WT_LOG.onEnter = resetLogTimestamps;
   resetLogTimestamps();
-  loadTodayMeals();
+  loadMealOptions();
 })();

@@ -167,6 +167,9 @@
     if (target === 'log' && window.WT_LOG && typeof window.WT_LOG.onEnter === 'function') {
       window.WT_LOG.onEnter();
     }
+    if (target === 'insights' && window.WT_INSIGHTS && typeof window.WT_INSIGHTS.onEnter === 'function') {
+      window.WT_INSIGHTS.onEnter();
+    }
   }
 
   navItems.forEach(item => {

@@ -14,6 +14,7 @@
   <link rel="stylesheet" href="/css/layout.css">
   <link rel="stylesheet" href="/css/log.css">
   <link rel="stylesheet" href="/css/today.css">
+  <link rel="stylesheet" href="/css/insights.css">
   <script src="/config.js"></script>
 </head>
 
@@ -169,7 +170,52 @@
       <div id="today-timeline" class="today-timeline"></div>
     </div>
     <div id="screen-insights" class="screen">
-      <div class="screen-placeholder">insights</div>
+      <div class="insights-summary-grid">
+        <div class="insights-stat-card">
+          <div class="insights-stat-label">READINGS</div>
+          <div id="insights-total-readings" class="insights-stat-value">—</div>
+        </div>
+        <div class="insights-stat-card">
+          <div class="insights-stat-label">AVG FASTING</div>
+          <div id="insights-avg-fasting" class="insights-stat-value">—</div>
+        </div>
+        <div class="insights-stat-card">
+          <div class="insights-stat-label">AVG POST-MEAL</div>
+          <div id="insights-avg-postmeal" class="insights-stat-value">—</div>
+        </div>
+        <div class="insights-stat-card">
+          <div class="insights-stat-label">IN TARGET</div>
+          <div id="insights-in-target" class="insights-stat-value">—</div>
+        </div>
+      </div>
+
+      <div class="insights-section-label">14-DAY SIGNAL</div>
+      <div class="insights-card">
+        <div class="insights-chart-wrap">
+          <canvas id="insights-trend-chart"></canvas>
+        </div>
+      </div>
+
+      <div class="insights-section-label">ESTIMATED HbA1c</div>
+      <div class="insights-card">
+        <div id="insights-hba1c-value" class="insights-hba1c-value">—</div>
+        <div id="insights-hba1c-meta" class="insights-hba1c-meta">Based on 0 readings over 0 days</div>
+        <div class="insights-hba1c-note">Estimate only. Get a lab HbA1c for your actual value.</div>
+      </div>
+
+      <div class="insights-section-label">SPIKE PATTERNS</div>
+      <div class="insights-section-subtitle">Meals preceding a post-meal reading ≥180</div>
+      <div class="insights-card">
+        <div id="insights-spike-list"></div>
+        <div id="insights-spike-empty" class="insights-empty">No spike patterns yet. Keep logging.</div>
+      </div>
+
+      <div class="insights-section-label">LOGGING STREAK</div>
+      <div class="insights-card insights-streak-card">
+        <div id="insights-streak-value" class="insights-streak-value">0</div>
+        <div class="insights-streak-sub">days in a row</div>
+        <div class="insights-streak-note">Keep the signal alive.</div>
+      </div>
     </div>
     <div id="screen-settings" class="screen">
       <div class="screen-placeholder">settings</div>
@@ -211,6 +257,8 @@
   <script src="/js/app.js"></script>
   <script src="/js/log.js"></script>
   <script src="/js/today.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.js"></script>
+  <script src="/js/insights.js"></script>
 </body>
 
 </html>
