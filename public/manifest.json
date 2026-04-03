@@ -2,7 +2,7 @@
   "name": "Watchtower",
   "short_name": "WatchTower",
   "description": "Signal. Log. Improve.",
-  "start_url": "/",
+  "start_url": "/app/",
   "display": "standalone",
   "background_color": "#0A0A0A",
   "theme_color": "#0A0A0A",

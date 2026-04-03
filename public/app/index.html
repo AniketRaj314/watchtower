@@ -1,0 +1,347 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover, user-scalable=no">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="apple-mobile-web-app-title" content="Watchtower">
+  <meta name="theme-color" content="#0A0A0A">
+  <title>Watchtower</title>
+  <link rel="manifest" href="/manifest.json">
+  <link rel="icon" type="image/png" sizes="48x48" href="/icons/icon-48.png">
+  <link rel="apple-touch-icon" href="/icons/icon-192.png">
+  <link rel="stylesheet" href="/css/base.css">
+  <link rel="stylesheet" href="/css/layout.css">
+  <link rel="stylesheet" href="/css/log.css">
+  <link rel="stylesheet" href="/css/today.css">
+  <link rel="stylesheet" href="/css/insights.css">
+  <link rel="stylesheet" href="/css/settings.css">
+  <script src="/config.js"></script>
+</head>
+
+<body>
+
+  <!-- Toast -->
+  <div id="toast" class="toast">
+    <div class="toast-dot"></div>
+    <div class="toast-text" id="toast-text"></div>
+  </div>
+
+  <!-- Login (session cookie) — hidden until boot decides -->
+  <div id="login-screen" class="login-screen hidden">
+    <div class="login-wordmark">
+      <span class="wordmark-watch">WATCH</span><span class="wordmark-tower">TOWER</span>
+    </div>
+    <p class="login-hint">Sign in to continue</p>
+    <form id="login-form" class="login-form" autocomplete="on">
+      <label class="login-label" for="login-password">Password</label>
+      <input id="login-password" class="login-input" type="password" name="password" autocomplete="current-password"
+        required />
+      <button type="submit" class="login-submit">Sign in</button>
+      <div id="login-error" class="login-error hidden" role="alert"></div>
+    </form>
+  </div>
+
+  <!-- App shell -->
+  <div id="app" class="hidden">
+    <header class="header">
+      <div class="wordmark">
+        <span class="wordmark-watch">WATCH</span><span class="wordmark-tower">TOWER</span>
+      </div>
+    </header>
+
+    <!-- Screens -->
+    <div id="screen-log" class="screen active">
+
+      <!-- Reading card -->
+      <div id="reading-card" class="log-card log-card--reading">
+        <div class="log-card-header">
+          <div class="log-card-header-left">
+            <div class="log-card-icon-wrap log-card-icon-wrap--reading">
+              <svg width="20" height="20" viewBox="0 0 32 32" fill="none" stroke-linejoin="round">
+                <path d="M7 23 A10 10 0 0 1 25 23" stroke="#2A2A2A" stroke-width="1.5" stroke-linecap="round" />
+                <path d="M7 23 A10 10 0 0 1 19.2 13.8" stroke="#00C896" stroke-width="1.5" stroke-linecap="round" />
+                <circle cx="16" cy="23" r="1.5" fill="#00C896" />
+                <line x1="16" y1="23" x2="20" y2="15" stroke="#00C896" stroke-width="1.3" stroke-linecap="round" />
+                <line x1="7.5" y1="20" x2="9" y2="18.5" stroke="#00C896" stroke-width="1" stroke-linecap="round"
+                  opacity="0.35" />
+                <line x1="16" y1="13.5" x2="16" y2="15.5" stroke="#00C896" stroke-width="1" stroke-linecap="round"
+                  opacity="0.35" />
+                <line x1="24.5" y1="20" x2="23" y2="18.5" stroke="#00C896" stroke-width="1" stroke-linecap="round"
+                  opacity="0.35" />
+              </svg>
+            </div>
+            <span class="log-card-type-label log-card-type-label--reading">READING</span>
+          </div>
+          <div class="log-card-hint" id="reading-card-hint">↑ collapse</div>
+        </div>
+        <div class="log-card-body">
+          <div class="ts-row">
+            <input id="reading-date" type="date" class="ts-input ts-date">
+            <input id="reading-time" type="time" class="ts-input ts-time">
+          </div>
+
+          <div class="reading-input-area">
+            <div class="reading-value-row">
+              <div id="reading-display" class="reading-display">—</div>
+              <div class="reading-unit">mg/dL</div>
+            </div>
+            <input id="reading-input" type="number" inputmode="numeric" pattern="[0-9]*" class="reading-hidden-input"
+              aria-label="Blood glucose value">
+          </div>
+          <div class="reading-underline"></div>
+
+          <div class="chip-row" id="reading-type-chips">
+            <button class="chip active" data-val="fasting">FASTING</button>
+            <button class="chip" data-val="post-meal">POST-MEAL</button>
+            <button class="chip" data-val="pre-meal">PRE-MEAL</button>
+            <button class="chip" data-val="random">RANDOM</button>
+            <button class="chip" data-val="bedtime">BEDTIME</button>
+          </div>
+
+          <div id="range-indicator" class="range-indicator"></div>
+
+          <div id="meal-link-section" class="meal-link-section" style="display:none">
+            <label class="field-label">LINK TO MEAL</label>
+            <div id="meal-link-chips" class="meal-link-chips"></div>
+          </div>
+
+          <button id="reading-send" class="send-btn send-btn--reading" disabled>SEND SIGNAL</button>
+        </div>
+      </div>
+
+      <!-- Meal card -->
+      <div id="meal-card" class="log-card log-card--meal">
+        <div class="log-card-header">
+          <div class="log-card-header-left">
+            <div class="log-card-icon-wrap log-card-icon-wrap--meal">
+              <svg width="20" height="20" viewBox="0 0 32 32" fill="none" stroke-linejoin="round">
+                <path d="M6 18 Q6 26 16 26 Q26 26 26 18" stroke="#5DCAA5" stroke-width="1.4" stroke-linecap="round"
+                  fill="none" />
+                <line x1="5" y1="18" x2="27" y2="18" stroke="#5DCAA5" stroke-width="1.4" stroke-linecap="round" />
+                <line x1="12" y1="26" x2="20" y2="26" stroke="#5DCAA5" stroke-width="1.4" stroke-linecap="round" />
+                <path d="M12 14 Q12 11 12 8" stroke="#5DCAA5" stroke-width="1.2" stroke-linecap="round" opacity="0.4" />
+                <path d="M16 13 Q16 10 16 7" stroke="#5DCAA5" stroke-width="1.2" stroke-linecap="round" opacity="0.4" />
+                <path d="M20 14 Q20 11 20 8" stroke="#5DCAA5" stroke-width="1.2" stroke-linecap="round" opacity="0.4" />
+              </svg>
+            </div>
+            <span class="log-card-type-label log-card-type-label--meal">MEAL</span>
+          </div>
+          <div class="log-card-hint" id="meal-card-hint">↑ collapse</div>
+        </div>
+        <div class="log-card-body">
+          <div class="ts-row">
+            <input id="meal-date" type="date" class="ts-input ts-date">
+            <input id="meal-time" type="time" class="ts-input ts-time">
+          </div>
+
+          <div class="chip-row" id="meal-type-chips">
+            <button class="chip" data-val="breakfast">BREAKFAST</button>
+            <button class="chip" data-val="lunch">LUNCH</button>
+            <button class="chip" data-val="dinner">DINNER</button>
+            <button class="chip" data-val="snack">SNACK</button>
+          </div>
+
+          <div class="meal-field-label">WHAT DID YOU EAT?</div>
+          <textarea id="meal-desc" class="meal-textarea" placeholder="What did you eat?" rows="3"></textarea>
+
+          <div class="meal-divider"></div>
+
+          <div class="meds-row">
+            <span class="meds-label">Took meds with this meal</span>
+            <button id="meds-toggle" class="toggle" role="switch" aria-checked="false">
+              <span class="toggle-thumb"></span>
+            </button>
+          </div>
+          <div id="meds-hint" class="meds-hint" style="display:none">Active meds will be logged automatically</div>
+
+          <button id="meal-send" class="send-btn send-btn--meal" disabled>SEND SIGNAL</button>
+        </div>
+      </div>
+
+      <div id="last-signal" class="last-signal">no signal today — start with your fasting reading</div>
+
+    </div>
+    <div id="screen-timeline" class="screen">
+      <!-- Date nav -->
+      <div class="date-nav">
+        <button id="date-prev" class="date-nav-btn" aria-label="Previous day">
+          <svg viewBox="0 0 24 24">
+            <polyline points="15 18 9 12 15 6" />
+          </svg>
+        </button>
+        <div id="date-centre" class="date-centre">
+          <div id="date-display" class="date-display"></div>
+          <div id="date-relative" class="date-relative"></div>
+          <input id="date-picker" type="date" class="date-picker-input">
+        </div>
+        <button id="date-next" class="date-nav-btn" aria-label="Next day" disabled>
+          <svg viewBox="0 0 24 24">
+            <polyline points="9 6 15 12 9 18" />
+          </svg>
+        </button>
+      </div>
+
+      <!-- Header badges -->
+      <div class="today-header">
+        <div id="today-header-badges" class="today-header-badges"></div>
+      </div>
+
+      <!-- Stats -->
+      <div id="today-stats" class="today-stats">
+        <div class="stat-cell">
+          <div class="stat-label">FASTING</div>
+          <div class="stat-value" id="stat-fasting">—</div>
+        </div>
+        <div class="stat-cell">
+          <div class="stat-label">POST-MEAL</div>
+          <div class="stat-value" id="stat-postmeal">—</div>
+        </div>
+      </div>
+      <div id="tl-section-label" class="today-section-label">TODAY'S SIGNAL</div>
+      <div id="today-timeline" class="today-timeline"></div>
+    </div>
+    <div id="screen-insights" class="screen">
+      <div class="insights-summary-grid">
+        <div class="insights-stat-card">
+          <div class="insights-stat-label">READINGS</div>
+          <div id="insights-total-readings" class="insights-stat-value">—</div>
+        </div>
+        <div class="insights-stat-card">
+          <div class="insights-stat-label">AVG FASTING</div>
+          <div id="insights-avg-fasting" class="insights-stat-value">—</div>
+        </div>
+        <div class="insights-stat-card">
+          <div class="insights-stat-label">AVG POST-MEAL</div>
+          <div id="insights-avg-postmeal" class="insights-stat-value">—</div>
+        </div>
+        <div class="insights-stat-card">
+          <div class="insights-stat-label">IN TARGET</div>
+          <div id="insights-in-target" class="insights-stat-value">—</div>
+        </div>
+      </div>
+
+      <div class="insights-section-label">7-DAY SIGNAL</div>
+      <div class="insights-card">
+        <div class="insights-chart-wrap">
+          <canvas id="insights-trend-chart"></canvas>
+        </div>
+      </div>
+
+      <div class="insights-section-label">ESTIMATED HbA1c</div>
+      <div class="insights-card">
+        <div id="insights-hba1c-value" class="insights-hba1c-value">—</div>
+        <div id="insights-hba1c-meta" class="insights-hba1c-meta">Based on 0 readings over 0 days</div>
+        <div class="insights-hba1c-note">Estimate only. Get a lab HbA1c for your actual value.</div>
+      </div>
+
+      <div class="insights-section-label">SPIKE PATTERNS</div>
+      <div class="insights-section-subtitle">Meals preceding a post-meal reading ≥180</div>
+      <div class="insights-card">
+        <div id="insights-spike-list"></div>
+        <div id="insights-spike-empty" class="insights-empty">No spike patterns yet. Keep logging.</div>
+      </div>
+
+      <div class="insights-section-label">LOGGING STREAK</div>
+      <div class="insights-card insights-streak-card">
+        <div id="insights-streak-value" class="insights-streak-value">0</div>
+        <div class="insights-streak-sub">days in a row</div>
+        <div class="insights-streak-note">Keep the signal alive.</div>
+      </div>
+    </div>
+    <div id="screen-settings" class="screen">
+      <div class="settings-section-label">MEDICATIONS</div>
+      <div id="settings-meds-list"></div>
+
+      <div class="settings-section-label">SESSION</div>
+      <button type="button" id="settings-logout" class="settings-row-btn">
+        <span class="settings-row-label">Log out</span>
+        <svg class="settings-chevron" viewBox="0 0 24 24" aria-hidden="true">
+          <polyline points="9 6 15 12 9 18" />
+        </svg>
+      </button>
+
+      <div class="settings-section-label">APPEARANCE</div>
+      <div class="settings-appearance-row">
+        <span class="settings-row-label settings-appearance-label">Dark mode</span>
+        <button type="button" id="settings-theme-toggle" class="toggle" role="switch" aria-checked="true"
+          aria-label="Dark mode">
+          <span class="toggle-thumb"></span>
+        </button>
+      </div>
+
+      <div class="settings-section-label">DATA</div>
+      <div class="settings-appearance-row">
+        <span class="settings-row-label settings-appearance-label">Show demo data</span>
+        <button type="button" id="settings-demo-toggle" class="toggle" role="switch" aria-checked="false"
+          aria-label="Show demo data">
+          <span class="toggle-thumb"></span>
+        </button>
+      </div>
+      <button type="button" id="settings-export" class="settings-row-btn">
+        <span class="settings-row-label">Export today's log</span>
+        <svg class="settings-chevron" viewBox="0 0 24 24" aria-hidden="true">
+          <polyline points="9 6 15 12 9 18" />
+        </svg>
+      </button>
+      <button type="button" id="settings-about-trigger" class="settings-row-btn">
+        <span class="settings-row-label">About Watchtower</span>
+        <svg class="settings-chevron settings-about-chevron" viewBox="0 0 24 24" aria-hidden="true">
+          <polyline points="9 6 15 12 9 18" />
+        </svg>
+      </button>
+      <div id="settings-about-panel" class="settings-about-panel" hidden>
+        <div class="settings-about-version">Watchtower v1.0</div>
+        <p class="settings-about-body">Your personal signal. Built with Node.js + SQLite.</p>
+        <div class="settings-about-wordmark">
+          <span class="wordmark-watch">WATCH</span><span class="wordmark-tower">TOWER</span>
+        </div>
+        <div class="settings-about-tagline">Signal. Log. Improve.</div>
+      </div>
+    </div>
+
+    <!-- Bottom nav -->
+    <nav class="bottom-nav">
+      <button class="nav-item active" data-screen="log">
+        <svg viewBox="0 0 24 24">
+          <rect x="4" y="4" width="16" height="16" rx="3" />
+          <line x1="12" y1="9" x2="12" y2="15" />
+          <line x1="9" y1="12" x2="15" y2="12" />
+        </svg>
+        <span>Log</span>
+      </button>
+      <button class="nav-item" data-screen="timeline">
+        <svg viewBox="0 0 24 24">
+          <circle cx="12" cy="12" r="9" />
+          <polyline points="12 7 12 12 15 15" />
+        </svg>
+        <span>Timeline</span>
+      </button>
+      <button class="nav-item" data-screen="insights">
+        <svg viewBox="0 0 24 24">
+          <polyline points="4 18 8 12 12 14 16 8 20 10" />
+        </svg>
+        <span>Insights</span>
+      </button>
+      <button class="nav-item" data-screen="settings">
+        <svg viewBox="0 0 24 24">
+          <circle cx="12" cy="8" r="4" />
+          <path d="M4 21v-1a6 6 0 0 1 16 0v1" />
+        </svg>
+        <span>Settings</span>
+      </button>
+    </nav>
+  </div>
+
+  <script src="/js/demo.js"></script>
+  <script src="/js/app.js"></script>
+  <script src="/js/log.js"></script>
+  <script src="/js/today.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.js"></script>
+  <script src="/js/insights.js"></script>
+  <script src="/js/settings.js"></script>
+</body>
+
+</html>
