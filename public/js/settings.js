@@ -1,7 +1,6 @@
 (function () {
   'use strict';
 
-  const API = window.WT_CONFIG.apiBase || '';
   const headers = {
     'Content-Type': 'application/json',
     'X-API-Key': window.WT_CONFIG.apiKey,
@@ -10,6 +9,7 @@
   const medsListEl = document.getElementById('settings-meds-list');
   const changePinBtn = document.getElementById('settings-change-pin');
   const themeToggleEl = document.getElementById('settings-theme-toggle');
+  const demoToggleEl = document.getElementById('settings-demo-toggle');
   const exportBtn = document.getElementById('settings-export');
   const aboutTrigger = document.getElementById('settings-about-trigger');
   const aboutPanel = document.getElementById('settings-about-panel');
@@ -18,13 +18,13 @@
 
   let toastTimer;
 
-  function showToast(msg) {
+  function showToast(msg, isError) {
     if (!msg || !String(msg).trim()) {
       toastEl.classList.remove('show');
       return;
     }
     clearTimeout(toastTimer);
-    toastEl.classList.remove('error');
+    toastEl.classList.toggle('error', !!isError);
     toastText.textContent = msg;
     toastEl.classList.add('show');
     toastTimer = setTimeout(() => toastEl.classList.remove('show'), 2500);
@@ -57,6 +57,26 @@
       e.preventDefault();
       if (window.WT_APP && typeof window.WT_APP.toggleTheme === 'function') {
         window.WT_APP.toggleTheme();
+      }
+    });
+  }
+
+  function syncDemoToggleFromStorage() {
+    if (!demoToggleEl) return;
+    const on = window.WT_DEMO && window.WT_DEMO.isDemoMode();
+    demoToggleEl.classList.toggle('on', on);
+    demoToggleEl.setAttribute('aria-checked', on ? 'true' : 'false');
+  }
+
+  if (demoToggleEl) {
+    demoToggleEl.addEventListener('click', (e) => {
+      e.preventDefault();
+      const next = !window.WT_DEMO.isDemoMode();
+      window.WT_DEMO.setDemoMode(next);
+      document.body.classList.toggle('wt-demo-mode', next);
+      syncDemoToggleFromStorage();
+      if (window.WT_APP && typeof window.WT_APP.refreshAfterDemoModeChange === 'function') {
+        window.WT_APP.refreshAfterDemoModeChange();
       }
     });
   }
@@ -98,9 +118,14 @@
 
       toggle.addEventListener('click', (ev) => {
         ev.stopPropagation();
+        if (window.WT_DEMO && window.WT_DEMO.isDemoMode()) {
+          showToast('Demo mode — not saved.', true);
+          return;
+        }
         const nextOn = !toggle.classList.contains('on');
         const newVal = nextOn ? 1 : 0;
-        fetch(`${API}/api/medications/${m.id}`, {
+        const base = window.WT_CONFIG.apiBase || '';
+        fetch(`${base}/api/medications/${m.id}`, {
           method: 'PATCH',
           headers,
           body: JSON.stringify({ is_active: newVal }),
@@ -124,7 +149,7 @@
   }
 
   function loadMedications() {
-    return fetch(`${API}/api/medications`, { headers })
+    return fetch(window.WT_DEMO.apiUrl('/api/medications'), { headers })
       .then((res) => (res.ok ? res.json() : []))
       .then((meds) => renderMedications(Array.isArray(meds) ? meds : []))
       .catch(() => {
@@ -164,7 +189,8 @@
 
   function exportToday() {
     const dateStr = todayStr();
-    fetch(`${API}/api/day/${dateStr}`, { headers })
+    const demo = window.WT_DEMO && window.WT_DEMO.isDemoMode();
+    fetch(window.WT_DEMO.apiUrl('/api/day/' + dateStr), { headers })
       .then((res) => {
         if (!res.ok) throw new Error('export failed');
         return res.json();
@@ -175,7 +201,7 @@
         const url = URL.createObjectURL(blob);
         const a = document.createElement('a');
         a.href = url;
-        a.download = `watchtower-${dateStr}.txt`;
+        a.download = demo ? `watchtower-demo-${dateStr}.txt` : `watchtower-${dateStr}.txt`;
         a.click();
         URL.revokeObjectURL(url);
       })
@@ -204,6 +230,12 @@
   window.WT_SETTINGS = window.WT_SETTINGS || {};
   window.WT_SETTINGS.onEnter = function () {
     syncThemeToggleFromDom();
+    syncDemoToggleFromStorage();
     loadMedications();
   };
+
+  // app.js runs navigate() before this file loads, so onEnter never ran on cold load for #settings.
+  if ((location.hash || '').replace(/^#/, '') === 'settings') {
+    window.WT_SETTINGS.onEnter();
+  }
 })();

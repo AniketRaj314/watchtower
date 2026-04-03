@@ -1,5 +1,15 @@
 /* --- Log screen --- */
 
+body.wt-demo-mode #screen-log .log-card input,
+body.wt-demo-mode #screen-log .log-card select,
+body.wt-demo-mode #screen-log .log-card .chip,
+body.wt-demo-mode #screen-log .reading-input-area,
+body.wt-demo-mode #screen-log .send-btn,
+body.wt-demo-mode #screen-log #meds-toggle {
+  pointer-events: none;
+  opacity: 0.72;
+}
+
 .log-card {
   background: var(--bg-surface);
   border: 0.5px solid var(--border);

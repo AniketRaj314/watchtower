@@ -198,6 +198,22 @@
   window.WT_APP = window.WT_APP || {};
   window.WT_APP.toggleTheme = toggleTheme;
 
+  /** After demo mode toggles (no page reload): refresh all tabs that load from the API. */
+  window.WT_APP.refreshAfterDemoModeChange = function () {
+    if (window.WT_LOG && typeof window.WT_LOG.refreshForDemoMode === 'function') {
+      window.WT_LOG.refreshForDemoMode();
+    }
+    if (window.WT_TIMELINE && typeof window.WT_TIMELINE.onEnter === 'function') {
+      window.WT_TIMELINE.onEnter();
+    }
+    if (window.WT_INSIGHTS && typeof window.WT_INSIGHTS.onEnter === 'function') {
+      window.WT_INSIGHTS.onEnter();
+    }
+    if (window.WT_SETTINGS && typeof window.WT_SETTINGS.onEnter === 'function') {
+      window.WT_SETTINGS.onEnter();
+    }
+  };
+
   const saved = localStorage.getItem('wt_theme');
   if (saved === 'light') {
     document.documentElement.classList.add('light');

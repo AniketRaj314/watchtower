@@ -1,0 +1,4774 @@
+{
+  "medications": [
+    {
+      "id": 1,
+      "name": "Metformin XR",
+      "dose": "500mg",
+      "frequency": "twice daily with meals",
+      "schedule": "1-0-1",
+      "is_default": 1,
+      "is_active": 1,
+      "notes": null
+    },
+    {
+      "id": 2,
+      "name": "Demo statin",
+      "dose": "10mg",
+      "frequency": "evening",
+      "schedule": "0-0-1",
+      "is_default": 0,
+      "is_active": 1,
+      "notes": "temporary"
+    }
+  ],
+  "meals": [
+    {
+      "id": 1,
+      "timestamp": "2026-01-16T08:21:00Z",
+      "meal_type": "breakfast",
+      "description": "Greek yogurt bowl",
+      "medication_taken": 1,
+      "medication_snapshot": "Metformin XR",
+      "raw_input": null
+    },
+    {
+      "id": 2,
+      "timestamp": "2026-01-16T13:12:00Z",
+      "meal_type": "lunch",
+      "description": "Grilled chicken bowl",
+      "medication_taken": 0,
+      "medication_snapshot": null,
+      "raw_input": null
+    },
+    {
+      "id": 3,
+      "timestamp": "2026-01-16T19:11:00Z",
+      "meal_type": "dinner",
+      "description": "Grilled fish, greens",
+      "medication_taken": 1,
+      "medication_snapshot": "Metformin XR, Demo statin",
+      "raw_input": null
+    },
+    {
+      "id": 4,
+      "timestamp": "2026-01-16T16:03:00Z",
+      "meal_type": "snack",
+      "description": "Fruit / tea",
+      "medication_taken": 0,
+      "medication_snapshot": null,
+      "raw_input": null
+    },
+    {
+      "id": 5,
+      "timestamp": "2026-01-17T08:22:00Z",
+      "meal_type": "breakfast",
+      "description": "Greek yogurt bowl",
+      "medication_taken": 1,
+      "medication_snapshot": "Metformin XR",
+      "raw_input": null
+    },
+    {
+      "id": 6,
+      "timestamp": "2026-01-17T13:08:00Z",
+      "meal_type": "lunch",
+      "description": "Salad and soup",
+      "medication_taken": 0,
+      "medication_snapshot": null,
+      "raw_input": null
+    },
+    {
+      "id": 7,
+      "timestamp": "2026-01-17T19:07:00Z",
+      "meal_type": "dinner",
+      "description": "Grilled fish, greens",
+      "medication_taken": 1,
+      "medication_snapshot": "Metformin XR, Demo statin",
+      "raw_input": null
+    },
+    {
+      "id": 8,
+      "timestamp": "2026-01-18T08:16:00Z",
+      "meal_type": "breakfast",
+      "description": "Idli sambar",
+      "medication_taken": 1,
+      "medication_snapshot": "Metformin XR",
+      "raw_input": null
+    },
+    {
+      "id": 9,
+      "timestamp": "2026-01-18T13:19:00Z",
+      "meal_type": "lunch",
+      "description": "Salad and soup",
+      "medication_taken": 0,
+      "medication_snapshot": null,
+      "raw_input": null
+    },
+    {
+      "id": 10,
+      "timestamp": "2026-01-18T19:12:00Z",
+      "meal_type": "dinner",
+      "description": "Light curry",
+      "medication_taken": 1,
+      "medication_snapshot": "Metformin XR, Demo statin",
+      "raw_input": null
+    },
+    {
+      "id": 11,
+      "timestamp": "2026-01-19T08:08:00Z",
+      "meal_type": "breakfast",
+      "description": "Oats and fruit",
+      "medication_taken": 1,
+      "medication_snapshot": "Metformin XR",
+      "raw_input": null
+    },
+    {
+      "id": 12,
+      "timestamp": "2026-01-19T13:08:00Z",
+      "meal_type": "lunch",
+      "description": "Lentil curry",
+      "medication_taken": 0,
+      "medication_snapshot": null,
+      "raw_input": null
+    },
+    {
+      "id": 13,
+      "timestamp": "2026-01-19T19:10:00Z",
+      "meal_type": "dinner",
+      "description": "Soup and bread",
+      "medication_taken": 1,
+      "medication_snapshot": "Metformin XR, Demo statin",
+      "raw_input": null
+    },
+    {
+      "id": 14,
+      "timestamp": "2026-01-20T08:00:00Z",
+      "meal_type": "breakfast",
+      "description": "Greek yogurt bowl",
+      "medication_taken": 1,
+      "medication_snapshot": "Metformin XR",
+      "raw_input": null
+    },
+    {
+      "id": 15,
+      "timestamp": "2026-01-20T13:17:00Z",
+      "meal_type": "lunch",
+      "description": "Salad and soup",
+      "medication_taken": 0,
+      "medication_snapshot": null,
+      "raw_input": null
+    },
+    {
+      "id": 16,
+      "timestamp": "2026-01-20T19:10:00Z",
+      "meal_type": "dinner",
+      "description": "Soup and bread",
+      "medication_taken": 1,
+      "medication_snapshot": "Metformin XR, Demo statin",
+      "raw_input": null
+    },
+    {
+      "id": 17,
+      "timestamp": "2026-01-21T08:16:00Z",
+      "meal_type": "breakfast",
+      "description": "Eggs, toast",
+      "medication_taken": 1,
+      "medication_snapshot": "Metformin XR",
+      "raw_input": null
+    },
+    {
+      "id": 18,
+      "timestamp": "2026-01-21T13:13:00Z",
+      "meal_type": "lunch",
+      "description": "Sandwich",
+      "medication_taken": 0,
+      "medication_snapshot": null,
+      "raw_input": null
+    },
+    {
+      "id": 19,
+      "timestamp": "2026-01-21T19:00:00Z",
+      "meal_type": "dinner",
+      "description": "Stir-fry and rice",
+      "medication_taken": 1,
+      "medication_snapshot": "Metformin XR, Demo statin",
+      "raw_input": null
+    },
+    {
+      "id": 20,
+      "timestamp": "2026-01-22T08:15:00Z",
+      "meal_type": "breakfast",
+      "description": "Idli sambar",
+      "medication_taken": 1,
+      "medication_snapshot": "Metformin XR",
+      "raw_input": null
+    },
+    {
+      "id": 21,
+      "timestamp": "2026-01-22T13:12:00Z",
+      "meal_type": "lunch",
+      "description": "Lentil curry",
+      "medication_taken": 0,
+      "medication_snapshot": null,
+      "raw_input": null
+    },
+    {
+      "id": 22,
+      "timestamp": "2026-01-22T19:00:00Z",
+      "meal_type": "dinner",
+      "description": "Khichdi",
+      "medication_taken": 1,
+      "medication_snapshot": "Metformin XR, Demo statin",
+      "raw_input": null
+    },
+    {
+      "id": 23,
+      "timestamp": "2026-01-23T08:18:00Z",
+      "meal_type": "breakfast",
+      "description": "Paratha",
+      "medication_taken": 1,
+      "medication_snapshot": "Metformin XR",
+      "raw_input": null
+    },
+    {
+      "id": 24,
+      "timestamp": "2026-01-23T13:02:00Z",
+      "meal_type": "lunch",
+      "description": "Lentil curry",
+      "medication_taken": 0,
+      "medication_snapshot": null,
+      "raw_input": null
+    },
+    {
+      "id": 25,
+      "timestamp": "2026-01-23T19:27:00Z",
+      "meal_type": "dinner",
+      "description": "Soup and bread",
+      "medication_taken": 1,
+      "medication_snapshot": "Metformin XR, Demo statin",
+      "raw_input": null
+    },
+    {
+      "id": 26,
+      "timestamp": "2026-01-24T08:22:00Z",
+      "meal_type": "breakfast",
+      "description": "Paratha",
+      "medication_taken": 1,
+      "medication_snapshot": "Metformin XR",
+      "raw_input": null
+    },
+    {
+      "id": 27,
+      "timestamp": "2026-01-24T13:17:00Z",
+      "meal_type": "lunch",
+      "description": "Rice, dal, vegetables",
+      "medication_taken": 0,
+      "medication_snapshot": null,
+      "raw_input": null
+    },
+    {
+      "id": 28,
+      "timestamp": "2026-01-24T19:06:00Z",
+      "meal_type": "dinner",
+      "description": "Light curry",
+      "medication_taken": 1,
+      "medication_snapshot": "Metformin XR, Demo statin",
+      "raw_input": null
+    },
+    {
+      "id": 29,
+      "timestamp": "2026-01-25T08:10:00Z",
+      "meal_type": "breakfast",
+      "description": "Eggs, toast",
+      "medication_taken": 1,
+      "medication_snapshot": "Metformin XR",
+      "raw_input": null
+    },
+    {
+      "id": 30,
+      "timestamp": "2026-01-25T13:16:00Z",
+      "meal_type": "lunch",
+      "description": "Sandwich",
+      "medication_taken": 0,
+      "medication_snapshot": null,
+      "raw_input": null
+    },
+    {
+      "id": 31,
+      "timestamp": "2026-01-25T19:07:00Z",
+      "meal_type": "dinner",
+      "description": "Soup and bread",
+      "medication_taken": 1,
+      "medication_snapshot": "Metformin XR, Demo statin",
+      "raw_input": null
+    },
+    {
+      "id": 32,
+      "timestamp": "2026-01-26T08:13:00Z",
+      "meal_type": "breakfast",
+      "description": "Idli sambar",
+      "medication_taken": 1,
+      "medication_snapshot": "Metformin XR",
+      "raw_input": null
+    },
+    {
+      "id": 33,
+      "timestamp": "2026-01-26T13:14:00Z",
+      "meal_type": "lunch",
+      "description": "Grilled chicken bowl",
+      "medication_taken": 0,
+      "medication_snapshot": null,
+      "raw_input": null
+    },
+    {
+      "id": 34,
+      "timestamp": "2026-01-26T19:05:00Z",
+      "meal_type": "dinner",
+      "description": "Light curry",
+      "medication_taken": 1,
+      "medication_snapshot": "Metformin XR, Demo statin",
+      "raw_input": null
+    },
+    {
+      "id": 35,
+      "timestamp": "2026-01-27T08:16:00Z",
+      "meal_type": "breakfast",
+      "description": "Oats and fruit",
+      "medication_taken": 1,
+      "medication_snapshot": "Metformin XR",
+      "raw_input": null
+    },
+    {
+      "id": 36,
+      "timestamp": "2026-01-27T13:17:00Z",
+      "meal_type": "lunch",
+      "description": "Grilled chicken bowl",
+      "medication_taken": 0,
+      "medication_snapshot": null,
+      "raw_input": null
+    },
+    {
+      "id": 37,
+      "timestamp": "2026-01-27T19:26:00Z",
+      "meal_type": "dinner",
+      "description": "Soup and bread",
+      "medication_taken": 1,
+      "medication_snapshot": "Metformin XR, Demo statin",
+      "raw_input": null
+    },
+    {
+      "id": 38,
+      "timestamp": "2026-01-27T16:06:00Z",
+      "meal_type": "snack",
+      "description": "Fruit / tea",
+      "medication_taken": 0,
+      "medication_snapshot": null,
+      "raw_input": null
+    },
+    {
+      "id": 39,
+      "timestamp": "2026-01-28T08:24:00Z",
+      "meal_type": "breakfast",
+      "description": "Greek yogurt bowl",
+      "medication_taken": 1,
+      "medication_snapshot": "Metformin XR",
+      "raw_input": null
+    },
+    {
+      "id": 40,
+      "timestamp": "2026-01-28T13:05:00Z",
+      "meal_type": "lunch",
+      "description": "Salad and soup",
+      "medication_taken": 0,
+      "medication_snapshot": null,
+      "raw_input": null
+    },
+    {
+      "id": 41,
+      "timestamp": "2026-01-28T19:08:00Z",
+      "meal_type": "dinner",
+      "description": "Soup and bread",
+      "medication_taken": 1,
+      "medication_snapshot": "Metformin XR, Demo statin",
+      "raw_input": null
+    },
+    {
+      "id": 42,
+      "timestamp": "2026-01-29T08:20:00Z",
+      "meal_type": "breakfast",
+      "description": "Oats and fruit",
+      "medication_taken": 1,
+      "medication_snapshot": "Metformin XR",
+      "raw_input": null
+    },
+    {
+      "id": 43,
+      "timestamp": "2026-01-29T13:17:00Z",
+      "meal_type": "lunch",
+      "description": "Sandwich",
+      "medication_taken": 0,
+      "medication_snapshot": null,
+      "raw_input": null
+    },
+    {
+      "id": 44,
+      "timestamp": "2026-01-29T19:24:00Z",
+      "meal_type": "dinner",
+      "description": "Light curry",
+      "medication_taken": 1,
+      "medication_snapshot": "Metformin XR, Demo statin",
+      "raw_input": null
+    },
+    {
+      "id": 45,
+      "timestamp": "2026-01-30T08:00:00Z",
+      "meal_type": "breakfast",
+      "description": "Eggs, toast",
+      "medication_taken": 1,
+      "medication_snapshot": "Metformin XR",
+      "raw_input": null
+    },
+    {
+      "id": 46,
+      "timestamp": "2026-01-30T13:07:00Z",
+      "meal_type": "lunch",
+      "description": "Salad and soup",
+      "medication_taken": 0,
+      "medication_snapshot": null,
+      "raw_input": null
+    },
+    {
+      "id": 47,
+      "timestamp": "2026-01-30T19:13:00Z",
+      "meal_type": "dinner",
+      "description": "Khichdi",
+      "medication_taken": 1,
+      "medication_snapshot": "Metformin XR, Demo statin",
+      "raw_input": null
+    },
+    {
+      "id": 48,
+      "timestamp": "2026-01-31T08:18:00Z",
+      "meal_type": "breakfast",
+      "description": "Idli sambar",
+      "medication_taken": 1,
+      "medication_snapshot": "Metformin XR",
+      "raw_input": null
+    },
+    {
+      "id": 49,
+      "timestamp": "2026-01-31T13:10:00Z",
+      "meal_type": "lunch",
+      "description": "Lentil curry",
+      "medication_taken": 0,
+      "medication_snapshot": null,
+      "raw_input": null
+    },
+    {
+      "id": 50,
+      "timestamp": "2026-01-31T19:23:00Z",
+      "meal_type": "dinner",
+      "description": "Khichdi",
+      "medication_taken": 1,
+      "medication_snapshot": "Metformin XR, Demo statin",
+      "raw_input": null
+    },
+    {
+      "id": 51,
+      "timestamp": "2026-02-01T08:19:00Z",
+      "meal_type": "breakfast",
+      "description": "Oats and fruit",
+      "medication_taken": 1,
+      "medication_snapshot": "Metformin XR",
+      "raw_input": null
+    },
+    {
+      "id": 52,
+      "timestamp": "2026-02-01T13:12:00Z",
+      "meal_type": "lunch",
+      "description": "Grilled chicken bowl",
+      "medication_taken": 0,
+      "medication_snapshot": null,
+      "raw_input": null
+    },
+    {
+      "id": 53,
+      "timestamp": "2026-02-01T19:25:00Z",
+      "meal_type": "dinner",
+      "description": "Stir-fry and rice",
+      "medication_taken": 1,
+      "medication_snapshot": "Metformin XR, Demo statin",
+      "raw_input": null
+    },
+    {
+      "id": 54,
+      "timestamp": "2026-02-02T08:16:00Z",
+      "meal_type": "breakfast",
+      "description": "Greek yogurt bowl",
+      "medication_taken": 1,
+      "medication_snapshot": "Metformin XR",
+      "raw_input": null
+    },
+    {
+      "id": 55,
+      "timestamp": "2026-02-02T13:13:00Z",
+      "meal_type": "lunch",
+      "description": "Lentil curry",
+      "medication_taken": 0,
+      "medication_snapshot": null,
+      "raw_input": null
+    },
+    {
+      "id": 56,
+      "timestamp": "2026-02-02T19:10:00Z",
+      "meal_type": "dinner",
+      "description": "Soup and bread",
+      "medication_taken": 1,
+      "medication_snapshot": "Metformin XR, Demo statin",
+      "raw_input": null
+    },
+    {
+      "id": 57,
+      "timestamp": "2026-02-03T08:24:00Z",
+      "meal_type": "breakfast",
+      "description": "Greek yogurt bowl",
+      "medication_taken": 1,
+      "medication_snapshot": "Metformin XR",
+      "raw_input": null
+    },
+    {
+      "id": 58,
+      "timestamp": "2026-02-03T13:06:00Z",
+      "meal_type": "lunch",
+      "description": "Sandwich",
+      "medication_taken": 0,
+      "medication_snapshot": null,
+      "raw_input": null
+    },
+    {
+      "id": 59,
+      "timestamp": "2026-02-03T19:27:00Z",
+      "meal_type": "dinner",
+      "description": "Stir-fry and rice",
+      "medication_taken": 1,
+      "medication_snapshot": "Metformin XR, Demo statin",
+      "raw_input": null
+    },
+    {
+      "id": 60,
+      "timestamp": "2026-02-04T08:02:00Z",
+      "meal_type": "breakfast",
+      "description": "Paratha",
+      "medication_taken": 1,
+      "medication_snapshot": "Metformin XR",
+      "raw_input": null
+    },
+    {
+      "id": 61,
+      "timestamp": "2026-02-04T13:15:00Z",
+      "meal_type": "lunch",
+      "description": "Salad and soup",
+      "medication_taken": 0,
+      "medication_snapshot": null,
+      "raw_input": null
+    },
+    {
+      "id": 62,
+      "timestamp": "2026-02-04T19:14:00Z",
+      "meal_type": "dinner",
+      "description": "Stir-fry and rice",
+      "medication_taken": 1,
+      "medication_snapshot": "Metformin XR, Demo statin",
+      "raw_input": null
+    },
+    {
+      "id": 63,
+      "timestamp": "2026-02-05T08:07:00Z",
+      "meal_type": "breakfast",
+      "description": "Idli sambar",
+      "medication_taken": 1,
+      "medication_snapshot": "Metformin XR",
+      "raw_input": null
+    },
+    {
+      "id": 64,
+      "timestamp": "2026-02-05T13:08:00Z",
+      "meal_type": "lunch",
+      "description": "Grilled chicken bowl",
+      "medication_taken": 0,
+      "medication_snapshot": null,
+      "raw_input": null
+    },
+    {
+      "id": 65,
+      "timestamp": "2026-02-05T19:06:00Z",
+      "meal_type": "dinner",
+      "description": "Grilled fish, greens",
+      "medication_taken": 1,
+      "medication_snapshot": "Metformin XR, Demo statin",
+      "raw_input": null
+    },
+    {
+      "id": 66,
+      "timestamp": "2026-02-06T08:23:00Z",
+      "meal_type": "breakfast",
+      "description": "Paratha",
+      "medication_taken": 1,
+      "medication_snapshot": "Metformin XR",
+      "raw_input": null
+    },
+    {
+      "id": 67,
+      "timestamp": "2026-02-06T13:06:00Z",
+      "meal_type": "lunch",
+      "description": "Salad and soup",
+      "medication_taken": 0,
+      "medication_snapshot": null,
+      "raw_input": null
+    },
+    {
+      "id": 68,
+      "timestamp": "2026-02-06T19:03:00Z",
+      "meal_type": "dinner",
+      "description": "Stir-fry and rice",
+      "medication_taken": 1,
+      "medication_snapshot": "Metformin XR, Demo statin",
+      "raw_input": null
+    },
+    {
+      "id": 69,
+      "timestamp": "2026-02-07T08:03:00Z",
+      "meal_type": "breakfast",
+      "description": "Eggs, toast",
+      "medication_taken": 1,
+      "medication_snapshot": "Metformin XR",
+      "raw_input": null
+    },
+    {
+      "id": 70,
+      "timestamp": "2026-02-07T13:03:00Z",
+      "meal_type": "lunch",
+      "description": "Sandwich",
+      "medication_taken": 0,
+      "medication_snapshot": null,
+      "raw_input": null
+    },
+    {
+      "id": 71,
+      "timestamp": "2026-02-07T19:01:00Z",
+      "meal_type": "dinner",
+      "description": "Stir-fry and rice",
+      "medication_taken": 1,
+      "medication_snapshot": "Metformin XR, Demo statin",
+      "raw_input": null
+    },
+    {
+      "id": 72,
+      "timestamp": "2026-02-07T16:17:00Z",
+      "meal_type": "snack",
+      "description": "Fruit / tea",
+      "medication_taken": 0,
+      "medication_snapshot": null,
+      "raw_input": null
+    },
+    {
+      "id": 73,
+      "timestamp": "2026-02-08T08:24:00Z",
+      "meal_type": "breakfast",
+      "description": "Greek yogurt bowl",
+      "medication_taken": 1,
+      "medication_snapshot": "Metformin XR",
+      "raw_input": null
+    },
+    {
+      "id": 74,
+      "timestamp": "2026-02-08T13:19:00Z",
+      "meal_type": "lunch",
+      "description": "Salad and soup",
+      "medication_taken": 0,
+      "medication_snapshot": null,
+      "raw_input": null
+    },
+    {
+      "id": 75,
+      "timestamp": "2026-02-08T19:20:00Z",
+      "meal_type": "dinner",
+      "description": "Stir-fry and rice",
+      "medication_taken": 1,
+      "medication_snapshot": "Metformin XR, Demo statin",
+      "raw_input": null
+    },
+    {
+      "id": 76,
+      "timestamp": "2026-02-09T08:15:00Z",
+      "meal_type": "breakfast",
+      "description": "Paratha",
+      "medication_taken": 1,
+      "medication_snapshot": "Metformin XR",
+      "raw_input": null
+    },
+    {
+      "id": 77,
+      "timestamp": "2026-02-09T13:08:00Z",
+      "meal_type": "lunch",
+      "description": "Sandwich",
+      "medication_taken": 0,
+      "medication_snapshot": null,
+      "raw_input": null
+    },
+    {
+      "id": 78,
+      "timestamp": "2026-02-09T19:09:00Z",
+      "meal_type": "dinner",
+      "description": "Khichdi",
+      "medication_taken": 1,
+      "medication_snapshot": "Metformin XR, Demo statin",
+      "raw_input": null
+    },
+    {
+      "id": 79,
+      "timestamp": "2026-02-10T08:21:00Z",
+      "meal_type": "breakfast",
+      "description": "Paratha",
+      "medication_taken": 1,
+      "medication_snapshot": "Metformin XR",
+      "raw_input": null
+    },
+    {
+      "id": 80,
+      "timestamp": "2026-02-10T13:02:00Z",
+      "meal_type": "lunch",
+      "description": "Rice, dal, vegetables",
+      "medication_taken": 0,
+      "medication_snapshot": null,
+      "raw_input": null
+    },
+    {
+      "id": 81,
+      "timestamp": "2026-02-10T19:28:00Z",
+      "meal_type": "dinner",
+      "description": "Soup and bread",
+      "medication_taken": 1,
+      "medication_snapshot": "Metformin XR, Demo statin",
+      "raw_input": null
+    },
+    {
+      "id": 82,
+      "timestamp": "2026-02-11T08:03:00Z",
+      "meal_type": "breakfast",
+      "description": "Paratha",
+      "medication_taken": 1,
+      "medication_snapshot": "Metformin XR",
+      "raw_input": null
+    },
+    {
+      "id": 83,
+      "timestamp": "2026-02-11T13:19:00Z",
+      "meal_type": "lunch",
+      "description": "Grilled chicken bowl",
+      "medication_taken": 0,
+      "medication_snapshot": null,
+      "raw_input": null
+    },
+    {
+      "id": 84,
+      "timestamp": "2026-02-11T19:19:00Z",
+      "meal_type": "dinner",
+      "description": "Light curry",
+      "medication_taken": 1,
+      "medication_snapshot": "Metformin XR, Demo statin",
+      "raw_input": null
+    },
+    {
+      "id": 85,
+      "timestamp": "2026-02-12T08:00:00Z",
+      "meal_type": "breakfast",
+      "description": "Idli sambar",
+      "medication_taken": 1,
+      "medication_snapshot": "Metformin XR",
+      "raw_input": null
+    },
+    {
+      "id": 86,
+      "timestamp": "2026-02-12T13:00:00Z",
+      "meal_type": "lunch",
+      "description": "Sandwich",
+      "medication_taken": 0,
+      "medication_snapshot": null,
+      "raw_input": null
+    },
+    {
+      "id": 87,
+      "timestamp": "2026-02-12T19:16:00Z",
+      "meal_type": "dinner",
+      "description": "Soup and bread",
+      "medication_taken": 1,
+      "medication_snapshot": "Metformin XR, Demo statin",
+      "raw_input": null
+    },
+    {
+      "id": 88,
+      "timestamp": "2026-02-13T08:23:00Z",
+      "meal_type": "breakfast",
+      "description": "Eggs, toast",
+      "medication_taken": 1,
+      "medication_snapshot": "Metformin XR",
+      "raw_input": null
+    },
+    {
+      "id": 89,
+      "timestamp": "2026-02-13T13:12:00Z",
+      "meal_type": "lunch",
+      "description": "Sandwich",
+      "medication_taken": 0,
+      "medication_snapshot": null,
+      "raw_input": null
+    },
+    {
+      "id": 90,
+      "timestamp": "2026-02-13T19:14:00Z",
+      "meal_type": "dinner",
+      "description": "Light curry",
+      "medication_taken": 1,
+      "medication_snapshot": "Metformin XR, Demo statin",
+      "raw_input": null
+    },
+    {
+      "id": 91,
+      "timestamp": "2026-02-14T08:15:00Z",
+      "meal_type": "breakfast",
+      "description": "Paratha",
+      "medication_taken": 1,
+      "medication_snapshot": "Metformin XR",
+      "raw_input": null
+    },
+    {
+      "id": 92,
+      "timestamp": "2026-02-14T13:00:00Z",
+      "meal_type": "lunch",
+      "description": "Lentil curry",
+      "medication_taken": 0,
+      "medication_snapshot": null,
+      "raw_input": null
+    },
+    {
+      "id": 93,
+      "timestamp": "2026-02-14T19:09:00Z",
+      "meal_type": "dinner",
+      "description": "Khichdi",
+      "medication_taken": 1,
+      "medication_snapshot": "Metformin XR, Demo statin",
+      "raw_input": null
+    },
+    {
+      "id": 94,
+      "timestamp": "2026-02-15T08:03:00Z",
+      "meal_type": "breakfast",
+      "description": "Greek yogurt bowl",
+      "medication_taken": 1,
+      "medication_snapshot": "Metformin XR",
+      "raw_input": null
+    },
+    {
+      "id": 95,
+      "timestamp": "2026-02-15T13:06:00Z",
+      "meal_type": "lunch",
+      "description": "Sandwich",
+      "medication_taken": 0,
+      "medication_snapshot": null,
+      "raw_input": null
+    },
+    {
+      "id": 96,
+      "timestamp": "2026-02-15T19:19:00Z",
+      "meal_type": "dinner",
+      "description": "Grilled fish, greens",
+      "medication_taken": 1,
+      "medication_snapshot": "Metformin XR, Demo statin",
+      "raw_input": null
+    },
+    {
+      "id": 97,
+      "timestamp": "2026-02-16T08:02:00Z",
+      "meal_type": "breakfast",
+      "description": "Greek yogurt bowl",
+      "medication_taken": 1,
+      "medication_snapshot": "Metformin XR",
+      "raw_input": null
+    },
+    {
+      "id": 98,
+      "timestamp": "2026-02-16T13:15:00Z",
+      "meal_type": "lunch",
+      "description": "Lentil curry",
+      "medication_taken": 0,
+      "medication_snapshot": null,
+      "raw_input": null
+    },
+    {
+      "id": 99,
+      "timestamp": "2026-02-16T19:27:00Z",
+      "meal_type": "dinner",
+      "description": "Light curry",
+      "medication_taken": 1,
+      "medication_snapshot": "Metformin XR, Demo statin",
+      "raw_input": null
+    },
+    {
+      "id": 100,
+      "timestamp": "2026-02-17T08:01:00Z",
+      "meal_type": "breakfast",
+      "description": "Paratha",
+      "medication_taken": 1,
+      "medication_snapshot": "Metformin XR",
+      "raw_input": null
+    },
+    {
+      "id": 101,
+      "timestamp": "2026-02-17T13:06:00Z",
+      "meal_type": "lunch",
+      "description": "Lentil curry",
+      "medication_taken": 0,
+      "medication_snapshot": null,
+      "raw_input": null
+    },
+    {
+      "id": 102,
+      "timestamp": "2026-02-17T19:05:00Z",
+      "meal_type": "dinner",
+      "description": "Soup and bread",
+      "medication_taken": 1,
+      "medication_snapshot": "Metformin XR, Demo statin",
+      "raw_input": null
+    },
+    {
+      "id": 103,
+      "timestamp": "2026-02-18T08:09:00Z",
+      "meal_type": "breakfast",
+      "description": "Idli sambar",
+      "medication_taken": 1,
+      "medication_snapshot": "Metformin XR",
+      "raw_input": null
+    },
+    {
+      "id": 104,
+      "timestamp": "2026-02-18T13:01:00Z",
+      "meal_type": "lunch",
+      "description": "Grilled chicken bowl",
+      "medication_taken": 0,
+      "medication_snapshot": null,
+      "raw_input": null
+    },
+    {
+      "id": 105,
+      "timestamp": "2026-02-18T19:00:00Z",
+      "meal_type": "dinner",
+      "description": "Grilled fish, greens",
+      "medication_taken": 1,
+      "medication_snapshot": "Metformin XR, Demo statin",
+      "raw_input": null
+    },
+    {
+      "id": 106,
+      "timestamp": "2026-02-18T16:09:00Z",
+      "meal_type": "snack",
+      "description": "Fruit / tea",
+      "medication_taken": 0,
+      "medication_snapshot": null,
+      "raw_input": null
+    },
+    {
+      "id": 107,
+      "timestamp": "2026-02-19T08:19:00Z",
+      "meal_type": "breakfast",
+      "description": "Oats and fruit",
+      "medication_taken": 1,
+      "medication_snapshot": "Metformin XR",
+      "raw_input": null
+    },
+    {
+      "id": 108,
+      "timestamp": "2026-02-19T13:10:00Z",
+      "meal_type": "lunch",
+      "description": "Rice, dal, vegetables",
+      "medication_taken": 0,
+      "medication_snapshot": null,
+      "raw_input": null
+    },
+    {
+      "id": 109,
+      "timestamp": "2026-02-19T19:00:00Z",
+      "meal_type": "dinner",
+      "description": "Stir-fry and rice",
+      "medication_taken": 1,
+      "medication_snapshot": "Metformin XR, Demo statin",
+      "raw_input": null
+    },
+    {
+      "id": 110,
+      "timestamp": "2026-02-20T08:09:00Z",
+      "meal_type": "breakfast",
+      "description": "Idli sambar",
+      "medication_taken": 1,
+      "medication_snapshot": "Metformin XR",
+      "raw_input": null
+    },
+    {
+      "id": 111,
+      "timestamp": "2026-02-20T13:14:00Z",
+      "meal_type": "lunch",
+      "description": "Lentil curry",
+      "medication_taken": 0,
+      "medication_snapshot": null,
+      "raw_input": null
+    },
+    {
+      "id": 112,
+      "timestamp": "2026-02-20T19:08:00Z",
+      "meal_type": "dinner",
+      "description": "Soup and bread",
+      "medication_taken": 1,
+      "medication_snapshot": "Metformin XR, Demo statin",
+      "raw_input": null
+    },
+    {
+      "id": 113,
+      "timestamp": "2026-02-21T08:23:00Z",
+      "meal_type": "breakfast",
+      "description": "Paratha",
+      "medication_taken": 1,
+      "medication_snapshot": "Metformin XR",
+      "raw_input": null
+    },
+    {
+      "id": 114,
+      "timestamp": "2026-02-21T13:10:00Z",
+      "meal_type": "lunch",
+      "description": "Rice, dal, vegetables",
+      "medication_taken": 0,
+      "medication_snapshot": null,
+      "raw_input": null
+    },
+    {
+      "id": 115,
+      "timestamp": "2026-02-21T19:02:00Z",
+      "meal_type": "dinner",
+      "description": "Grilled fish, greens",
+      "medication_taken": 1,
+      "medication_snapshot": "Metformin XR, Demo statin",
+      "raw_input": null
+    },
+    {
+      "id": 116,
+      "timestamp": "2026-02-22T08:14:00Z",
+      "meal_type": "breakfast",
+      "description": "Paratha",
+      "medication_taken": 1,
+      "medication_snapshot": "Metformin XR",
+      "raw_input": null
+    },
+    {
+      "id": 117,
+      "timestamp": "2026-02-22T13:19:00Z",
+      "meal_type": "lunch",
+      "description": "Grilled chicken bowl",
+      "medication_taken": 0,
+      "medication_snapshot": null,
+      "raw_input": null
+    },
+    {
+      "id": 118,
+      "timestamp": "2026-02-22T19:24:00Z",
+      "meal_type": "dinner",
+      "description": "Soup and bread",
+      "medication_taken": 1,
+      "medication_snapshot": "Metformin XR, Demo statin",
+      "raw_input": null
+    },
+    {
+      "id": 119,
+      "timestamp": "2026-02-23T08:23:00Z",
+      "meal_type": "breakfast",
+      "description": "Oats and fruit",
+      "medication_taken": 1,
+      "medication_snapshot": "Metformin XR",
+      "raw_input": null
+    },
+    {
+      "id": 120,
+      "timestamp": "2026-02-23T13:12:00Z",
+      "meal_type": "lunch",
+      "description": "Sandwich",
+      "medication_taken": 0,
+      "medication_snapshot": null,
+      "raw_input": null
+    },
+    {
+      "id": 121,
+      "timestamp": "2026-02-23T19:16:00Z",
+      "meal_type": "dinner",
+      "description": "Grilled fish, greens",
+      "medication_taken": 1,
+      "medication_snapshot": "Metformin XR, Demo statin",
+      "raw_input": null
+    },
+    {
+      "id": 122,
+      "timestamp": "2026-02-24T08:10:00Z",
+      "meal_type": "breakfast",
+      "description": "Eggs, toast",
+      "medication_taken": 1,
+      "medication_snapshot": "Metformin XR",
+      "raw_input": null
+    },
+    {
+      "id": 123,
+      "timestamp": "2026-02-24T13:02:00Z",
+      "meal_type": "lunch",
+      "description": "Rice, dal, vegetables",
+      "medication_taken": 0,
+      "medication_snapshot": null,
+      "raw_input": null
+    },
+    {
+      "id": 124,
+      "timestamp": "2026-02-24T19:02:00Z",
+      "meal_type": "dinner",
+      "description": "Soup and bread",
+      "medication_taken": 1,
+      "medication_snapshot": "Metformin XR, Demo statin",
+      "raw_input": null
+    },
+    {
+      "id": 125,
+      "timestamp": "2026-02-25T08:04:00Z",
+      "meal_type": "breakfast",
+      "description": "Greek yogurt bowl",
+      "medication_taken": 1,
+      "medication_snapshot": "Metformin XR",
+      "raw_input": null
+    },
+    {
+      "id": 126,
+      "timestamp": "2026-02-25T13:06:00Z",
+      "meal_type": "lunch",
+      "description": "Grilled chicken bowl",
+      "medication_taken": 0,
+      "medication_snapshot": null,
+      "raw_input": null
+    },
+    {
+      "id": 127,
+      "timestamp": "2026-02-25T19:19:00Z",
+      "meal_type": "dinner",
+      "description": "Soup and bread",
+      "medication_taken": 1,
+      "medication_snapshot": "Metformin XR, Demo statin",
+      "raw_input": null
+    },
+    {
+      "id": 128,
+      "timestamp": "2026-02-26T08:18:00Z",
+      "meal_type": "breakfast",
+      "description": "Paratha",
+      "medication_taken": 1,
+      "medication_snapshot": "Metformin XR",
+      "raw_input": null
+    },
+    {
+      "id": 129,
+      "timestamp": "2026-02-26T13:19:00Z",
+      "meal_type": "lunch",
+      "description": "Sandwich",
+      "medication_taken": 0,
+      "medication_snapshot": null,
+      "raw_input": null
+    },
+    {
+      "id": 130,
+      "timestamp": "2026-02-26T19:19:00Z",
+      "meal_type": "dinner",
+      "description": "Khichdi",
+      "medication_taken": 1,
+      "medication_snapshot": "Metformin XR, Demo statin",
+      "raw_input": null
+    },
+    {
+      "id": 131,
+      "timestamp": "2026-02-27T08:19:00Z",
+      "meal_type": "breakfast",
+      "description": "Eggs, toast",
+      "medication_taken": 1,
+      "medication_snapshot": "Metformin XR",
+      "raw_input": null
+    },
+    {
+      "id": 132,
+      "timestamp": "2026-02-27T13:15:00Z",
+      "meal_type": "lunch",
+      "description": "Rice, dal, vegetables",
+      "medication_taken": 0,
+      "medication_snapshot": null,
+      "raw_input": null
+    },
+    {
+      "id": 133,
+      "timestamp": "2026-02-27T19:25:00Z",
+      "meal_type": "dinner",
+      "description": "Soup and bread",
+      "medication_taken": 1,
+      "medication_snapshot": "Metformin XR, Demo statin",
+      "raw_input": null
+    },
+    {
+      "id": 134,
+      "timestamp": "2026-02-28T08:16:00Z",
+      "meal_type": "breakfast",
+      "description": "Paratha",
+      "medication_taken": 1,
+      "medication_snapshot": "Metformin XR",
+      "raw_input": null
+    },
+    {
+      "id": 135,
+      "timestamp": "2026-02-28T13:00:00Z",
+      "meal_type": "lunch",
+      "description": "Lentil curry",
+      "medication_taken": 0,
+      "medication_snapshot": null,
+      "raw_input": null
+    },
+    {
+      "id": 136,
+      "timestamp": "2026-02-28T19:10:00Z",
+      "meal_type": "dinner",
+      "description": "Stir-fry and rice",
+      "medication_taken": 1,
+      "medication_snapshot": "Metformin XR, Demo statin",
+      "raw_input": null
+    },
+    {
+      "id": 137,
+      "timestamp": "2026-03-01T08:14:00Z",
+      "meal_type": "breakfast",
+      "description": "Eggs, toast",
+      "medication_taken": 1,
+      "medication_snapshot": "Metformin XR",
+      "raw_input": null
+    },
+    {
+      "id": 138,
+      "timestamp": "2026-03-01T13:18:00Z",
+      "meal_type": "lunch",
+      "description": "Salad and soup",
+      "medication_taken": 0,
+      "medication_snapshot": null,
+      "raw_input": null
+    },
+    {
+      "id": 139,
+      "timestamp": "2026-03-01T19:03:00Z",
+      "meal_type": "dinner",
+      "description": "Light curry",
+      "medication_taken": 1,
+      "medication_snapshot": "Metformin XR, Demo statin",
+      "raw_input": null
+    },
+    {
+      "id": 140,
+      "timestamp": "2026-03-01T16:14:00Z",
+      "meal_type": "snack",
+      "description": "Fruit / tea",
+      "medication_taken": 0,
+      "medication_snapshot": null,
+      "raw_input": null
+    },
+    {
+      "id": 141,
+      "timestamp": "2026-03-02T08:21:00Z",
+      "meal_type": "breakfast",
+      "description": "Idli sambar",
+      "medication_taken": 1,
+      "medication_snapshot": "Metformin XR",
+      "raw_input": null
+    },
+    {
+      "id": 142,
+      "timestamp": "2026-03-02T13:11:00Z",
+      "meal_type": "lunch",
+      "description": "Sandwich",
+      "medication_taken": 0,
+      "medication_snapshot": null,
+      "raw_input": null
+    },
+    {
+      "id": 143,
+      "timestamp": "2026-03-02T19:05:00Z",
+      "meal_type": "dinner",
+      "description": "Light curry",
+      "medication_taken": 1,
+      "medication_snapshot": "Metformin XR, Demo statin",
+      "raw_input": null
+    },
+    {
+      "id": 144,
+      "timestamp": "2026-03-03T08:07:00Z",
+      "meal_type": "breakfast",
+      "description": "Eggs, toast",
+      "medication_taken": 1,
+      "medication_snapshot": "Metformin XR",
+      "raw_input": null
+    },
+    {
+      "id": 145,
+      "timestamp": "2026-03-03T13:16:00Z",
+      "meal_type": "lunch",
+      "description": "Lentil curry",
+      "medication_taken": 0,
+      "medication_snapshot": null,
+      "raw_input": null
+    },
+    {
+      "id": 146,
+      "timestamp": "2026-03-03T19:00:00Z",
+      "meal_type": "dinner",
+      "description": "Stir-fry and rice",
+      "medication_taken": 1,
+      "medication_snapshot": "Metformin XR, Demo statin",
+      "raw_input": null
+    },
+    {
+      "id": 147,
+      "timestamp": "2026-03-04T08:07:00Z",
+      "meal_type": "breakfast",
+      "description": "Oats and fruit",
+      "medication_taken": 1,
+      "medication_snapshot": "Metformin XR",
+      "raw_input": null
+    },
+    {
+      "id": 148,
+      "timestamp": "2026-03-04T13:19:00Z",
+      "meal_type": "lunch",
+      "description": "Sandwich",
+      "medication_taken": 0,
+      "medication_snapshot": null,
+      "raw_input": null
+    },
+    {
+      "id": 149,
+      "timestamp": "2026-03-04T19:06:00Z",
+      "meal_type": "dinner",
+      "description": "Stir-fry and rice",
+      "medication_taken": 1,
+      "medication_snapshot": "Metformin XR, Demo statin",
+      "raw_input": null
+    },
+    {
+      "id": 150,
+      "timestamp": "2026-03-05T08:24:00Z",
+      "meal_type": "breakfast",
+      "description": "Oats and fruit",
+      "medication_taken": 1,
+      "medication_snapshot": "Metformin XR",
+      "raw_input": null
+    },
+    {
+      "id": 151,
+      "timestamp": "2026-03-05T13:12:00Z",
+      "meal_type": "lunch",
+      "description": "Sandwich",
+      "medication_taken": 0,
+      "medication_snapshot": null,
+      "raw_input": null
+    },
+    {
+      "id": 152,
+      "timestamp": "2026-03-05T19:20:00Z",
+      "meal_type": "dinner",
+      "description": "Khichdi",
+      "medication_taken": 1,
+      "medication_snapshot": "Metformin XR, Demo statin",
+      "raw_input": null
+    },
+    {
+      "id": 153,
+      "timestamp": "2026-03-06T08:16:00Z",
+      "meal_type": "breakfast",
+      "description": "Greek yogurt bowl",
+      "medication_taken": 1,
+      "medication_snapshot": "Metformin XR",
+      "raw_input": null
+    },
+    {
+      "id": 154,
+      "timestamp": "2026-03-06T13:16:00Z",
+      "meal_type": "lunch",
+      "description": "Salad and soup",
+      "medication_taken": 0,
+      "medication_snapshot": null,
+      "raw_input": null
+    },
+    {
+      "id": 155,
+      "timestamp": "2026-03-06T19:04:00Z",
+      "meal_type": "dinner",
+      "description": "Grilled fish, greens",
+      "medication_taken": 1,
+      "medication_snapshot": "Metformin XR, Demo statin",
+      "raw_input": null
+    },
+    {
+      "id": 156,
+      "timestamp": "2026-03-07T08:04:00Z",
+      "meal_type": "breakfast",
+      "description": "Oats and fruit",
+      "medication_taken": 1,
+      "medication_snapshot": "Metformin XR",
+      "raw_input": null
+    },
+    {
+      "id": 157,
+      "timestamp": "2026-03-07T13:11:00Z",
+      "meal_type": "lunch",
+      "description": "Salad and soup",
+      "medication_taken": 0,
+      "medication_snapshot": null,
+      "raw_input": null
+    },
+    {
+      "id": 158,
+      "timestamp": "2026-03-07T19:28:00Z",
+      "meal_type": "dinner",
+      "description": "Light curry",
+      "medication_taken": 1,
+      "medication_snapshot": "Metformin XR, Demo statin",
+      "raw_input": null
+    },
+    {
+      "id": 159,
+      "timestamp": "2026-03-08T08:02:00Z",
+      "meal_type": "breakfast",
+      "description": "Paratha",
+      "medication_taken": 1,
+      "medication_snapshot": "Metformin XR",
+      "raw_input": null
+    },
+    {
+      "id": 160,
+      "timestamp": "2026-03-08T13:10:00Z",
+      "meal_type": "lunch",
+      "description": "Grilled chicken bowl",
+      "medication_taken": 0,
+      "medication_snapshot": null,
+      "raw_input": null
+    },
+    {
+      "id": 161,
+      "timestamp": "2026-03-08T19:00:00Z",
+      "meal_type": "dinner",
+      "description": "Soup and bread",
+      "medication_taken": 1,
+      "medication_snapshot": "Metformin XR, Demo statin",
+      "raw_input": null
+    },
+    {
+      "id": 162,
+      "timestamp": "2026-03-09T08:14:00Z",
+      "meal_type": "breakfast",
+      "description": "Oats and fruit",
+      "medication_taken": 1,
+      "medication_snapshot": "Metformin XR",
+      "raw_input": null
+    },
+    {
+      "id": 163,
+      "timestamp": "2026-03-09T13:13:00Z",
+      "meal_type": "lunch",
+      "description": "Rice, dal, vegetables",
+      "medication_taken": 0,
+      "medication_snapshot": null,
+      "raw_input": null
+    },
+    {
+      "id": 164,
+      "timestamp": "2026-03-09T19:19:00Z",
+      "meal_type": "dinner",
+      "description": "Soup and bread",
+      "medication_taken": 1,
+      "medication_snapshot": "Metformin XR, Demo statin",
+      "raw_input": null
+    },
+    {
+      "id": 165,
+      "timestamp": "2026-03-10T08:03:00Z",
+      "meal_type": "breakfast",
+      "description": "Eggs, toast",
+      "medication_taken": 1,
+      "medication_snapshot": "Metformin XR",
+      "raw_input": null
+    },
+    {
+      "id": 166,
+      "timestamp": "2026-03-10T13:08:00Z",
+      "meal_type": "lunch",
+      "description": "Rice, dal, vegetables",
+      "medication_taken": 0,
+      "medication_snapshot": null,
+      "raw_input": null
+    },
+    {
+      "id": 167,
+      "timestamp": "2026-03-10T19:05:00Z",
+      "meal_type": "dinner",
+      "description": "Khichdi",
+      "medication_taken": 1,
+      "medication_snapshot": "Metformin XR, Demo statin",
+      "raw_input": null
+    },
+    {
+      "id": 168,
+      "timestamp": "2026-03-11T08:16:00Z",
+      "meal_type": "breakfast",
+      "description": "Oats and fruit",
+      "medication_taken": 1,
+      "medication_snapshot": "Metformin XR",
+      "raw_input": null
+    },
+    {
+      "id": 169,
+      "timestamp": "2026-03-11T13:07:00Z",
+      "meal_type": "lunch",
+      "description": "Rice, dal, vegetables",
+      "medication_taken": 0,
+      "medication_snapshot": null,
+      "raw_input": null
+    },
+    {
+      "id": 170,
+      "timestamp": "2026-03-11T19:05:00Z",
+      "meal_type": "dinner",
+      "description": "Soup and bread",
+      "medication_taken": 1,
+      "medication_snapshot": "Metformin XR, Demo statin",
+      "raw_input": null
+    },
+    {
+      "id": 171,
+      "timestamp": "2026-03-12T08:09:00Z",
+      "meal_type": "breakfast",
+      "description": "Oats and fruit",
+      "medication_taken": 1,
+      "medication_snapshot": "Metformin XR",
+      "raw_input": null
+    },
+    {
+      "id": 172,
+      "timestamp": "2026-03-12T13:17:00Z",
+      "meal_type": "lunch",
+      "description": "Grilled chicken bowl",
+      "medication_taken": 0,
+      "medication_snapshot": null,
+      "raw_input": null
+    },
+    {
+      "id": 173,
+      "timestamp": "2026-03-12T19:23:00Z",
+      "meal_type": "dinner",
+      "description": "Soup and bread",
+      "medication_taken": 1,
+      "medication_snapshot": "Metformin XR, Demo statin",
+      "raw_input": null
+    },
+    {
+      "id": 174,
+      "timestamp": "2026-03-12T16:00:00Z",
+      "meal_type": "snack",
+      "description": "Fruit / tea",
+      "medication_taken": 0,
+      "medication_snapshot": null,
+      "raw_input": null
+    },
+    {
+      "id": 175,
+      "timestamp": "2026-03-13T08:09:00Z",
+      "meal_type": "breakfast",
+      "description": "Idli sambar",
+      "medication_taken": 1,
+      "medication_snapshot": "Metformin XR",
+      "raw_input": null
+    },
+    {
+      "id": 176,
+      "timestamp": "2026-03-13T13:19:00Z",
+      "meal_type": "lunch",
+      "description": "Rice, dal, vegetables",
+      "medication_taken": 0,
+      "medication_snapshot": null,
+      "raw_input": null
+    },
+    {
+      "id": 177,
+      "timestamp": "2026-03-13T19:22:00Z",
+      "meal_type": "dinner",
+      "description": "Khichdi",
+      "medication_taken": 1,
+      "medication_snapshot": "Metformin XR, Demo statin",
+      "raw_input": null
+    },
+    {
+      "id": 178,
+      "timestamp": "2026-03-14T08:20:00Z",
+      "meal_type": "breakfast",
+      "description": "Greek yogurt bowl",
+      "medication_taken": 1,
+      "medication_snapshot": "Metformin XR",
+      "raw_input": null
+    },
+    {
+      "id": 179,
+      "timestamp": "2026-03-14T13:12:00Z",
+      "meal_type": "lunch",
+      "description": "Rice, dal, vegetables",
+      "medication_taken": 0,
+      "medication_snapshot": null,
+      "raw_input": null
+    },
+    {
+      "id": 180,
+      "timestamp": "2026-03-14T19:17:00Z",
+      "meal_type": "dinner",
+      "description": "Light curry",
+      "medication_taken": 1,
+      "medication_snapshot": "Metformin XR, Demo statin",
+      "raw_input": null
+    },
+    {
+      "id": 181,
+      "timestamp": "2026-03-15T08:21:00Z",
+      "meal_type": "breakfast",
+      "description": "Idli sambar",
+      "medication_taken": 1,
+      "medication_snapshot": "Metformin XR",
+      "raw_input": null
+    },
+    {
+      "id": 182,
+      "timestamp": "2026-03-15T13:03:00Z",
+      "meal_type": "lunch",
+      "description": "Sandwich",
+      "medication_taken": 0,
+      "medication_snapshot": null,
+      "raw_input": null
+    },
+    {
+      "id": 183,
+      "timestamp": "2026-03-15T19:29:00Z",
+      "meal_type": "dinner",
+      "description": "Soup and bread",
+      "medication_taken": 1,
+      "medication_snapshot": "Metformin XR, Demo statin",
+      "raw_input": null
+    },
+    {
+      "id": 184,
+      "timestamp": "2026-03-16T08:12:00Z",
+      "meal_type": "breakfast",
+      "description": "Paratha",
+      "medication_taken": 1,
+      "medication_snapshot": "Metformin XR",
+      "raw_input": null
+    },
+    {
+      "id": 185,
+      "timestamp": "2026-03-16T13:07:00Z",
+      "meal_type": "lunch",
+      "description": "Sandwich",
+      "medication_taken": 0,
+      "medication_snapshot": null,
+      "raw_input": null
+    },
+    {
+      "id": 186,
+      "timestamp": "2026-03-16T19:09:00Z",
+      "meal_type": "dinner",
+      "description": "Soup and bread",
+      "medication_taken": 1,
+      "medication_snapshot": "Metformin XR, Demo statin",
+      "raw_input": null
+    },
+    {
+      "id": 187,
+      "timestamp": "2026-03-17T08:05:00Z",
+      "meal_type": "breakfast",
+      "description": "Greek yogurt bowl",
+      "medication_taken": 1,
+      "medication_snapshot": "Metformin XR",
+      "raw_input": null
+    },
+    {
+      "id": 188,
+      "timestamp": "2026-03-17T13:08:00Z",
+      "meal_type": "lunch",
+      "description": "Lentil curry",
+      "medication_taken": 0,
+      "medication_snapshot": null,
+      "raw_input": null
+    },
+    {
+      "id": 189,
+      "timestamp": "2026-03-17T19:17:00Z",
+      "meal_type": "dinner",
+      "description": "Light curry",
+      "medication_taken": 1,
+      "medication_snapshot": "Metformin XR, Demo statin",
+      "raw_input": null
+    },
+    {
+      "id": 190,
+      "timestamp": "2026-03-18T08:13:00Z",
+      "meal_type": "breakfast",
+      "description": "Idli sambar",
+      "medication_taken": 1,
+      "medication_snapshot": "Metformin XR",
+      "raw_input": null
+    },
+    {
+      "id": 191,
+      "timestamp": "2026-03-18T13:06:00Z",
+      "meal_type": "lunch",
+      "description": "Rice, dal, vegetables",
+      "medication_taken": 0,
+      "medication_snapshot": null,
+      "raw_input": null
+    },
+    {
+      "id": 192,
+      "timestamp": "2026-03-18T19:04:00Z",
+      "meal_type": "dinner",
+      "description": "Light curry",
+      "medication_taken": 1,
+      "medication_snapshot": "Metformin XR, Demo statin",
+      "raw_input": null
+    },
+    {
+      "id": 193,
+      "timestamp": "2026-03-19T08:08:00Z",
+      "meal_type": "breakfast",
+      "description": "Oats and fruit",
+      "medication_taken": 1,
+      "medication_snapshot": "Metformin XR",
+      "raw_input": null
+    },
+    {
+      "id": 194,
+      "timestamp": "2026-03-19T13:04:00Z",
+      "meal_type": "lunch",
+      "description": "Salad and soup",
+      "medication_taken": 0,
+      "medication_snapshot": null,
+      "raw_input": null
+    },
+    {
+      "id": 195,
+      "timestamp": "2026-03-19T19:06:00Z",
+      "meal_type": "dinner",
+      "description": "Khichdi",
+      "medication_taken": 1,
+      "medication_snapshot": "Metformin XR, Demo statin",
+      "raw_input": null
+    },
+    {
+      "id": 196,
+      "timestamp": "2026-03-20T08:08:00Z",
+      "meal_type": "breakfast",
+      "description": "Greek yogurt bowl",
+      "medication_taken": 1,
+      "medication_snapshot": "Metformin XR",
+      "raw_input": null
+    },
+    {
+      "id": 197,
+      "timestamp": "2026-03-20T13:08:00Z",
+      "meal_type": "lunch",
+      "description": "Sandwich",
+      "medication_taken": 0,
+      "medication_snapshot": null,
+      "raw_input": null
+    },
+    {
+      "id": 198,
+      "timestamp": "2026-03-20T19:02:00Z",
+      "meal_type": "dinner",
+      "description": "Khichdi",
+      "medication_taken": 1,
+      "medication_snapshot": "Metformin XR, Demo statin",
+      "raw_input": null
+    },
+    {
+      "id": 199,
+      "timestamp": "2026-03-21T08:21:00Z",
+      "meal_type": "breakfast",
+      "description": "Paratha",
+      "medication_taken": 1,
+      "medication_snapshot": "Metformin XR",
+      "raw_input": null
+    },
+    {
+      "id": 200,
+      "timestamp": "2026-03-21T13:14:00Z",
+      "meal_type": "lunch",
+      "description": "Lentil curry",
+      "medication_taken": 0,
+      "medication_snapshot": null,
+      "raw_input": null
+    },
+    {
+      "id": 201,
+      "timestamp": "2026-03-21T19:07:00Z",
+      "meal_type": "dinner",
+      "description": "Grilled fish, greens",
+      "medication_taken": 1,
+      "medication_snapshot": "Metformin XR, Demo statin",
+      "raw_input": null
+    },
+    {
+      "id": 202,
+      "timestamp": "2026-03-22T08:21:00Z",
+      "meal_type": "breakfast",
+      "description": "Eggs, toast",
+      "medication_taken": 1,
+      "medication_snapshot": "Metformin XR",
+      "raw_input": null
+    },
+    {
+      "id": 203,
+      "timestamp": "2026-03-22T13:07:00Z",
+      "meal_type": "lunch",
+      "description": "Rice, dal, vegetables",
+      "medication_taken": 0,
+      "medication_snapshot": null,
+      "raw_input": null
+    },
+    {
+      "id": 204,
+      "timestamp": "2026-03-22T19:15:00Z",
+      "meal_type": "dinner",
+      "description": "Khichdi",
+      "medication_taken": 1,
+      "medication_snapshot": "Metformin XR, Demo statin",
+      "raw_input": null
+    },
+    {
+      "id": 205,
+      "timestamp": "2026-03-23T08:19:00Z",
+      "meal_type": "breakfast",
+      "description": "Idli sambar",
+      "medication_taken": 1,
+      "medication_snapshot": "Metformin XR",
+      "raw_input": null
+    },
+    {
+      "id": 206,
+      "timestamp": "2026-03-23T13:01:00Z",
+      "meal_type": "lunch",
+      "description": "Sandwich",
+      "medication_taken": 0,
+      "medication_snapshot": null,
+      "raw_input": null
+    },
+    {
+      "id": 207,
+      "timestamp": "2026-03-23T19:13:00Z",
+      "meal_type": "dinner",
+      "description": "Khichdi",
+      "medication_taken": 1,
+      "medication_snapshot": "Metformin XR, Demo statin",
+      "raw_input": null
+    },
+    {
+      "id": 208,
+      "timestamp": "2026-03-23T16:38:00Z",
+      "meal_type": "snack",
+      "description": "Fruit / tea",
+      "medication_taken": 0,
+      "medication_snapshot": null,
+      "raw_input": null
+    },
+    {
+      "id": 209,
+      "timestamp": "2026-03-24T08:17:00Z",
+      "meal_type": "breakfast",
+      "description": "Greek yogurt bowl",
+      "medication_taken": 1,
+      "medication_snapshot": "Metformin XR",
+      "raw_input": null
+    },
+    {
+      "id": 210,
+      "timestamp": "2026-03-24T13:11:00Z",
+      "meal_type": "lunch",
+      "description": "Rice, dal, vegetables",
+      "medication_taken": 0,
+      "medication_snapshot": null,
+      "raw_input": null
+    },
+    {
+      "id": 211,
+      "timestamp": "2026-03-24T19:11:00Z",
+      "meal_type": "dinner",
+      "description": "Khichdi",
+      "medication_taken": 1,
+      "medication_snapshot": "Metformin XR, Demo statin",
+      "raw_input": null
+    },
+    {
+      "id": 212,
+      "timestamp": "2026-03-25T08:20:00Z",
+      "meal_type": "breakfast",
+      "description": "Greek yogurt bowl",
+      "medication_taken": 1,
+      "medication_snapshot": "Metformin XR",
+      "raw_input": null
+    },
+    {
+      "id": 213,
+      "timestamp": "2026-03-25T13:08:00Z",
+      "meal_type": "lunch",
+      "description": "Lentil curry",
+      "medication_taken": 0,
+      "medication_snapshot": null,
+      "raw_input": null
+    },
+    {
+      "id": 214,
+      "timestamp": "2026-03-25T19:20:00Z",
+      "meal_type": "dinner",
+      "description": "Khichdi",
+      "medication_taken": 1,
+      "medication_snapshot": "Metformin XR, Demo statin",
+      "raw_input": null
+    },
+    {
+      "id": 215,
+      "timestamp": "2026-03-26T08:01:00Z",
+      "meal_type": "breakfast",
+      "description": "Greek yogurt bowl",
+      "medication_taken": 1,
+      "medication_snapshot": "Metformin XR",
+      "raw_input": null
+    },
+    {
+      "id": 216,
+      "timestamp": "2026-03-26T13:19:00Z",
+      "meal_type": "lunch",
+      "description": "Sandwich",
+      "medication_taken": 0,
+      "medication_snapshot": null,
+      "raw_input": null
+    },
+    {
+      "id": 217,
+      "timestamp": "2026-03-26T19:23:00Z",
+      "meal_type": "dinner",
+      "description": "Stir-fry and rice",
+      "medication_taken": 1,
+      "medication_snapshot": "Metformin XR, Demo statin",
+      "raw_input": null
+    },
+    {
+      "id": 218,
+      "timestamp": "2026-03-27T08:13:00Z",
+      "meal_type": "breakfast",
+      "description": "Oats and fruit",
+      "medication_taken": 1,
+      "medication_snapshot": "Metformin XR",
+      "raw_input": null
+    },
+    {
+      "id": 219,
+      "timestamp": "2026-03-27T13:14:00Z",
+      "meal_type": "lunch",
+      "description": "Lentil curry",
+      "medication_taken": 0,
+      "medication_snapshot": null,
+      "raw_input": null
+    },
+    {
+      "id": 220,
+      "timestamp": "2026-03-27T19:26:00Z",
+      "meal_type": "dinner",
+      "description": "Grilled fish, greens",
+      "medication_taken": 1,
+      "medication_snapshot": "Metformin XR, Demo statin",
+      "raw_input": null
+    },
+    {
+      "id": 221,
+      "timestamp": "2026-03-28T08:00:00Z",
+      "meal_type": "breakfast",
+      "description": "Idli sambar",
+      "medication_taken": 1,
+      "medication_snapshot": "Metformin XR",
+      "raw_input": null
+    },
+    {
+      "id": 222,
+      "timestamp": "2026-03-28T13:08:00Z",
+      "meal_type": "lunch",
+      "description": "Lentil curry",
+      "medication_taken": 0,
+      "medication_snapshot": null,
+      "raw_input": null
+    },
+    {
+      "id": 223,
+      "timestamp": "2026-03-28T19:09:00Z",
+      "meal_type": "dinner",
+      "description": "Khichdi",
+      "medication_taken": 1,
+      "medication_snapshot": "Metformin XR, Demo statin",
+      "raw_input": null
+    },
+    {
+      "id": 224,
+      "timestamp": "2026-03-29T08:00:00Z",
+      "meal_type": "breakfast",
+      "description": "Eggs, toast",
+      "medication_taken": 1,
+      "medication_snapshot": "Metformin XR",
+      "raw_input": null
+    },
+    {
+      "id": 225,
+      "timestamp": "2026-03-29T13:00:00Z",
+      "meal_type": "lunch",
+      "description": "Grilled chicken bowl",
+      "medication_taken": 0,
+      "medication_snapshot": null,
+      "raw_input": null
+    },
+    {
+      "id": 226,
+      "timestamp": "2026-03-29T19:09:00Z",
+      "meal_type": "dinner",
+      "description": "Stir-fry and rice",
+      "medication_taken": 1,
+      "medication_snapshot": "Metformin XR, Demo statin",
+      "raw_input": null
+    },
+    {
+      "id": 227,
+      "timestamp": "2026-03-30T08:06:00Z",
+      "meal_type": "breakfast",
+      "description": "Paratha",
+      "medication_taken": 1,
+      "medication_snapshot": "Metformin XR",
+      "raw_input": null
+    },
+    {
+      "id": 228,
+      "timestamp": "2026-03-30T13:16:00Z",
+      "meal_type": "lunch",
+      "description": "Lentil curry",
+      "medication_taken": 0,
+      "medication_snapshot": null,
+      "raw_input": null
+    },
+    {
+      "id": 229,
+      "timestamp": "2026-03-30T19:03:00Z",
+      "meal_type": "dinner",
+      "description": "Soup and bread",
+      "medication_taken": 1,
+      "medication_snapshot": "Metformin XR, Demo statin",
+      "raw_input": null
+    },
+    {
+      "id": 230,
+      "timestamp": "2026-03-31T08:18:00Z",
+      "meal_type": "breakfast",
+      "description": "Eggs, toast",
+      "medication_taken": 1,
+      "medication_snapshot": "Metformin XR",
+      "raw_input": null
+    },
+    {
+      "id": 231,
+      "timestamp": "2026-03-31T13:05:00Z",
+      "meal_type": "lunch",
+      "description": "Lentil curry",
+      "medication_taken": 0,
+      "medication_snapshot": null,
+      "raw_input": null
+    },
+    {
+      "id": 232,
+      "timestamp": "2026-03-31T19:29:00Z",
+      "meal_type": "dinner",
+      "description": "Soup and bread",
+      "medication_taken": 1,
+      "medication_snapshot": "Metformin XR, Demo statin",
+      "raw_input": null
+    },
+    {
+      "id": 233,
+      "timestamp": "2026-04-01T08:10:00Z",
+      "meal_type": "breakfast",
+      "description": "Oats and fruit",
+      "medication_taken": 1,
+      "medication_snapshot": "Metformin XR",
+      "raw_input": null
+    },
+    {
+      "id": 234,
+      "timestamp": "2026-04-01T13:04:00Z",
+      "meal_type": "lunch",
+      "description": "Lentil curry",
+      "medication_taken": 0,
+      "medication_snapshot": null,
+      "raw_input": null
+    },
+    {
+      "id": 235,
+      "timestamp": "2026-04-01T19:06:00Z",
+      "meal_type": "dinner",
+      "description": "Stir-fry and rice",
+      "medication_taken": 1,
+      "medication_snapshot": "Metformin XR, Demo statin",
+      "raw_input": null
+    },
+    {
+      "id": 236,
+      "timestamp": "2026-04-02T08:18:00Z",
+      "meal_type": "breakfast",
+      "description": "Eggs, toast",
+      "medication_taken": 1,
+      "medication_snapshot": "Metformin XR",
+      "raw_input": null
+    },
+    {
+      "id": 237,
+      "timestamp": "2026-04-02T13:05:00Z",
+      "meal_type": "lunch",
+      "description": "Grilled chicken bowl",
+      "medication_taken": 0,
+      "medication_snapshot": null,
+      "raw_input": null
+    },
+    {
+      "id": 238,
+      "timestamp": "2026-04-02T19:27:00Z",
+      "meal_type": "dinner",
+      "description": "Grilled fish, greens",
+      "medication_taken": 1,
+      "medication_snapshot": "Metformin XR, Demo statin",
+      "raw_input": null
+    },
+    {
+      "id": 239,
+      "timestamp": "2026-04-03T08:09:00Z",
+      "meal_type": "breakfast",
+      "description": "Idli sambar",
+      "medication_taken": 1,
+      "medication_snapshot": "Metformin XR",
+      "raw_input": null
+    },
+    {
+      "id": 240,
+      "timestamp": "2026-04-03T13:13:00Z",
+      "meal_type": "lunch",
+      "description": "Rice, dal, vegetables",
+      "medication_taken": 0,
+      "medication_snapshot": null,
+      "raw_input": null
+    },
+    {
+      "id": 241,
+      "timestamp": "2026-04-03T19:10:00Z",
+      "meal_type": "dinner",
+      "description": "Stir-fry and rice",
+      "medication_taken": 1,
+      "medication_snapshot": "Metformin XR, Demo statin",
+      "raw_input": null
+    },
+    {
+      "id": 242,
+      "timestamp": "2026-04-03T16:33:00Z",
+      "meal_type": "snack",
+      "description": "Fruit / tea",
+      "medication_taken": 0,
+      "medication_snapshot": null,
+      "raw_input": null
+    }
+  ],
+  "readings": [
+    {
+      "id": 1,
+      "timestamp": "2026-01-16T07:44:00Z",
+      "reading_type": "fasting",
+      "bg_value": 93,
+      "meal_id": null,
+      "raw_input": null
+    },
+    {
+      "id": 2,
+      "timestamp": "2026-01-16T09:45:00Z",
+      "reading_type": "post-meal",
+      "bg_value": 154,
+      "meal_id": 1,
+      "raw_input": null
+    },
+    {
+      "id": 3,
+      "timestamp": "2026-01-16T15:16:00Z",
+      "reading_type": "post-meal",
+      "bg_value": 166,
+      "meal_id": 2,
+      "raw_input": null
+    },
+    {
+      "id": 4,
+      "timestamp": "2026-01-16T21:04:00Z",
+      "reading_type": "post-meal",
+      "bg_value": 142,
+      "meal_id": 3,
+      "raw_input": null
+    },
+    {
+      "id": 5,
+      "timestamp": "2026-01-17T07:23:00Z",
+      "reading_type": "fasting",
+      "bg_value": 93,
+      "meal_id": null,
+      "raw_input": null
+    },
+    {
+      "id": 6,
+      "timestamp": "2026-01-17T09:47:00Z",
+      "reading_type": "post-meal",
+      "bg_value": 144,
+      "meal_id": 5,
+      "raw_input": null
+    },
+    {
+      "id": 7,
+      "timestamp": "2026-01-17T15:24:00Z",
+      "reading_type": "post-meal",
+      "bg_value": 152,
+      "meal_id": 6,
+      "raw_input": null
+    },
+    {
+      "id": 8,
+      "timestamp": "2026-01-17T21:07:00Z",
+      "reading_type": "post-meal",
+      "bg_value": 127,
+      "meal_id": 7,
+      "raw_input": null
+    },
+    {
+      "id": 9,
+      "timestamp": "2026-01-18T07:25:00Z",
+      "reading_type": "fasting",
+      "bg_value": 108,
+      "meal_id": null,
+      "raw_input": null
+    },
+    {
+      "id": 10,
+      "timestamp": "2026-01-18T09:37:00Z",
+      "reading_type": "post-meal",
+      "bg_value": 143,
+      "meal_id": 8,
+      "raw_input": null
+    },
+    {
+      "id": 11,
+      "timestamp": "2026-01-18T15:10:00Z",
+      "reading_type": "post-meal",
+      "bg_value": 174,
+      "meal_id": 9,
+      "raw_input": null
+    },
+    {
+      "id": 12,
+      "timestamp": "2026-01-18T21:03:00Z",
+      "reading_type": "post-meal",
+      "bg_value": 153,
+      "meal_id": 10,
+      "raw_input": null
+    },
+    {
+      "id": 13,
+      "timestamp": "2026-01-18T22:01:00Z",
+      "reading_type": "bedtime",
+      "bg_value": 114,
+      "meal_id": null,
+      "raw_input": null
+    },
+    {
+      "id": 14,
+      "timestamp": "2026-01-19T07:34:00Z",
+      "reading_type": "fasting",
+      "bg_value": 95,
+      "meal_id": null,
+      "raw_input": null
+    },
+    {
+      "id": 15,
+      "timestamp": "2026-01-19T09:35:00Z",
+      "reading_type": "post-meal",
+      "bg_value": 142,
+      "meal_id": 11,
+      "raw_input": null
+    },
+    {
+      "id": 16,
+      "timestamp": "2026-01-19T15:18:00Z",
+      "reading_type": "post-meal",
+      "bg_value": 139,
+      "meal_id": 12,
+      "raw_input": null
+    },
+    {
+      "id": 17,
+      "timestamp": "2026-01-19T21:03:00Z",
+      "reading_type": "post-meal",
+      "bg_value": 164,
+      "meal_id": 13,
+      "raw_input": null
+    },
+    {
+      "id": 18,
+      "timestamp": "2026-01-20T07:32:00Z",
+      "reading_type": "fasting",
+      "bg_value": 100,
+      "meal_id": null,
+      "raw_input": null
+    },
+    {
+      "id": 19,
+      "timestamp": "2026-01-20T09:48:00Z",
+      "reading_type": "post-meal",
+      "bg_value": 127,
+      "meal_id": 14,
+      "raw_input": null
+    },
+    {
+      "id": 20,
+      "timestamp": "2026-01-20T15:02:00Z",
+      "reading_type": "post-meal",
+      "bg_value": 144,
+      "meal_id": 15,
+      "raw_input": null
+    },
+    {
+      "id": 21,
+      "timestamp": "2026-01-20T21:05:00Z",
+      "reading_type": "post-meal",
+      "bg_value": 158,
+      "meal_id": 16,
+      "raw_input": null
+    },
+    {
+      "id": 22,
+      "timestamp": "2026-01-21T07:24:00Z",
+      "reading_type": "fasting",
+      "bg_value": 101,
+      "meal_id": null,
+      "raw_input": null
+    },
+    {
+      "id": 23,
+      "timestamp": "2026-01-21T09:37:00Z",
+      "reading_type": "post-meal",
+      "bg_value": 136,
+      "meal_id": 17,
+      "raw_input": null
+    },
+    {
+      "id": 24,
+      "timestamp": "2026-01-21T15:19:00Z",
+      "reading_type": "post-meal",
+      "bg_value": 134,
+      "meal_id": 18,
+      "raw_input": null
+    },
+    {
+      "id": 25,
+      "timestamp": "2026-01-21T21:19:00Z",
+      "reading_type": "post-meal",
+      "bg_value": 134,
+      "meal_id": 19,
+      "raw_input": null
+    },
+    {
+      "id": 26,
+      "timestamp": "2026-01-22T07:30:00Z",
+      "reading_type": "fasting",
+      "bg_value": 90,
+      "meal_id": null,
+      "raw_input": null
+    },
+    {
+      "id": 27,
+      "timestamp": "2026-01-22T09:30:00Z",
+      "reading_type": "post-meal",
+      "bg_value": 125,
+      "meal_id": 20,
+      "raw_input": null
+    },
+    {
+      "id": 28,
+      "timestamp": "2026-01-22T15:13:00Z",
+      "reading_type": "post-meal",
+      "bg_value": 163,
+      "meal_id": 21,
+      "raw_input": null
+    },
+    {
+      "id": 29,
+      "timestamp": "2026-01-22T21:14:00Z",
+      "reading_type": "post-meal",
+      "bg_value": 133,
+      "meal_id": 22,
+      "raw_input": null
+    },
+    {
+      "id": 30,
+      "timestamp": "2026-01-23T07:33:00Z",
+      "reading_type": "fasting",
+      "bg_value": 107,
+      "meal_id": null,
+      "raw_input": null
+    },
+    {
+      "id": 31,
+      "timestamp": "2026-01-23T09:49:00Z",
+      "reading_type": "post-meal",
+      "bg_value": 153,
+      "meal_id": 23,
+      "raw_input": null
+    },
+    {
+      "id": 32,
+      "timestamp": "2026-01-23T15:12:00Z",
+      "reading_type": "post-meal",
+      "bg_value": 159,
+      "meal_id": 24,
+      "raw_input": null
+    },
+    {
+      "id": 33,
+      "timestamp": "2026-01-23T21:15:00Z",
+      "reading_type": "post-meal",
+      "bg_value": 129,
+      "meal_id": 25,
+      "raw_input": null
+    },
+    {
+      "id": 34,
+      "timestamp": "2026-01-24T07:34:00Z",
+      "reading_type": "fasting",
+      "bg_value": 105,
+      "meal_id": null,
+      "raw_input": null
+    },
+    {
+      "id": 35,
+      "timestamp": "2026-01-24T09:49:00Z",
+      "reading_type": "post-meal",
+      "bg_value": 140,
+      "meal_id": 26,
+      "raw_input": null
+    },
+    {
+      "id": 36,
+      "timestamp": "2026-01-24T15:06:00Z",
+      "reading_type": "post-meal",
+      "bg_value": 162,
+      "meal_id": 27,
+      "raw_input": null
+    },
+    {
+      "id": 37,
+      "timestamp": "2026-01-24T21:05:00Z",
+      "reading_type": "post-meal",
+      "bg_value": 133,
+      "meal_id": 28,
+      "raw_input": null
+    },
+    {
+      "id": 38,
+      "timestamp": "2026-01-25T07:38:00Z",
+      "reading_type": "fasting",
+      "bg_value": 90,
+      "meal_id": null,
+      "raw_input": null
+    },
+    {
+      "id": 39,
+      "timestamp": "2026-01-25T09:46:00Z",
+      "reading_type": "post-meal",
+      "bg_value": 165,
+      "meal_id": 29,
+      "raw_input": null
+    },
+    {
+      "id": 40,
+      "timestamp": "2026-01-25T15:23:00Z",
+      "reading_type": "post-meal",
+      "bg_value": 158,
+      "meal_id": 30,
+      "raw_input": null
+    },
+    {
+      "id": 41,
+      "timestamp": "2026-01-25T21:00:00Z",
+      "reading_type": "post-meal",
+      "bg_value": 132,
+      "meal_id": 31,
+      "raw_input": null
+    },
+    {
+      "id": 42,
+      "timestamp": "2026-01-26T07:31:00Z",
+      "reading_type": "fasting",
+      "bg_value": 89,
+      "meal_id": null,
+      "raw_input": null
+    },
+    {
+      "id": 43,
+      "timestamp": "2026-01-26T09:49:00Z",
+      "reading_type": "post-meal",
+      "bg_value": 131,
+      "meal_id": 32,
+      "raw_input": null
+    },
+    {
+      "id": 44,
+      "timestamp": "2026-01-26T15:22:00Z",
+      "reading_type": "post-meal",
+      "bg_value": 145,
+      "meal_id": 33,
+      "raw_input": null
+    },
+    {
+      "id": 45,
+      "timestamp": "2026-01-26T21:01:00Z",
+      "reading_type": "post-meal",
+      "bg_value": 133,
+      "meal_id": 34,
+      "raw_input": null
+    },
+    {
+      "id": 46,
+      "timestamp": "2026-01-27T07:39:00Z",
+      "reading_type": "fasting",
+      "bg_value": 91,
+      "meal_id": null,
+      "raw_input": null
+    },
+    {
+      "id": 47,
+      "timestamp": "2026-01-27T09:33:00Z",
+      "reading_type": "post-meal",
+      "bg_value": 163,
+      "meal_id": 35,
+      "raw_input": null
+    },
+    {
+      "id": 48,
+      "timestamp": "2026-01-27T15:09:00Z",
+      "reading_type": "post-meal",
+      "bg_value": 163,
+      "meal_id": 36,
+      "raw_input": null
+    },
+    {
+      "id": 49,
+      "timestamp": "2026-01-27T21:08:00Z",
+      "reading_type": "post-meal",
+      "bg_value": 165,
+      "meal_id": 37,
+      "raw_input": null
+    },
+    {
+      "id": 50,
+      "timestamp": "2026-01-27T22:09:00Z",
+      "reading_type": "bedtime",
+      "bg_value": 112,
+      "meal_id": null,
+      "raw_input": null
+    },
+    {
+      "id": 51,
+      "timestamp": "2026-01-28T07:35:00Z",
+      "reading_type": "fasting",
+      "bg_value": 90,
+      "meal_id": null,
+      "raw_input": null
+    },
+    {
+      "id": 52,
+      "timestamp": "2026-01-28T09:31:00Z",
+      "reading_type": "post-meal",
+      "bg_value": 151,
+      "meal_id": 39,
+      "raw_input": null
+    },
+    {
+      "id": 53,
+      "timestamp": "2026-01-28T15:13:00Z",
+      "reading_type": "post-meal",
+      "bg_value": 144,
+      "meal_id": 40,
+      "raw_input": null
+    },
+    {
+      "id": 54,
+      "timestamp": "2026-01-28T21:06:00Z",
+      "reading_type": "post-meal",
+      "bg_value": 135,
+      "meal_id": 41,
+      "raw_input": null
+    },
+    {
+      "id": 55,
+      "timestamp": "2026-01-29T07:38:00Z",
+      "reading_type": "fasting",
+      "bg_value": 101,
+      "meal_id": null,
+      "raw_input": null
+    },
+    {
+      "id": 56,
+      "timestamp": "2026-01-29T09:48:00Z",
+      "reading_type": "post-meal",
+      "bg_value": 145,
+      "meal_id": 42,
+      "raw_input": null
+    },
+    {
+      "id": 57,
+      "timestamp": "2026-01-29T15:23:00Z",
+      "reading_type": "post-meal",
+      "bg_value": 164,
+      "meal_id": 43,
+      "raw_input": null
+    },
+    {
+      "id": 58,
+      "timestamp": "2026-01-29T21:01:00Z",
+      "reading_type": "post-meal",
+      "bg_value": 148,
+      "meal_id": 44,
+      "raw_input": null
+    },
+    {
+      "id": 59,
+      "timestamp": "2026-01-30T07:18:00Z",
+      "reading_type": "fasting",
+      "bg_value": 107,
+      "meal_id": null,
+      "raw_input": null
+    },
+    {
+      "id": 60,
+      "timestamp": "2026-01-30T09:42:00Z",
+      "reading_type": "post-meal",
+      "bg_value": 129,
+      "meal_id": 45,
+      "raw_input": null
+    },
+    {
+      "id": 61,
+      "timestamp": "2026-01-30T15:22:00Z",
+      "reading_type": "post-meal",
+      "bg_value": 146,
+      "meal_id": 46,
+      "raw_input": null
+    },
+    {
+      "id": 62,
+      "timestamp": "2026-01-30T21:16:00Z",
+      "reading_type": "post-meal",
+      "bg_value": 147,
+      "meal_id": 47,
+      "raw_input": null
+    },
+    {
+      "id": 63,
+      "timestamp": "2026-01-31T07:30:00Z",
+      "reading_type": "fasting",
+      "bg_value": 100,
+      "meal_id": null,
+      "raw_input": null
+    },
+    {
+      "id": 64,
+      "timestamp": "2026-01-31T09:47:00Z",
+      "reading_type": "post-meal",
+      "bg_value": 135,
+      "meal_id": 48,
+      "raw_input": null
+    },
+    {
+      "id": 65,
+      "timestamp": "2026-01-31T15:23:00Z",
+      "reading_type": "post-meal",
+      "bg_value": 156,
+      "meal_id": 49,
+      "raw_input": null
+    },
+    {
+      "id": 66,
+      "timestamp": "2026-01-31T21:15:00Z",
+      "reading_type": "post-meal",
+      "bg_value": 136,
+      "meal_id": 50,
+      "raw_input": null
+    },
+    {
+      "id": 67,
+      "timestamp": "2026-02-01T07:23:00Z",
+      "reading_type": "fasting",
+      "bg_value": 94,
+      "meal_id": null,
+      "raw_input": null
+    },
+    {
+      "id": 68,
+      "timestamp": "2026-02-01T09:40:00Z",
+      "reading_type": "post-meal",
+      "bg_value": 163,
+      "meal_id": 51,
+      "raw_input": null
+    },
+    {
+      "id": 69,
+      "timestamp": "2026-02-01T15:22:00Z",
+      "reading_type": "post-meal",
+      "bg_value": 172,
+      "meal_id": 52,
+      "raw_input": null
+    },
+    {
+      "id": 70,
+      "timestamp": "2026-02-01T21:06:00Z",
+      "reading_type": "post-meal",
+      "bg_value": 128,
+      "meal_id": 53,
+      "raw_input": null
+    },
+    {
+      "id": 71,
+      "timestamp": "2026-02-02T07:23:00Z",
+      "reading_type": "fasting",
+      "bg_value": 99,
+      "meal_id": null,
+      "raw_input": null
+    },
+    {
+      "id": 72,
+      "timestamp": "2026-02-02T09:39:00Z",
+      "reading_type": "post-meal",
+      "bg_value": 140,
+      "meal_id": 54,
+      "raw_input": null
+    },
+    {
+      "id": 73,
+      "timestamp": "2026-02-02T15:07:00Z",
+      "reading_type": "post-meal",
+      "bg_value": 149,
+      "meal_id": 55,
+      "raw_input": null
+    },
+    {
+      "id": 74,
+      "timestamp": "2026-02-02T21:03:00Z",
+      "reading_type": "post-meal",
+      "bg_value": 150,
+      "meal_id": 56,
+      "raw_input": null
+    },
+    {
+      "id": 75,
+      "timestamp": "2026-02-03T07:16:00Z",
+      "reading_type": "fasting",
+      "bg_value": 88,
+      "meal_id": null,
+      "raw_input": null
+    },
+    {
+      "id": 76,
+      "timestamp": "2026-02-03T09:33:00Z",
+      "reading_type": "post-meal",
+      "bg_value": 134,
+      "meal_id": 57,
+      "raw_input": null
+    },
+    {
+      "id": 77,
+      "timestamp": "2026-02-03T15:17:00Z",
+      "reading_type": "post-meal",
+      "bg_value": 167,
+      "meal_id": 58,
+      "raw_input": null
+    },
+    {
+      "id": 78,
+      "timestamp": "2026-02-03T21:01:00Z",
+      "reading_type": "post-meal",
+      "bg_value": 154,
+      "meal_id": 59,
+      "raw_input": null
+    },
+    {
+      "id": 79,
+      "timestamp": "2026-02-04T07:19:00Z",
+      "reading_type": "fasting",
+      "bg_value": 97,
+      "meal_id": null,
+      "raw_input": null
+    },
+    {
+      "id": 80,
+      "timestamp": "2026-02-04T09:40:00Z",
+      "reading_type": "post-meal",
+      "bg_value": 140,
+      "meal_id": 60,
+      "raw_input": null
+    },
+    {
+      "id": 81,
+      "timestamp": "2026-02-04T15:07:00Z",
+      "reading_type": "post-meal",
+      "bg_value": 167,
+      "meal_id": 61,
+      "raw_input": null
+    },
+    {
+      "id": 82,
+      "timestamp": "2026-02-04T21:05:00Z",
+      "reading_type": "post-meal",
+      "bg_value": 161,
+      "meal_id": 62,
+      "raw_input": null
+    },
+    {
+      "id": 83,
+      "timestamp": "2026-02-05T07:24:00Z",
+      "reading_type": "fasting",
+      "bg_value": 104,
+      "meal_id": null,
+      "raw_input": null
+    },
+    {
+      "id": 84,
+      "timestamp": "2026-02-05T09:45:00Z",
+      "reading_type": "post-meal",
+      "bg_value": 129,
+      "meal_id": 63,
+      "raw_input": null
+    },
+    {
+      "id": 85,
+      "timestamp": "2026-02-05T15:05:00Z",
+      "reading_type": "post-meal",
+      "bg_value": 175,
+      "meal_id": 64,
+      "raw_input": null
+    },
+    {
+      "id": 86,
+      "timestamp": "2026-02-05T21:10:00Z",
+      "reading_type": "post-meal",
+      "bg_value": 131,
+      "meal_id": 65,
+      "raw_input": null
+    },
+    {
+      "id": 87,
+      "timestamp": "2026-02-05T22:21:00Z",
+      "reading_type": "bedtime",
+      "bg_value": 116,
+      "meal_id": null,
+      "raw_input": null
+    },
+    {
+      "id": 88,
+      "timestamp": "2026-02-06T07:43:00Z",
+      "reading_type": "fasting",
+      "bg_value": 92,
+      "meal_id": null,
+      "raw_input": null
+    },
+    {
+      "id": 89,
+      "timestamp": "2026-02-06T09:33:00Z",
+      "reading_type": "post-meal",
+      "bg_value": 131,
+      "meal_id": 66,
+      "raw_input": null
+    },
+    {
+      "id": 90,
+      "timestamp": "2026-02-06T15:14:00Z",
+      "reading_type": "post-meal",
+      "bg_value": 138,
+      "meal_id": 67,
+      "raw_input": null
+    },
+    {
+      "id": 91,
+      "timestamp": "2026-02-06T21:11:00Z",
+      "reading_type": "post-meal",
+      "bg_value": 160,
+      "meal_id": 68,
+      "raw_input": null
+    },
+    {
+      "id": 92,
+      "timestamp": "2026-02-07T07:34:00Z",
+      "reading_type": "fasting",
+      "bg_value": 93,
+      "meal_id": null,
+      "raw_input": null
+    },
+    {
+      "id": 93,
+      "timestamp": "2026-02-07T09:38:00Z",
+      "reading_type": "post-meal",
+      "bg_value": 154,
+      "meal_id": 69,
+      "raw_input": null
+    },
+    {
+      "id": 94,
+      "timestamp": "2026-02-07T15:02:00Z",
+      "reading_type": "post-meal",
+      "bg_value": 159,
+      "meal_id": 70,
+      "raw_input": null
+    },
+    {
+      "id": 95,
+      "timestamp": "2026-02-07T21:18:00Z",
+      "reading_type": "post-meal",
+      "bg_value": 161,
+      "meal_id": 71,
+      "raw_input": null
+    },
+    {
+      "id": 96,
+      "timestamp": "2026-02-08T07:29:00Z",
+      "reading_type": "fasting",
+      "bg_value": 101,
+      "meal_id": null,
+      "raw_input": null
+    },
+    {
+      "id": 97,
+      "timestamp": "2026-02-08T09:30:00Z",
+      "reading_type": "post-meal",
+      "bg_value": 138,
+      "meal_id": 73,
+      "raw_input": null
+    },
+    {
+      "id": 98,
+      "timestamp": "2026-02-08T15:10:00Z",
+      "reading_type": "post-meal",
+      "bg_value": 155,
+      "meal_id": 74,
+      "raw_input": null
+    },
+    {
+      "id": 99,
+      "timestamp": "2026-02-08T21:05:00Z",
+      "reading_type": "post-meal",
+      "bg_value": 134,
+      "meal_id": 75,
+      "raw_input": null
+    },
+    {
+      "id": 100,
+      "timestamp": "2026-02-09T07:32:00Z",
+      "reading_type": "fasting",
+      "bg_value": 105,
+      "meal_id": null,
+      "raw_input": null
+    },
+    {
+      "id": 101,
+      "timestamp": "2026-02-09T09:40:00Z",
+      "reading_type": "post-meal",
+      "bg_value": 133,
+      "meal_id": 76,
+      "raw_input": null
+    },
+    {
+      "id": 102,
+      "timestamp": "2026-02-09T15:12:00Z",
+      "reading_type": "post-meal",
+      "bg_value": 144,
+      "meal_id": 77,
+      "raw_input": null
+    },
+    {
+      "id": 103,
+      "timestamp": "2026-02-09T21:05:00Z",
+      "reading_type": "post-meal",
+      "bg_value": 138,
+      "meal_id": 78,
+      "raw_input": null
+    },
+    {
+      "id": 104,
+      "timestamp": "2026-02-10T07:19:00Z",
+      "reading_type": "fasting",
+      "bg_value": 106,
+      "meal_id": null,
+      "raw_input": null
+    },
+    {
+      "id": 105,
+      "timestamp": "2026-02-10T09:35:00Z",
+      "reading_type": "post-meal",
+      "bg_value": 149,
+      "meal_id": 79,
+      "raw_input": null
+    },
+    {
+      "id": 106,
+      "timestamp": "2026-02-10T15:05:00Z",
+      "reading_type": "post-meal",
+      "bg_value": 163,
+      "meal_id": 80,
+      "raw_input": null
+    },
+    {
+      "id": 107,
+      "timestamp": "2026-02-10T21:02:00Z",
+      "reading_type": "post-meal",
+      "bg_value": 152,
+      "meal_id": 81,
+      "raw_input": null
+    },
+    {
+      "id": 108,
+      "timestamp": "2026-02-11T07:19:00Z",
+      "reading_type": "fasting",
+      "bg_value": 104,
+      "meal_id": null,
+      "raw_input": null
+    },
+    {
+      "id": 109,
+      "timestamp": "2026-02-11T09:38:00Z",
+      "reading_type": "post-meal",
+      "bg_value": 143,
+      "meal_id": 82,
+      "raw_input": null
+    },
+    {
+      "id": 110,
+      "timestamp": "2026-02-11T15:06:00Z",
+      "reading_type": "post-meal",
+      "bg_value": 155,
+      "meal_id": 83,
+      "raw_input": null
+    },
+    {
+      "id": 111,
+      "timestamp": "2026-02-11T21:06:00Z",
+      "reading_type": "post-meal",
+      "bg_value": 144,
+      "meal_id": 84,
+      "raw_input": null
+    },
+    {
+      "id": 112,
+      "timestamp": "2026-02-12T07:33:00Z",
+      "reading_type": "fasting",
+      "bg_value": 100,
+      "meal_id": null,
+      "raw_input": null
+    },
+    {
+      "id": 113,
+      "timestamp": "2026-02-12T09:31:00Z",
+      "reading_type": "post-meal",
+      "bg_value": 160,
+      "meal_id": 85,
+      "raw_input": null
+    },
+    {
+      "id": 114,
+      "timestamp": "2026-02-12T15:07:00Z",
+      "reading_type": "post-meal",
+      "bg_value": 132,
+      "meal_id": 86,
+      "raw_input": null
+    },
+    {
+      "id": 115,
+      "timestamp": "2026-02-12T21:01:00Z",
+      "reading_type": "post-meal",
+      "bg_value": 135,
+      "meal_id": 87,
+      "raw_input": null
+    },
+    {
+      "id": 116,
+      "timestamp": "2026-02-13T07:21:00Z",
+      "reading_type": "fasting",
+      "bg_value": 107,
+      "meal_id": null,
+      "raw_input": null
+    },
+    {
+      "id": 117,
+      "timestamp": "2026-02-13T09:31:00Z",
+      "reading_type": "post-meal",
+      "bg_value": 143,
+      "meal_id": 88,
+      "raw_input": null
+    },
+    {
+      "id": 118,
+      "timestamp": "2026-02-13T15:19:00Z",
+      "reading_type": "post-meal",
+      "bg_value": 161,
+      "meal_id": 89,
+      "raw_input": null
+    },
+    {
+      "id": 119,
+      "timestamp": "2026-02-13T21:19:00Z",
+      "reading_type": "post-meal",
+      "bg_value": 133,
+      "meal_id": 90,
+      "raw_input": null
+    },
+    {
+      "id": 120,
+      "timestamp": "2026-02-14T07:33:00Z",
+      "reading_type": "fasting",
+      "bg_value": 104,
+      "meal_id": null,
+      "raw_input": null
+    },
+    {
+      "id": 121,
+      "timestamp": "2026-02-14T09:42:00Z",
+      "reading_type": "post-meal",
+      "bg_value": 152,
+      "meal_id": 91,
+      "raw_input": null
+    },
+    {
+      "id": 122,
+      "timestamp": "2026-02-14T15:00:00Z",
+      "reading_type": "post-meal",
+      "bg_value": 149,
+      "meal_id": 92,
+      "raw_input": null
+    },
+    {
+      "id": 123,
+      "timestamp": "2026-02-14T21:15:00Z",
+      "reading_type": "post-meal",
+      "bg_value": 139,
+      "meal_id": 93,
+      "raw_input": null
+    },
+    {
+      "id": 124,
+      "timestamp": "2026-02-14T22:27:00Z",
+      "reading_type": "bedtime",
+      "bg_value": 122,
+      "meal_id": null,
+      "raw_input": null
+    },
+    {
+      "id": 125,
+      "timestamp": "2026-02-15T07:30:00Z",
+      "reading_type": "fasting",
+      "bg_value": 96,
+      "meal_id": null,
+      "raw_input": null
+    },
+    {
+      "id": 126,
+      "timestamp": "2026-02-15T09:38:00Z",
+      "reading_type": "post-meal",
+      "bg_value": 161,
+      "meal_id": 94,
+      "raw_input": null
+    },
+    {
+      "id": 127,
+      "timestamp": "2026-02-15T15:09:00Z",
+      "reading_type": "post-meal",
+      "bg_value": 155,
+      "meal_id": 95,
+      "raw_input": null
+    },
+    {
+      "id": 128,
+      "timestamp": "2026-02-15T21:10:00Z",
+      "reading_type": "post-meal",
+      "bg_value": 136,
+      "meal_id": 96,
+      "raw_input": null
+    },
+    {
+      "id": 129,
+      "timestamp": "2026-02-16T07:30:00Z",
+      "reading_type": "fasting",
+      "bg_value": 106,
+      "meal_id": null,
+      "raw_input": null
+    },
+    {
+      "id": 130,
+      "timestamp": "2026-02-16T09:46:00Z",
+      "reading_type": "post-meal",
+      "bg_value": 157,
+      "meal_id": 97,
+      "raw_input": null
+    },
+    {
+      "id": 131,
+      "timestamp": "2026-02-16T15:07:00Z",
+      "reading_type": "post-meal",
+      "bg_value": 156,
+      "meal_id": 98,
+      "raw_input": null
+    },
+    {
+      "id": 132,
+      "timestamp": "2026-02-16T21:06:00Z",
+      "reading_type": "post-meal",
+      "bg_value": 146,
+      "meal_id": 99,
+      "raw_input": null
+    },
+    {
+      "id": 133,
+      "timestamp": "2026-02-17T07:34:00Z",
+      "reading_type": "fasting",
+      "bg_value": 92,
+      "meal_id": null,
+      "raw_input": null
+    },
+    {
+      "id": 134,
+      "timestamp": "2026-02-17T09:37:00Z",
+      "reading_type": "post-meal",
+      "bg_value": 140,
+      "meal_id": 100,
+      "raw_input": null
+    },
+    {
+      "id": 135,
+      "timestamp": "2026-02-17T15:06:00Z",
+      "reading_type": "post-meal",
+      "bg_value": 147,
+      "meal_id": 101,
+      "raw_input": null
+    },
+    {
+      "id": 136,
+      "timestamp": "2026-02-17T21:15:00Z",
+      "reading_type": "post-meal",
+      "bg_value": 135,
+      "meal_id": 102,
+      "raw_input": null
+    },
+    {
+      "id": 137,
+      "timestamp": "2026-02-18T07:28:00Z",
+      "reading_type": "fasting",
+      "bg_value": 94,
+      "meal_id": null,
+      "raw_input": null
+    },
+    {
+      "id": 138,
+      "timestamp": "2026-02-18T09:35:00Z",
+      "reading_type": "post-meal",
+      "bg_value": 132,
+      "meal_id": 103,
+      "raw_input": null
+    },
+    {
+      "id": 139,
+      "timestamp": "2026-02-18T15:23:00Z",
+      "reading_type": "post-meal",
+      "bg_value": 168,
+      "meal_id": 104,
+      "raw_input": null
+    },
+    {
+      "id": 140,
+      "timestamp": "2026-02-18T21:00:00Z",
+      "reading_type": "post-meal",
+      "bg_value": 134,
+      "meal_id": 105,
+      "raw_input": null
+    },
+    {
+      "id": 141,
+      "timestamp": "2026-02-19T07:43:00Z",
+      "reading_type": "fasting",
+      "bg_value": 89,
+      "meal_id": null,
+      "raw_input": null
+    },
+    {
+      "id": 142,
+      "timestamp": "2026-02-19T09:33:00Z",
+      "reading_type": "post-meal",
+      "bg_value": 160,
+      "meal_id": 107,
+      "raw_input": null
+    },
+    {
+      "id": 143,
+      "timestamp": "2026-02-19T15:15:00Z",
+      "reading_type": "post-meal",
+      "bg_value": 147,
+      "meal_id": 108,
+      "raw_input": null
+    },
+    {
+      "id": 144,
+      "timestamp": "2026-02-19T21:17:00Z",
+      "reading_type": "post-meal",
+      "bg_value": 142,
+      "meal_id": 109,
+      "raw_input": null
+    },
+    {
+      "id": 145,
+      "timestamp": "2026-02-20T07:32:00Z",
+      "reading_type": "fasting",
+      "bg_value": 98,
+      "meal_id": null,
+      "raw_input": null
+    },
+    {
+      "id": 146,
+      "timestamp": "2026-02-20T09:43:00Z",
+      "reading_type": "post-meal",
+      "bg_value": 129,
+      "meal_id": 110,
+      "raw_input": null
+    },
+    {
+      "id": 147,
+      "timestamp": "2026-02-20T15:10:00Z",
+      "reading_type": "post-meal",
+      "bg_value": 152,
+      "meal_id": 111,
+      "raw_input": null
+    },
+    {
+      "id": 148,
+      "timestamp": "2026-02-20T21:14:00Z",
+      "reading_type": "post-meal",
+      "bg_value": 138,
+      "meal_id": 112,
+      "raw_input": null
+    },
+    {
+      "id": 149,
+      "timestamp": "2026-02-21T07:15:00Z",
+      "reading_type": "fasting",
+      "bg_value": 98,
+      "meal_id": null,
+      "raw_input": null
+    },
+    {
+      "id": 150,
+      "timestamp": "2026-02-21T09:34:00Z",
+      "reading_type": "post-meal",
+      "bg_value": 127,
+      "meal_id": 113,
+      "raw_input": null
+    },
+    {
+      "id": 151,
+      "timestamp": "2026-02-21T15:21:00Z",
+      "reading_type": "post-meal",
+      "bg_value": 161,
+      "meal_id": 114,
+      "raw_input": null
+    },
+    {
+      "id": 152,
+      "timestamp": "2026-02-21T21:09:00Z",
+      "reading_type": "post-meal",
+      "bg_value": 140,
+      "meal_id": 115,
+      "raw_input": null
+    },
+    {
+      "id": 153,
+      "timestamp": "2026-02-22T07:37:00Z",
+      "reading_type": "fasting",
+      "bg_value": 97,
+      "meal_id": null,
+      "raw_input": null
+    },
+    {
+      "id": 154,
+      "timestamp": "2026-02-22T09:32:00Z",
+      "reading_type": "post-meal",
+      "bg_value": 141,
+      "meal_id": 116,
+      "raw_input": null
+    },
+    {
+      "id": 155,
+      "timestamp": "2026-02-22T15:01:00Z",
+      "reading_type": "post-meal",
+      "bg_value": 141,
+      "meal_id": 117,
+      "raw_input": null
+    },
+    {
+      "id": 156,
+      "timestamp": "2026-02-22T21:05:00Z",
+      "reading_type": "post-meal",
+      "bg_value": 151,
+      "meal_id": 118,
+      "raw_input": null
+    },
+    {
+      "id": 157,
+      "timestamp": "2026-02-23T07:15:00Z",
+      "reading_type": "fasting",
+      "bg_value": 91,
+      "meal_id": null,
+      "raw_input": null
+    },
+    {
+      "id": 158,
+      "timestamp": "2026-02-23T09:34:00Z",
+      "reading_type": "post-meal",
+      "bg_value": 157,
+      "meal_id": 119,
+      "raw_input": null
+    },
+    {
+      "id": 159,
+      "timestamp": "2026-02-23T15:00:00Z",
+      "reading_type": "post-meal",
+      "bg_value": 132,
+      "meal_id": 120,
+      "raw_input": null
+    },
+    {
+      "id": 160,
+      "timestamp": "2026-02-23T21:08:00Z",
+      "reading_type": "post-meal",
+      "bg_value": 159,
+      "meal_id": 121,
+      "raw_input": null
+    },
+    {
+      "id": 161,
+      "timestamp": "2026-02-23T22:24:00Z",
+      "reading_type": "bedtime",
+      "bg_value": 124,
+      "meal_id": null,
+      "raw_input": null
+    },
+    {
+      "id": 162,
+      "timestamp": "2026-02-24T07:36:00Z",
+      "reading_type": "fasting",
+      "bg_value": 102,
+      "meal_id": null,
+      "raw_input": null
+    },
+    {
+      "id": 163,
+      "timestamp": "2026-02-24T09:36:00Z",
+      "reading_type": "post-meal",
+      "bg_value": 144,
+      "meal_id": 122,
+      "raw_input": null
+    },
+    {
+      "id": 164,
+      "timestamp": "2026-02-24T15:24:00Z",
+      "reading_type": "post-meal",
+      "bg_value": 164,
+      "meal_id": 123,
+      "raw_input": null
+    },
+    {
+      "id": 165,
+      "timestamp": "2026-02-24T21:07:00Z",
+      "reading_type": "post-meal",
+      "bg_value": 149,
+      "meal_id": 124,
+      "raw_input": null
+    },
+    {
+      "id": 166,
+      "timestamp": "2026-02-25T07:19:00Z",
+      "reading_type": "fasting",
+      "bg_value": 99,
+      "meal_id": null,
+      "raw_input": null
+    },
+    {
+      "id": 167,
+      "timestamp": "2026-02-25T09:48:00Z",
+      "reading_type": "post-meal",
+      "bg_value": 155,
+      "meal_id": 125,
+      "raw_input": null
+    },
+    {
+      "id": 168,
+      "timestamp": "2026-02-25T15:00:00Z",
+      "reading_type": "post-meal",
+      "bg_value": 140,
+      "meal_id": 126,
+      "raw_input": null
+    },
+    {
+      "id": 169,
+      "timestamp": "2026-02-25T21:18:00Z",
+      "reading_type": "post-meal",
+      "bg_value": 163,
+      "meal_id": 127,
+      "raw_input": null
+    },
+    {
+      "id": 170,
+      "timestamp": "2026-02-26T07:40:00Z",
+      "reading_type": "fasting",
+      "bg_value": 97,
+      "meal_id": null,
+      "raw_input": null
+    },
+    {
+      "id": 171,
+      "timestamp": "2026-02-26T09:45:00Z",
+      "reading_type": "post-meal",
+      "bg_value": 147,
+      "meal_id": 128,
+      "raw_input": null
+    },
+    {
+      "id": 172,
+      "timestamp": "2026-02-26T15:15:00Z",
+      "reading_type": "post-meal",
+      "bg_value": 174,
+      "meal_id": 129,
+      "raw_input": null
+    },
+    {
+      "id": 173,
+      "timestamp": "2026-02-26T21:19:00Z",
+      "reading_type": "post-meal",
+      "bg_value": 160,
+      "meal_id": 130,
+      "raw_input": null
+    },
+    {
+      "id": 174,
+      "timestamp": "2026-02-27T07:43:00Z",
+      "reading_type": "fasting",
+      "bg_value": 94,
+      "meal_id": null,
+      "raw_input": null
+    },
+    {
+      "id": 175,
+      "timestamp": "2026-02-27T09:36:00Z",
+      "reading_type": "post-meal",
+      "bg_value": 129,
+      "meal_id": 131,
+      "raw_input": null
+    },
+    {
+      "id": 176,
+      "timestamp": "2026-02-27T15:15:00Z",
+      "reading_type": "post-meal",
+      "bg_value": 140,
+      "meal_id": 132,
+      "raw_input": null
+    },
+    {
+      "id": 177,
+      "timestamp": "2026-02-27T21:07:00Z",
+      "reading_type": "post-meal",
+      "bg_value": 153,
+      "meal_id": 133,
+      "raw_input": null
+    },
+    {
+      "id": 178,
+      "timestamp": "2026-02-28T07:26:00Z",
+      "reading_type": "fasting",
+      "bg_value": 93,
+      "meal_id": null,
+      "raw_input": null
+    },
+    {
+      "id": 179,
+      "timestamp": "2026-02-28T09:41:00Z",
+      "reading_type": "post-meal",
+      "bg_value": 132,
+      "meal_id": 134,
+      "raw_input": null
+    },
+    {
+      "id": 180,
+      "timestamp": "2026-02-28T15:19:00Z",
+      "reading_type": "post-meal",
+      "bg_value": 139,
+      "meal_id": 135,
+      "raw_input": null
+    },
+    {
+      "id": 181,
+      "timestamp": "2026-02-28T21:14:00Z",
+      "reading_type": "post-meal",
+      "bg_value": 133,
+      "meal_id": 136,
+      "raw_input": null
+    },
+    {
+      "id": 182,
+      "timestamp": "2026-03-01T07:37:00Z",
+      "reading_type": "fasting",
+      "bg_value": 93,
+      "meal_id": null,
+      "raw_input": null
+    },
+    {
+      "id": 183,
+      "timestamp": "2026-03-01T09:46:00Z",
+      "reading_type": "post-meal",
+      "bg_value": 164,
+      "meal_id": 137,
+      "raw_input": null
+    },
+    {
+      "id": 184,
+      "timestamp": "2026-03-01T15:01:00Z",
+      "reading_type": "post-meal",
+      "bg_value": 143,
+      "meal_id": 138,
+      "raw_input": null
+    },
+    {
+      "id": 185,
+      "timestamp": "2026-03-01T21:06:00Z",
+      "reading_type": "post-meal",
+      "bg_value": 126,
+      "meal_id": 139,
+      "raw_input": null
+    },
+    {
+      "id": 186,
+      "timestamp": "2026-03-02T07:24:00Z",
+      "reading_type": "fasting",
+      "bg_value": 107,
+      "meal_id": null,
+      "raw_input": null
+    },
+    {
+      "id": 187,
+      "timestamp": "2026-03-02T09:36:00Z",
+      "reading_type": "post-meal",
+      "bg_value": 149,
+      "meal_id": 141,
+      "raw_input": null
+    },
+    {
+      "id": 188,
+      "timestamp": "2026-03-02T15:02:00Z",
+      "reading_type": "post-meal",
+      "bg_value": 169,
+      "meal_id": 142,
+      "raw_input": null
+    },
+    {
+      "id": 189,
+      "timestamp": "2026-03-02T21:02:00Z",
+      "reading_type": "post-meal",
+      "bg_value": 152,
+      "meal_id": 143,
+      "raw_input": null
+    },
+    {
+      "id": 190,
+      "timestamp": "2026-03-03T07:37:00Z",
+      "reading_type": "fasting",
+      "bg_value": 98,
+      "meal_id": null,
+      "raw_input": null
+    },
+    {
+      "id": 191,
+      "timestamp": "2026-03-03T09:36:00Z",
+      "reading_type": "post-meal",
+      "bg_value": 143,
+      "meal_id": 144,
+      "raw_input": null
+    },
+    {
+      "id": 192,
+      "timestamp": "2026-03-03T15:09:00Z",
+      "reading_type": "post-meal",
+      "bg_value": 167,
+      "meal_id": 145,
+      "raw_input": null
+    },
+    {
+      "id": 193,
+      "timestamp": "2026-03-03T21:08:00Z",
+      "reading_type": "post-meal",
+      "bg_value": 148,
+      "meal_id": 146,
+      "raw_input": null
+    },
+    {
+      "id": 194,
+      "timestamp": "2026-03-04T07:31:00Z",
+      "reading_type": "fasting",
+      "bg_value": 108,
+      "meal_id": null,
+      "raw_input": null
+    },
+    {
+      "id": 195,
+      "timestamp": "2026-03-04T09:40:00Z",
+      "reading_type": "post-meal",
+      "bg_value": 160,
+      "meal_id": 147,
+      "raw_input": null
+    },
+    {
+      "id": 196,
+      "timestamp": "2026-03-04T15:00:00Z",
+      "reading_type": "post-meal",
+      "bg_value": 159,
+      "meal_id": 148,
+      "raw_input": null
+    },
+    {
+      "id": 197,
+      "timestamp": "2026-03-04T21:19:00Z",
+      "reading_type": "post-meal",
+      "bg_value": 160,
+      "meal_id": 149,
+      "raw_input": null
+    },
+    {
+      "id": 198,
+      "timestamp": "2026-03-04T22:00:00Z",
+      "reading_type": "bedtime",
+      "bg_value": 127,
+      "meal_id": null,
+      "raw_input": null
+    },
+    {
+      "id": 199,
+      "timestamp": "2026-03-05T07:39:00Z",
+      "reading_type": "fasting",
+      "bg_value": 104,
+      "meal_id": null,
+      "raw_input": null
+    },
+    {
+      "id": 200,
+      "timestamp": "2026-03-05T09:40:00Z",
+      "reading_type": "post-meal",
+      "bg_value": 141,
+      "meal_id": 150,
+      "raw_input": null
+    },
+    {
+      "id": 201,
+      "timestamp": "2026-03-05T15:07:00Z",
+      "reading_type": "post-meal",
+      "bg_value": 148,
+      "meal_id": 151,
+      "raw_input": null
+    },
+    {
+      "id": 202,
+      "timestamp": "2026-03-05T21:05:00Z",
+      "reading_type": "post-meal",
+      "bg_value": 164,
+      "meal_id": 152,
+      "raw_input": null
+    },
+    {
+      "id": 203,
+      "timestamp": "2026-03-06T07:33:00Z",
+      "reading_type": "fasting",
+      "bg_value": 99,
+      "meal_id": null,
+      "raw_input": null
+    },
+    {
+      "id": 204,
+      "timestamp": "2026-03-06T09:35:00Z",
+      "reading_type": "post-meal",
+      "bg_value": 163,
+      "meal_id": 153,
+      "raw_input": null
+    },
+    {
+      "id": 205,
+      "timestamp": "2026-03-06T15:22:00Z",
+      "reading_type": "post-meal",
+      "bg_value": 144,
+      "meal_id": 154,
+      "raw_input": null
+    },
+    {
+      "id": 206,
+      "timestamp": "2026-03-06T21:19:00Z",
+      "reading_type": "post-meal",
+      "bg_value": 149,
+      "meal_id": 155,
+      "raw_input": null
+    },
+    {
+      "id": 207,
+      "timestamp": "2026-03-07T07:31:00Z",
+      "reading_type": "fasting",
+      "bg_value": 105,
+      "meal_id": null,
+      "raw_input": null
+    },
+    {
+      "id": 208,
+      "timestamp": "2026-03-07T09:42:00Z",
+      "reading_type": "post-meal",
+      "bg_value": 130,
+      "meal_id": 156,
+      "raw_input": null
+    },
+    {
+      "id": 209,
+      "timestamp": "2026-03-07T15:14:00Z",
+      "reading_type": "post-meal",
+      "bg_value": 152,
+      "meal_id": 157,
+      "raw_input": null
+    },
+    {
+      "id": 210,
+      "timestamp": "2026-03-07T21:15:00Z",
+      "reading_type": "post-meal",
+      "bg_value": 133,
+      "meal_id": 158,
+      "raw_input": null
+    },
+    {
+      "id": 211,
+      "timestamp": "2026-03-08T07:30:00Z",
+      "reading_type": "fasting",
+      "bg_value": 105,
+      "meal_id": null,
+      "raw_input": null
+    },
+    {
+      "id": 212,
+      "timestamp": "2026-03-08T09:36:00Z",
+      "reading_type": "post-meal",
+      "bg_value": 155,
+      "meal_id": 159,
+      "raw_input": null
+    },
+    {
+      "id": 213,
+      "timestamp": "2026-03-08T15:08:00Z",
+      "reading_type": "post-meal",
+      "bg_value": 164,
+      "meal_id": 160,
+      "raw_input": null
+    },
+    {
+      "id": 214,
+      "timestamp": "2026-03-08T21:14:00Z",
+      "reading_type": "post-meal",
+      "bg_value": 127,
+      "meal_id": 161,
+      "raw_input": null
+    },
+    {
+      "id": 215,
+      "timestamp": "2026-03-09T07:27:00Z",
+      "reading_type": "fasting",
+      "bg_value": 106,
+      "meal_id": null,
+      "raw_input": null
+    },
+    {
+      "id": 216,
+      "timestamp": "2026-03-09T09:44:00Z",
+      "reading_type": "post-meal",
+      "bg_value": 161,
+      "meal_id": 162,
+      "raw_input": null
+    },
+    {
+      "id": 217,
+      "timestamp": "2026-03-09T15:22:00Z",
+      "reading_type": "post-meal",
+      "bg_value": 175,
+      "meal_id": 163,
+      "raw_input": null
+    },
+    {
+      "id": 218,
+      "timestamp": "2026-03-09T21:16:00Z",
+      "reading_type": "post-meal",
+      "bg_value": 136,
+      "meal_id": 164,
+      "raw_input": null
+    },
+    {
+      "id": 219,
+      "timestamp": "2026-03-10T07:33:00Z",
+      "reading_type": "fasting",
+      "bg_value": 106,
+      "meal_id": null,
+      "raw_input": null
+    },
+    {
+      "id": 220,
+      "timestamp": "2026-03-10T09:33:00Z",
+      "reading_type": "post-meal",
+      "bg_value": 156,
+      "meal_id": 165,
+      "raw_input": null
+    },
+    {
+      "id": 221,
+      "timestamp": "2026-03-10T15:07:00Z",
+      "reading_type": "post-meal",
+      "bg_value": 140,
+      "meal_id": 166,
+      "raw_input": null
+    },
+    {
+      "id": 222,
+      "timestamp": "2026-03-10T21:16:00Z",
+      "reading_type": "post-meal",
+      "bg_value": 152,
+      "meal_id": 167,
+      "raw_input": null
+    },
+    {
+      "id": 223,
+      "timestamp": "2026-03-11T07:17:00Z",
+      "reading_type": "fasting",
+      "bg_value": 95,
+      "meal_id": null,
+      "raw_input": null
+    },
+    {
+      "id": 224,
+      "timestamp": "2026-03-11T09:47:00Z",
+      "reading_type": "post-meal",
+      "bg_value": 151,
+      "meal_id": 168,
+      "raw_input": null
+    },
+    {
+      "id": 225,
+      "timestamp": "2026-03-11T15:17:00Z",
+      "reading_type": "post-meal",
+      "bg_value": 147,
+      "meal_id": 169,
+      "raw_input": null
+    },
+    {
+      "id": 226,
+      "timestamp": "2026-03-11T21:11:00Z",
+      "reading_type": "post-meal",
+      "bg_value": 154,
+      "meal_id": 170,
+      "raw_input": null
+    },
+    {
+      "id": 227,
+      "timestamp": "2026-03-12T07:28:00Z",
+      "reading_type": "fasting",
+      "bg_value": 107,
+      "meal_id": null,
+      "raw_input": null
+    },
+    {
+      "id": 228,
+      "timestamp": "2026-03-12T09:31:00Z",
+      "reading_type": "post-meal",
+      "bg_value": 164,
+      "meal_id": 171,
+      "raw_input": null
+    },
+    {
+      "id": 229,
+      "timestamp": "2026-03-12T15:06:00Z",
+      "reading_type": "post-meal",
+      "bg_value": 152,
+      "meal_id": 172,
+      "raw_input": null
+    },
+    {
+      "id": 230,
+      "timestamp": "2026-03-12T21:09:00Z",
+      "reading_type": "post-meal",
+      "bg_value": 156,
+      "meal_id": 173,
+      "raw_input": null
+    },
+    {
+      "id": 231,
+      "timestamp": "2026-03-13T07:19:00Z",
+      "reading_type": "fasting",
+      "bg_value": 96,
+      "meal_id": null,
+      "raw_input": null
+    },
+    {
+      "id": 232,
+      "timestamp": "2026-03-13T09:38:00Z",
+      "reading_type": "post-meal",
+      "bg_value": 165,
+      "meal_id": 175,
+      "raw_input": null
+    },
+    {
+      "id": 233,
+      "timestamp": "2026-03-13T15:16:00Z",
+      "reading_type": "post-meal",
+      "bg_value": 146,
+      "meal_id": 176,
+      "raw_input": null
+    },
+    {
+      "id": 234,
+      "timestamp": "2026-03-13T21:14:00Z",
+      "reading_type": "post-meal",
+      "bg_value": 154,
+      "meal_id": 177,
+      "raw_input": null
+    },
+    {
+      "id": 235,
+      "timestamp": "2026-03-13T22:17:00Z",
+      "reading_type": "bedtime",
+      "bg_value": 111,
+      "meal_id": null,
+      "raw_input": null
+    },
+    {
+      "id": 236,
+      "timestamp": "2026-03-14T07:37:00Z",
+      "reading_type": "fasting",
+      "bg_value": 105,
+      "meal_id": null,
+      "raw_input": null
+    },
+    {
+      "id": 237,
+      "timestamp": "2026-03-14T09:40:00Z",
+      "reading_type": "post-meal",
+      "bg_value": 161,
+      "meal_id": 178,
+      "raw_input": null
+    },
+    {
+      "id": 238,
+      "timestamp": "2026-03-14T15:04:00Z",
+      "reading_type": "post-meal",
+      "bg_value": 140,
+      "meal_id": 179,
+      "raw_input": null
+    },
+    {
+      "id": 239,
+      "timestamp": "2026-03-14T21:00:00Z",
+      "reading_type": "post-meal",
+      "bg_value": 155,
+      "meal_id": 180,
+      "raw_input": null
+    },
+    {
+      "id": 240,
+      "timestamp": "2026-03-15T07:35:00Z",
+      "reading_type": "fasting",
+      "bg_value": 108,
+      "meal_id": null,
+      "raw_input": null
+    },
+    {
+      "id": 241,
+      "timestamp": "2026-03-15T09:32:00Z",
+      "reading_type": "post-meal",
+      "bg_value": 125,
+      "meal_id": 181,
+      "raw_input": null
+    },
+    {
+      "id": 242,
+      "timestamp": "2026-03-15T15:14:00Z",
+      "reading_type": "post-meal",
+      "bg_value": 143,
+      "meal_id": 182,
+      "raw_input": null
+    },
+    {
+      "id": 243,
+      "timestamp": "2026-03-15T21:03:00Z",
+      "reading_type": "post-meal",
+      "bg_value": 125,
+      "meal_id": 183,
+      "raw_input": null
+    },
+    {
+      "id": 244,
+      "timestamp": "2026-03-16T07:21:00Z",
+      "reading_type": "fasting",
+      "bg_value": 105,
+      "meal_id": null,
+      "raw_input": null
+    },
+    {
+      "id": 245,
+      "timestamp": "2026-03-16T09:45:00Z",
+      "reading_type": "post-meal",
+      "bg_value": 133,
+      "meal_id": 184,
+      "raw_input": null
+    },
+    {
+      "id": 246,
+      "timestamp": "2026-03-16T15:18:00Z",
+      "reading_type": "post-meal",
+      "bg_value": 142,
+      "meal_id": 185,
+      "raw_input": null
+    },
+    {
+      "id": 247,
+      "timestamp": "2026-03-16T21:17:00Z",
+      "reading_type": "post-meal",
+      "bg_value": 150,
+      "meal_id": 186,
+      "raw_input": null
+    },
+    {
+      "id": 248,
+      "timestamp": "2026-03-17T07:24:00Z",
+      "reading_type": "fasting",
+      "bg_value": 103,
+      "meal_id": null,
+      "raw_input": null
+    },
+    {
+      "id": 249,
+      "timestamp": "2026-03-17T09:31:00Z",
+      "reading_type": "post-meal",
+      "bg_value": 155,
+      "meal_id": 187,
+      "raw_input": null
+    },
+    {
+      "id": 250,
+      "timestamp": "2026-03-17T15:14:00Z",
+      "reading_type": "post-meal",
+      "bg_value": 145,
+      "meal_id": 188,
+      "raw_input": null
+    },
+    {
+      "id": 251,
+      "timestamp": "2026-03-17T21:06:00Z",
+      "reading_type": "post-meal",
+      "bg_value": 164,
+      "meal_id": 189,
+      "raw_input": null
+    },
+    {
+      "id": 252,
+      "timestamp": "2026-03-18T07:20:00Z",
+      "reading_type": "fasting",
+      "bg_value": 95,
+      "meal_id": null,
+      "raw_input": null
+    },
+    {
+      "id": 253,
+      "timestamp": "2026-03-18T09:36:00Z",
+      "reading_type": "post-meal",
+      "bg_value": 161,
+      "meal_id": 190,
+      "raw_input": null
+    },
+    {
+      "id": 254,
+      "timestamp": "2026-03-18T15:04:00Z",
+      "reading_type": "post-meal",
+      "bg_value": 130,
+      "meal_id": 191,
+      "raw_input": null
+    },
+    {
+      "id": 255,
+      "timestamp": "2026-03-18T21:18:00Z",
+      "reading_type": "post-meal",
+      "bg_value": 126,
+      "meal_id": 192,
+      "raw_input": null
+    },
+    {
+      "id": 256,
+      "timestamp": "2026-03-19T07:35:00Z",
+      "reading_type": "fasting",
+      "bg_value": 99,
+      "meal_id": null,
+      "raw_input": null
+    },
+    {
+      "id": 257,
+      "timestamp": "2026-03-19T09:35:00Z",
+      "reading_type": "post-meal",
+      "bg_value": 154,
+      "meal_id": 193,
+      "raw_input": null
+    },
+    {
+      "id": 258,
+      "timestamp": "2026-03-19T15:20:00Z",
+      "reading_type": "post-meal",
+      "bg_value": 145,
+      "meal_id": 194,
+      "raw_input": null
+    },
+    {
+      "id": 259,
+      "timestamp": "2026-03-19T21:01:00Z",
+      "reading_type": "post-meal",
+      "bg_value": 133,
+      "meal_id": 195,
+      "raw_input": null
+    },
+    {
+      "id": 260,
+      "timestamp": "2026-03-20T07:27:00Z",
+      "reading_type": "fasting",
+      "bg_value": 102,
+      "meal_id": null,
+      "raw_input": null
+    },
+    {
+      "id": 261,
+      "timestamp": "2026-03-20T09:45:00Z",
+      "reading_type": "post-meal",
+      "bg_value": 126,
+      "meal_id": 196,
+      "raw_input": null
+    },
+    {
+      "id": 262,
+      "timestamp": "2026-03-20T15:15:00Z",
+      "reading_type": "post-meal",
+      "bg_value": 136,
+      "meal_id": 197,
+      "raw_input": null
+    },
+    {
+      "id": 263,
+      "timestamp": "2026-03-20T21:06:00Z",
+      "reading_type": "post-meal",
+      "bg_value": 150,
+      "meal_id": 198,
+      "raw_input": null
+    },
+    {
+      "id": 264,
+      "timestamp": "2026-03-21T07:31:00Z",
+      "reading_type": "fasting",
+      "bg_value": 95,
+      "meal_id": null,
+      "raw_input": null
+    },
+    {
+      "id": 265,
+      "timestamp": "2026-03-21T09:31:00Z",
+      "reading_type": "post-meal",
+      "bg_value": 136,
+      "meal_id": 199,
+      "raw_input": null
+    },
+    {
+      "id": 266,
+      "timestamp": "2026-03-21T15:05:00Z",
+      "reading_type": "post-meal",
+      "bg_value": 138,
+      "meal_id": 200,
+      "raw_input": null
+    },
+    {
+      "id": 267,
+      "timestamp": "2026-03-21T21:06:00Z",
+      "reading_type": "post-meal",
+      "bg_value": 144,
+      "meal_id": 201,
+      "raw_input": null
+    },
+    {
+      "id": 268,
+      "timestamp": "2026-03-22T07:29:00Z",
+      "reading_type": "fasting",
+      "bg_value": 106,
+      "meal_id": null,
+      "raw_input": null
+    },
+    {
+      "id": 269,
+      "timestamp": "2026-03-22T09:38:00Z",
+      "reading_type": "post-meal",
+      "bg_value": 144,
+      "meal_id": 202,
+      "raw_input": null
+    },
+    {
+      "id": 270,
+      "timestamp": "2026-03-22T15:14:00Z",
+      "reading_type": "post-meal",
+      "bg_value": 154,
+      "meal_id": 203,
+      "raw_input": null
+    },
+    {
+      "id": 271,
+      "timestamp": "2026-03-22T21:19:00Z",
+      "reading_type": "post-meal",
+      "bg_value": 127,
+      "meal_id": 204,
+      "raw_input": null
+    },
+    {
+      "id": 272,
+      "timestamp": "2026-03-22T22:04:00Z",
+      "reading_type": "bedtime",
+      "bg_value": 108,
+      "meal_id": null,
+      "raw_input": null
+    },
+    {
+      "id": 273,
+      "timestamp": "2026-03-23T07:23:00Z",
+      "reading_type": "fasting",
+      "bg_value": 93,
+      "meal_id": null,
+      "raw_input": null
+    },
+    {
+      "id": 274,
+      "timestamp": "2026-03-23T09:33:00Z",
+      "reading_type": "post-meal",
+      "bg_value": 156,
+      "meal_id": 205,
+      "raw_input": null
+    },
+    {
+      "id": 275,
+      "timestamp": "2026-03-23T15:14:00Z",
+      "reading_type": "post-meal",
+      "bg_value": 153,
+      "meal_id": 206,
+      "raw_input": null
+    },
+    {
+      "id": 276,
+      "timestamp": "2026-03-23T21:04:00Z",
+      "reading_type": "post-meal",
+      "bg_value": 128,
+      "meal_id": 207,
+      "raw_input": null
+    },
+    {
+      "id": 277,
+      "timestamp": "2026-03-24T07:41:00Z",
+      "reading_type": "fasting",
+      "bg_value": 160,
+      "meal_id": null,
+      "raw_input": null
+    },
+    {
+      "id": 278,
+      "timestamp": "2026-03-24T09:46:00Z",
+      "reading_type": "post-meal",
+      "bg_value": 209,
+      "meal_id": 209,
+      "raw_input": null
+    },
+    {
+      "id": 279,
+      "timestamp": "2026-03-24T15:16:00Z",
+      "reading_type": "post-meal",
+      "bg_value": 194,
+      "meal_id": 210,
+      "raw_input": null
+    },
+    {
+      "id": 280,
+      "timestamp": "2026-03-24T21:07:00Z",
+      "reading_type": "post-meal",
+      "bg_value": 189,
+      "meal_id": 211,
+      "raw_input": null
+    },
+    {
+      "id": 281,
+      "timestamp": "2026-03-25T07:39:00Z",
+      "reading_type": "fasting",
+      "bg_value": 96,
+      "meal_id": null,
+      "raw_input": null
+    },
+    {
+      "id": 282,
+      "timestamp": "2026-03-25T09:39:00Z",
+      "reading_type": "post-meal",
+      "bg_value": 127,
+      "meal_id": 212,
+      "raw_input": null
+    },
+    {
+      "id": 283,
+      "timestamp": "2026-03-25T15:17:00Z",
+      "reading_type": "post-meal",
+      "bg_value": 168,
+      "meal_id": 213,
+      "raw_input": null
+    },
+    {
+      "id": 284,
+      "timestamp": "2026-03-25T21:07:00Z",
+      "reading_type": "post-meal",
+      "bg_value": 145,
+      "meal_id": 214,
+      "raw_input": null
+    },
+    {
+      "id": 285,
+      "timestamp": "2026-03-26T07:16:00Z",
+      "reading_type": "fasting",
+      "bg_value": 105,
+      "meal_id": null,
+      "raw_input": null
+    },
+    {
+      "id": 286,
+      "timestamp": "2026-03-26T09:36:00Z",
+      "reading_type": "post-meal",
+      "bg_value": 139,
+      "meal_id": 215,
+      "raw_input": null
+    },
+    {
+      "id": 287,
+      "timestamp": "2026-03-26T15:08:00Z",
+      "reading_type": "post-meal",
+      "bg_value": 139,
+      "meal_id": 216,
+      "raw_input": null
+    },
+    {
+      "id": 288,
+      "timestamp": "2026-03-26T21:17:00Z",
+      "reading_type": "post-meal",
+      "bg_value": 143,
+      "meal_id": 217,
+      "raw_input": null
+    },
+    {
+      "id": 289,
+      "timestamp": "2026-03-27T07:17:00Z",
+      "reading_type": "fasting",
+      "bg_value": 107,
+      "meal_id": null,
+      "raw_input": null
+    },
+    {
+      "id": 290,
+      "timestamp": "2026-03-27T09:34:00Z",
+      "reading_type": "post-meal",
+      "bg_value": 135,
+      "meal_id": 218,
+      "raw_input": null
+    },
+    {
+      "id": 291,
+      "timestamp": "2026-03-27T15:03:00Z",
+      "reading_type": "post-meal",
+      "bg_value": 139,
+      "meal_id": 219,
+      "raw_input": null
+    },
+    {
+      "id": 292,
+      "timestamp": "2026-03-27T21:05:00Z",
+      "reading_type": "post-meal",
+      "bg_value": 149,
+      "meal_id": 220,
+      "raw_input": null
+    },
+    {
+      "id": 293,
+      "timestamp": "2026-03-28T07:39:00Z",
+      "reading_type": "fasting",
+      "bg_value": 102,
+      "meal_id": null,
+      "raw_input": null
+    },
+    {
+      "id": 294,
+      "timestamp": "2026-03-28T09:35:00Z",
+      "reading_type": "post-meal",
+      "bg_value": 143,
+      "meal_id": 221,
+      "raw_input": null
+    },
+    {
+      "id": 295,
+      "timestamp": "2026-03-28T15:22:00Z",
+      "reading_type": "post-meal",
+      "bg_value": 143,
+      "meal_id": 222,
+      "raw_input": null
+    },
+    {
+      "id": 296,
+      "timestamp": "2026-03-28T21:05:00Z",
+      "reading_type": "post-meal",
+      "bg_value": 142,
+      "meal_id": 223,
+      "raw_input": null
+    },
+    {
+      "id": 297,
+      "timestamp": "2026-03-29T07:42:00Z",
+      "reading_type": "fasting",
+      "bg_value": 94,
+      "meal_id": null,
+      "raw_input": null
+    },
+    {
+      "id": 298,
+      "timestamp": "2026-03-29T09:43:00Z",
+      "reading_type": "post-meal",
+      "bg_value": 150,
+      "meal_id": 224,
+      "raw_input": null
+    },
+    {
+      "id": 299,
+      "timestamp": "2026-03-29T15:14:00Z",
+      "reading_type": "post-meal",
+      "bg_value": 148,
+      "meal_id": 225,
+      "raw_input": null
+    },
+    {
+      "id": 300,
+      "timestamp": "2026-03-29T21:11:00Z",
+      "reading_type": "post-meal",
+      "bg_value": 164,
+      "meal_id": 226,
+      "raw_input": null
+    },
+    {
+      "id": 301,
+      "timestamp": "2026-03-30T07:35:00Z",
+      "reading_type": "fasting",
+      "bg_value": 95,
+      "meal_id": null,
+      "raw_input": null
+    },
+    {
+      "id": 302,
+      "timestamp": "2026-03-30T09:35:00Z",
+      "reading_type": "post-meal",
+      "bg_value": 145,
+      "meal_id": 227,
+      "raw_input": null
+    },
+    {
+      "id": 303,
+      "timestamp": "2026-03-30T15:14:00Z",
+      "reading_type": "post-meal",
+      "bg_value": 139,
+      "meal_id": 228,
+      "raw_input": null
+    },
+    {
+      "id": 304,
+      "timestamp": "2026-03-30T21:07:00Z",
+      "reading_type": "post-meal",
+      "bg_value": 159,
+      "meal_id": 229,
+      "raw_input": null
+    },
+    {
+      "id": 305,
+      "timestamp": "2026-03-31T07:38:00Z",
+      "reading_type": "fasting",
+      "bg_value": 99,
+      "meal_id": null,
+      "raw_input": null
+    },
+    {
+      "id": 306,
+      "timestamp": "2026-03-31T09:30:00Z",
+      "reading_type": "post-meal",
+      "bg_value": 149,
+      "meal_id": 230,
+      "raw_input": null
+    },
+    {
+      "id": 307,
+      "timestamp": "2026-03-31T15:15:00Z",
+      "reading_type": "post-meal",
+      "bg_value": 155,
+      "meal_id": 231,
+      "raw_input": null
+    },
+    {
+      "id": 308,
+      "timestamp": "2026-03-31T21:18:00Z",
+      "reading_type": "post-meal",
+      "bg_value": 139,
+      "meal_id": 232,
+      "raw_input": null
+    },
+    {
+      "id": 309,
+      "timestamp": "2026-03-31T22:18:00Z",
+      "reading_type": "bedtime",
+      "bg_value": 110,
+      "meal_id": null,
+      "raw_input": null
+    },
+    {
+      "id": 310,
+      "timestamp": "2026-04-01T07:21:00Z",
+      "reading_type": "fasting",
+      "bg_value": 108,
+      "meal_id": null,
+      "raw_input": null
+    },
+    {
+      "id": 311,
+      "timestamp": "2026-04-01T09:34:00Z",
+      "reading_type": "post-meal",
+      "bg_value": 129,
+      "meal_id": 233,
+      "raw_input": null
+    },
+    {
+      "id": 312,
+      "timestamp": "2026-04-01T15:02:00Z",
+      "reading_type": "post-meal",
+      "bg_value": 135,
+      "meal_id": 234,
+      "raw_input": null
+    },
+    {
+      "id": 313,
+      "timestamp": "2026-04-01T21:15:00Z",
+      "reading_type": "post-meal",
+      "bg_value": 136,
+      "meal_id": 235,
+      "raw_input": null
+    },
+    {
+      "id": 314,
+      "timestamp": "2026-04-02T07:15:00Z",
+      "reading_type": "fasting",
+      "bg_value": 102,
+      "meal_id": null,
+      "raw_input": null
+    },
+    {
+      "id": 315,
+      "timestamp": "2026-04-02T09:35:00Z",
+      "reading_type": "post-meal",
+      "bg_value": 137,
+      "meal_id": 236,
+      "raw_input": null
+    },
+    {
+      "id": 316,
+      "timestamp": "2026-04-02T15:21:00Z",
+      "reading_type": "post-meal",
+      "bg_value": 149,
+      "meal_id": 237,
+      "raw_input": null
+    },
+    {
+      "id": 317,
+      "timestamp": "2026-04-02T21:16:00Z",
+      "reading_type": "post-meal",
+      "bg_value": 143,
+      "meal_id": 238,
+      "raw_input": null
+    },
+    {
+      "id": 318,
+      "timestamp": "2026-04-03T07:24:00Z",
+      "reading_type": "fasting",
+      "bg_value": 104,
+      "meal_id": null,
+      "raw_input": null
+    },
+    {
+      "id": 319,
+      "timestamp": "2026-04-03T09:33:00Z",
+      "reading_type": "post-meal",
+      "bg_value": 131,
+      "meal_id": 239,
+      "raw_input": null
+    },
+    {
+      "id": 320,
+      "timestamp": "2026-04-03T15:21:00Z",
+      "reading_type": "post-meal",
+      "bg_value": 148,
+      "meal_id": 240,
+      "raw_input": null
+    },
+    {
+      "id": 321,
+      "timestamp": "2026-04-03T21:03:00Z",
+      "reading_type": "post-meal",
+      "bg_value": 146,
+      "meal_id": 241,
+      "raw_input": null
+    }
+  ]
+}

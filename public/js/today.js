@@ -1,7 +1,6 @@
 (function () {
   'use strict';
 
-  const API = window.WT_CONFIG.apiBase || '';
   const headers = {
     'Content-Type': 'application/json',
     'X-API-Key': window.WT_CONFIG.apiKey,
@@ -239,7 +238,7 @@
     timeline.classList.add('tl-loading');
 
     try {
-      const res = await fetch(`${API}/api/day/${dateStr}`, { headers });
+      const res = await fetch(window.WT_DEMO.apiUrl('/api/day/' + dateStr), { headers });
       if (!res.ok) return;
       const data = await res.json();
       renderStats(data.readings);

@@ -1,7 +1,6 @@
 (function () {
   'use strict';
 
-  const API = window.WT_CONFIG.apiBase || '';
   const headers = {
     'Content-Type': 'application/json',
     'X-API-Key': window.WT_CONFIG.apiKey,
@@ -341,8 +340,8 @@
   async function loadInsights() {
     try {
       const [readingsRes, mealsRes] = await Promise.all([
-        fetch(`${API}/api/readings`, { headers }),
-        fetch(`${API}/api/meals`, { headers }),
+        fetch(window.WT_DEMO.apiUrl('/api/readings'), { headers }),
+        fetch(window.WT_DEMO.apiUrl('/api/meals'), { headers }),
       ]);
       if (!readingsRes.ok || !mealsRes.ok) throw new Error('failed');
 

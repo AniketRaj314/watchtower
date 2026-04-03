@@ -7,6 +7,7 @@ const readingsRouter = require('./routes/readings');
 const medicationsRouter = require('./routes/medications');
 const dayRouter = require('./routes/day');
 const naturalRouter = require('./routes/natural');
+const demoRouter = require('./routes/demo');
 
 const path = require('path');
 
@@ -30,6 +31,7 @@ app.use('/api/readings', readingsRouter);
 app.use('/api/medications', medicationsRouter);
 app.use('/api/day', dayRouter);
 app.use('/api/log/natural', naturalRouter);
+app.use('/api/demo', demoRouter);
 
 app.listen(PORT, () => {
   console.log(`Watchtower running on port ${PORT}`);

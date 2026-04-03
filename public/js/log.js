@@ -1,7 +1,6 @@
 (function () {
   'use strict';
 
-  const API = window.WT_CONFIG.apiBase || '';
   const headers = {
     'Content-Type': 'application/json',
     'X-API-Key': window.WT_CONFIG.apiKey,
@@ -153,7 +152,7 @@
   // Fetch all meals for linking (latest first)
   async function loadMealOptions() {
     try {
-      const res = await fetch(`${API}/api/meals`, { headers });
+      const res = await fetch(window.WT_DEMO.apiUrl('/api/meals'), { headers });
       if (!res.ok) return;
       const meals = await res.json();
 
@@ -182,6 +181,11 @@
     const bg_value = Number(readingInput.value);
     if (!bg_value) return;
 
+    if (window.WT_DEMO && window.WT_DEMO.isDemoMode()) {
+      showToast('Demo mode — not saved.', true);
+      return;
+    }
+
     readingSend.disabled = true;
     const mealId = mealLinkSelect.value ? Number(mealLinkSelect.value) : null;
     const readingTimestamp = buildTimestamp(readingDate && readingDate.value, readingTime && readingTime.value);
@@ -193,7 +197,7 @@
     if (readingTimestamp) payload.timestamp = readingTimestamp;
 
     try {
-      const res = await fetch(`${API}/api/readings`, {
+      const res = await fetch(window.WT_DEMO.apiUrl('/api/readings'), {
         method: 'POST',
         headers,
         body: JSON.stringify(payload),
@@ -264,6 +268,11 @@
   mealSend.addEventListener('click', async () => {
     if (!selectedMealType || !mealDesc.value.trim()) return;
 
+    if (window.WT_DEMO && window.WT_DEMO.isDemoMode()) {
+      showToast('Demo mode — not saved.', true);
+      return;
+    }
+
     mealSend.disabled = true;
     const mealTimestamp = buildTimestamp(mealDate && mealDate.value, mealTime && mealTime.value);
     const payload = {
@@ -274,7 +283,7 @@
     if (mealTimestamp) payload.timestamp = mealTimestamp;
 
     try {
-      const res = await fetch(`${API}/api/meals`, {
+      const res = await fetch(window.WT_DEMO.apiUrl('/api/meals'), {
         method: 'POST',
         headers,
         body: JSON.stringify(payload),
@@ -298,6 +307,7 @@
   // ── Init ──
   window.WT_LOG = window.WT_LOG || {};
   window.WT_LOG.onEnter = resetLogTimestamps;
+  window.WT_LOG.refreshForDemoMode = loadMealOptions;
   resetLogTimestamps();
   loadMealOptions();
 })();
