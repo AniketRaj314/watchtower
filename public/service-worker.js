@@ -1,4 +1,4 @@
-const CACHE_NAME = 'watchtower-v10';
+const CACHE_NAME = 'watchtower-v11';
 const SHELL_ASSETS = [
   '/',
   '/index.html',
@@ -8,10 +8,12 @@ const SHELL_ASSETS = [
   '/css/log.css',
   '/css/today.css',
   '/css/insights.css',
+  '/css/settings.css',
   '/js/app.js',
   '/js/log.js',
   '/js/today.js',
   '/js/insights.js',
+  '/js/settings.js',
   '/manifest.json',
   '/icons/icon-192.png',
   '/icons/icon-512.png',

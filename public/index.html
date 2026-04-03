@@ -6,6 +6,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover, user-scalable=no">
   <meta name="apple-mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="apple-mobile-web-app-title" content="Watchtower">
   <meta name="theme-color" content="#0A0A0A">
   <title>Watchtower</title>
   <link rel="manifest" href="/manifest.json">
@@ -15,6 +16,7 @@
   <link rel="stylesheet" href="/css/log.css">
   <link rel="stylesheet" href="/css/today.css">
   <link rel="stylesheet" href="/css/insights.css">
+  <link rel="stylesheet" href="/css/settings.css">
   <script src="/config.js"></script>
 </head>
 
@@ -64,22 +66,6 @@
       <div class="wordmark">
         <span class="wordmark-watch">WATCH</span><span class="wordmark-tower">TOWER</span>
       </div>
-      <button id="theme-toggle" class="theme-toggle" aria-label="Toggle theme">
-        <svg id="icon-sun" viewBox="0 0 24 24">
-          <circle cx="12" cy="12" r="5" />
-          <line x1="12" y1="1" x2="12" y2="3" />
-          <line x1="12" y1="21" x2="12" y2="23" />
-          <line x1="4.22" y1="4.22" x2="5.64" y2="5.64" />
-          <line x1="18.36" y1="18.36" x2="19.78" y2="19.78" />
-          <line x1="1" y1="12" x2="3" y2="12" />
-          <line x1="21" y1="12" x2="23" y2="12" />
-          <line x1="4.22" y1="19.78" x2="5.64" y2="18.36" />
-          <line x1="18.36" y1="5.64" x2="19.78" y2="4.22" />
-        </svg>
-        <svg id="icon-moon" viewBox="0 0 24 24" style="display:none">
-          <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z" />
-        </svg>
-      </button>
     </header>
 
     <!-- Screens -->
@@ -239,7 +225,46 @@
       </div>
     </div>
     <div id="screen-settings" class="screen">
-      <div class="screen-placeholder">settings</div>
+      <div class="settings-section-label">MEDICATIONS</div>
+      <div id="settings-meds-list"></div>
+
+      <div class="settings-section-label">SECURITY</div>
+      <button type="button" id="settings-change-pin" class="settings-row-btn">
+        <span class="settings-row-label">Change PIN</span>
+        <svg class="settings-chevron" viewBox="0 0 24 24" aria-hidden="true">
+          <polyline points="9 6 15 12 9 18" />
+        </svg>
+      </button>
+
+      <div class="settings-section-label">APPEARANCE</div>
+      <div class="settings-appearance-row">
+        <span class="settings-row-label settings-appearance-label">Dark mode</span>
+        <button type="button" id="settings-theme-toggle" class="toggle" role="switch" aria-checked="true" aria-label="Dark mode">
+          <span class="toggle-thumb"></span>
+        </button>
+      </div>
+
+      <div class="settings-section-label">DATA</div>
+      <button type="button" id="settings-export" class="settings-row-btn">
+        <span class="settings-row-label">Export today's log</span>
+        <svg class="settings-chevron" viewBox="0 0 24 24" aria-hidden="true">
+          <polyline points="9 6 15 12 9 18" />
+        </svg>
+      </button>
+      <button type="button" id="settings-about-trigger" class="settings-row-btn">
+        <span class="settings-row-label">About Watchtower</span>
+        <svg class="settings-chevron settings-about-chevron" viewBox="0 0 24 24" aria-hidden="true">
+          <polyline points="9 6 15 12 9 18" />
+        </svg>
+      </button>
+      <div id="settings-about-panel" class="settings-about-panel" hidden>
+        <div class="settings-about-version">Watchtower v1.0</div>
+        <p class="settings-about-body">Your personal signal. Built with Node.js + SQLite.</p>
+        <div class="settings-about-wordmark">
+          <span class="wordmark-watch">WATCH</span><span class="wordmark-tower">TOWER</span>
+        </div>
+        <div class="settings-about-tagline">Signal. Log. Improve.</div>
+      </div>
     </div>
 
     <!-- Bottom nav -->
@@ -280,6 +305,7 @@
   <script src="/js/today.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.js"></script>
   <script src="/js/insights.js"></script>
+  <script src="/js/settings.js"></script>
 </body>
 
 </html>

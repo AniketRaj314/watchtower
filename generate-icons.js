@@ -81,17 +81,22 @@ function drawIcon(size) {
   ctx.fill();
   ctx.stroke();
 
-  // Signal dot (centre of window)
+  // Signal dot (centre of window) + concentric glow
   const dotCx = cx;
   const dotCy = winY + winH / 2;
 
-  // Glow ring
-  ctx.fillStyle = 'rgba(0, 200, 150, 0.3)';
-  ctx.beginPath();
-  ctx.arc(dotCx, dotCy, 12 * s, 0, Math.PI * 2);
-  ctx.fill();
+  const glowRings = [
+    { r: 18 * s, a: 0.3 },
+    { r: 14 * s, a: 0.15 },
+    { r: 10 * s, a: 0.08 },
+  ];
+  glowRings.forEach(({ r, a }) => {
+    ctx.fillStyle = `rgba(0, 200, 150, ${a})`;
+    ctx.beginPath();
+    ctx.arc(dotCx, dotCy, r, 0, Math.PI * 2);
+    ctx.fill();
+  });
 
-  // Signal dot
   ctx.fillStyle = '#00C896';
   ctx.beginPath();
   ctx.arc(dotCx, dotCy, 5 * s, 0, Math.PI * 2);

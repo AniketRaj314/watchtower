@@ -1,0 +1,166 @@
+#screen-settings {
+  padding-bottom: 16px;
+}
+
+.settings-section-label {
+  font-family: 'DM Mono', monospace;
+  font-size: 10px;
+  color: var(--text-muted);
+  letter-spacing: 0.08em;
+  margin: 12px 0 8px;
+}
+
+.settings-section-label:first-child {
+  margin-top: 0;
+}
+
+/* Medication row (injected) */
+.settings-med-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  background: var(--bg-surface);
+  border: 0.5px solid var(--border);
+  border-radius: 10px;
+  padding: 12px 14px;
+  margin-bottom: 8px;
+}
+
+.settings-med-left {
+  min-width: 0;
+  flex: 1;
+}
+
+.settings-med-name {
+  font-family: 'DM Mono', monospace;
+  font-size: 13px;
+  font-weight: 500;
+  color: var(--text-primary);
+}
+
+.settings-med-meta {
+  font-family: 'DM Mono', monospace;
+  font-size: 10px;
+  color: var(--text-muted);
+  margin-top: 2px;
+}
+
+.settings-med-pill {
+  display: inline-block;
+  margin-top: 6px;
+  font-family: 'DM Mono', monospace;
+  font-size: 9px;
+  letter-spacing: 0.04em;
+  padding: 2px 6px;
+  border-radius: 4px;
+  background: rgba(245, 166, 35, 0.1);
+  color: var(--reading-amber);
+  border: 0.5px solid var(--reading-amber);
+}
+
+.settings-med-row .toggle {
+  flex-shrink: 0;
+}
+
+/* Tappable rows: Security, Data */
+.settings-row-btn {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+  text-align: left;
+  background: var(--bg-surface);
+  border: 0.5px solid var(--border);
+  border-radius: 10px;
+  padding: 12px 14px;
+  margin-bottom: 8px;
+  cursor: pointer;
+  transition: background 0.15s;
+}
+
+.settings-row-btn:active {
+  background: var(--bg-raised);
+}
+
+.settings-row-label {
+  font-family: 'DM Sans', system-ui, sans-serif;
+  font-size: 14px;
+  color: var(--text-primary);
+}
+
+.settings-chevron {
+  width: 18px;
+  height: 18px;
+  stroke: var(--text-muted);
+  fill: none;
+  stroke-width: 1.5;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  flex-shrink: 0;
+}
+
+/* Appearance: same card as rows */
+.settings-appearance-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background: var(--bg-surface);
+  border: 0.5px solid var(--border);
+  border-radius: 10px;
+  padding: 12px 14px;
+  margin-bottom: 8px;
+}
+
+.settings-appearance-label {
+  font-family: 'DM Sans', system-ui, sans-serif;
+  font-size: 14px;
+  color: var(--text-primary);
+}
+
+.settings-about-chevron {
+  transition: transform 0.2s;
+}
+
+#settings-about-trigger.is-open .settings-about-chevron {
+  transform: rotate(90deg);
+}
+
+.settings-about-panel {
+  background: var(--bg-surface);
+  border: 0.5px solid var(--border);
+  border-radius: 10px;
+  padding: 12px 14px;
+  margin-bottom: 8px;
+  margin-top: -4px;
+}
+
+.settings-about-version {
+  font-family: 'DM Mono', monospace;
+  font-size: 13px;
+  font-weight: 500;
+  color: var(--text-primary);
+  margin-bottom: 8px;
+}
+
+.settings-about-body {
+  font-family: 'DM Sans', system-ui, sans-serif;
+  font-size: 13px;
+  color: var(--text-secondary);
+  line-height: 1.45;
+  margin-bottom: 10px;
+}
+
+.settings-about-wordmark {
+  font-family: 'DM Mono', monospace;
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  margin-bottom: 6px;
+}
+
+.settings-about-tagline {
+  font-family: 'DM Sans', system-ui, sans-serif;
+  font-size: 12px;
+  color: var(--text-muted);
+}

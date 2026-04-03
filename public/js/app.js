@@ -173,6 +173,9 @@
     if (target === 'insights' && window.WT_INSIGHTS && typeof window.WT_INSIGHTS.onEnter === 'function') {
       window.WT_INSIGHTS.onEnter();
     }
+    if (target === 'settings' && window.WT_SETTINGS && typeof window.WT_SETTINGS.onEnter === 'function') {
+      window.WT_SETTINGS.onEnter();
+    }
   }
 
   navItems.forEach(item => {
@@ -181,36 +184,26 @@
 
   window.addEventListener('hashchange', () => navigate(location.hash));
 
-  // ── Theme toggle ──
-  const themeBtn = document.getElementById('theme-toggle');
-  const sunIcon = document.getElementById('icon-sun');
-  const moonIcon = document.getElementById('icon-moon');
-
-  function applyTheme() {
-    const isLight = document.documentElement.classList.contains('light');
-    sunIcon.style.display = isLight ? 'none' : 'block';
-    moonIcon.style.display = isLight ? 'block' : 'none';
-  }
-
-  themeBtn.addEventListener('click', () => {
+  // ── Theme (Settings → WT_APP.toggleTheme; no header control) ──
+  function toggleTheme() {
     document.documentElement.classList.toggle('light');
     document.documentElement.classList.toggle('dark');
     localStorage.setItem('wt_theme', document.documentElement.classList.contains('light') ? 'light' : 'dark');
-    applyTheme();
     const insightsScreen = document.getElementById('screen-insights');
     if (insightsScreen && insightsScreen.classList.contains('active') && window.WT_INSIGHTS && typeof window.WT_INSIGHTS.refreshTheme === 'function') {
       window.WT_INSIGHTS.refreshTheme();
     }
-  });
+  }
 
-  // Restore saved theme
+  window.WT_APP = window.WT_APP || {};
+  window.WT_APP.toggleTheme = toggleTheme;
+
   const saved = localStorage.getItem('wt_theme');
   if (saved === 'light') {
     document.documentElement.classList.add('light');
   } else if (saved === 'dark') {
     document.documentElement.classList.add('dark');
   }
-  applyTheme();
 
   // ── Service worker ──
   if ('serviceWorker' in navigator) {
