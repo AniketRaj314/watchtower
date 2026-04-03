@@ -29,36 +29,19 @@
     <div class="toast-text" id="toast-text"></div>
   </div>
 
-  <!-- PIN Screen -->
-  <div id="pin-screen" class="pin-screen hidden">
-    <div id="pin-title" class="pin-title">SET UP PIN</div>
-    <div id="pin-subtitle" class="pin-subtitle">Choose a 4-digit PIN</div>
-    <div id="pin-dots" class="pin-dots">
-      <div class="pin-dot"></div>
-      <div class="pin-dot"></div>
-      <div class="pin-dot"></div>
-      <div class="pin-dot"></div>
+  <!-- Login (session cookie) — hidden until boot decides -->
+  <div id="login-screen" class="login-screen hidden">
+    <div class="login-wordmark">
+      <span class="wordmark-watch">WATCH</span><span class="wordmark-tower">TOWER</span>
     </div>
-    <div id="pin-keypad" class="pin-keypad">
-      <button class="pin-key" data-val="1">1</button>
-      <button class="pin-key" data-val="2">2</button>
-      <button class="pin-key" data-val="3">3</button>
-      <button class="pin-key" data-val="4">4</button>
-      <button class="pin-key" data-val="5">5</button>
-      <button class="pin-key" data-val="6">6</button>
-      <button class="pin-key" data-val="7">7</button>
-      <button class="pin-key" data-val="8">8</button>
-      <button class="pin-key" data-val="9">9</button>
-      <button class="pin-key empty"></button>
-      <button class="pin-key" data-val="0">0</button>
-      <button class="pin-key backspace" data-val="back">
-        <svg viewBox="0 0 24 24">
-          <path d="M9 14l2-2m0 0l2-2m-2 2l-2-2m2 2l2 2m5-2a9 9 0 11-6.219-8.56" />
-        </svg>
-      </button>
-    </div>
-    <button id="pin-confirm" class="pin-confirm" disabled>CONFIRM</button>
-    <div id="pin-lockout" class="pin-lockout"></div>
+    <p class="login-hint">Sign in to continue</p>
+    <form id="login-form" class="login-form" autocomplete="on">
+      <label class="login-label" for="login-password">Password</label>
+      <input id="login-password" class="login-input" type="password" name="password" autocomplete="current-password"
+        required />
+      <button type="submit" class="login-submit">Sign in</button>
+      <div id="login-error" class="login-error hidden" role="alert"></div>
+    </form>
   </div>
 
   <!-- App shell -->
@@ -272,9 +255,9 @@
       <div class="settings-section-label">MEDICATIONS</div>
       <div id="settings-meds-list"></div>
 
-      <div class="settings-section-label">SECURITY</div>
-      <button type="button" id="settings-change-pin" class="settings-row-btn">
-        <span class="settings-row-label">Change PIN</span>
+      <div class="settings-section-label">SESSION</div>
+      <button type="button" id="settings-logout" class="settings-row-btn">
+        <span class="settings-row-label">Log out</span>
         <svg class="settings-chevron" viewBox="0 0 24 24" aria-hidden="true">
           <polyline points="9 6 15 12 9 18" />
         </svg>

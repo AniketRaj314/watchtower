@@ -1,7 +1,8 @@
 require('dotenv').config();
 
 const express = require('express');
-const auth = require('./middleware/auth');
+const sessionAuth = require('./middleware/sessionAuth');
+const authRouter = require('./routes/auth');
 const mealsRouter = require('./routes/meals');
 const readingsRouter = require('./routes/readings');
 const medicationsRouter = require('./routes/medications');
@@ -24,14 +25,14 @@ app.get('/health', (req, res) => {
   res.json({ watchtower: 'online', server: SERVER, runtimeSec });
 });
 
-app.use(auth);
+app.use('/api', authRouter);
 
-app.use('/api/meals', mealsRouter);
-app.use('/api/readings', readingsRouter);
-app.use('/api/medications', medicationsRouter);
-app.use('/api/day', dayRouter);
-app.use('/api/log/natural', naturalRouter);
-app.use('/api/demo', demoRouter);
+app.use('/api/meals', sessionAuth, mealsRouter);
+app.use('/api/readings', sessionAuth, readingsRouter);
+app.use('/api/medications', sessionAuth, medicationsRouter);
+app.use('/api/day', sessionAuth, dayRouter);
+app.use('/api/log/natural', sessionAuth, naturalRouter);
+app.use('/api/demo', sessionAuth, demoRouter);
 
 app.listen(PORT, () => {
   console.log(`Watchtower running on port ${PORT}`);

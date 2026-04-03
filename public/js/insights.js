@@ -1,10 +1,7 @@
 (function () {
   'use strict';
 
-  const headers = {
-    'Content-Type': 'application/json',
-    'X-API-Key': window.WT_CONFIG.apiKey,
-  };
+  const cred = { credentials: 'include' };
 
   const totalReadingsEl = document.getElementById('insights-total-readings');
   const avgFastingEl = document.getElementById('insights-avg-fasting');
@@ -340,8 +337,8 @@
   async function loadInsights() {
     try {
       const [readingsRes, mealsRes] = await Promise.all([
-        fetch(window.WT_DEMO.apiUrl('/api/readings'), { headers }),
-        fetch(window.WT_DEMO.apiUrl('/api/meals'), { headers }),
+        fetch(window.WT_DEMO.apiUrl('/api/readings'), { ...cred }),
+        fetch(window.WT_DEMO.apiUrl('/api/meals'), { ...cred }),
       ]);
       if (!readingsRes.ok || !mealsRes.ok) throw new Error('failed');
 

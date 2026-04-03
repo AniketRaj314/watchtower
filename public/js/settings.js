@@ -1,13 +1,11 @@
 (function () {
   'use strict';
 
-  const headers = {
-    'Content-Type': 'application/json',
-    'X-API-Key': window.WT_CONFIG.apiKey,
-  };
+  const jsonHeaders = { 'Content-Type': 'application/json' };
+  const cred = { credentials: 'include' };
 
   const medsListEl = document.getElementById('settings-meds-list');
-  const changePinBtn = document.getElementById('settings-change-pin');
+  const logoutBtn = document.getElementById('settings-logout');
   const themeToggleEl = document.getElementById('settings-theme-toggle');
   const demoToggleEl = document.getElementById('settings-demo-toggle');
   const exportBtn = document.getElementById('settings-export');
@@ -126,8 +124,9 @@
         const newVal = nextOn ? 1 : 0;
         const base = window.WT_CONFIG.apiBase || '';
         fetch(`${base}/api/medications/${m.id}`, {
+          ...cred,
           method: 'PATCH',
-          headers,
+          headers: jsonHeaders,
           body: JSON.stringify({ is_active: newVal }),
         })
           .then((res) => {
@@ -149,7 +148,7 @@
   }
 
   function loadMedications() {
-    return fetch(window.WT_DEMO.apiUrl('/api/medications'), { headers })
+    return fetch(window.WT_DEMO.apiUrl('/api/medications'), { ...cred })
       .then((res) => (res.ok ? res.json() : []))
       .then((meds) => renderMedications(Array.isArray(meds) ? meds : []))
       .catch(() => {
@@ -190,7 +189,7 @@
   function exportToday() {
     const dateStr = todayStr();
     const demo = window.WT_DEMO && window.WT_DEMO.isDemoMode();
-    fetch(window.WT_DEMO.apiUrl('/api/day/' + dateStr), { headers })
+    fetch(window.WT_DEMO.apiUrl('/api/day/' + dateStr), { ...cred })
       .then((res) => {
         if (!res.ok) throw new Error('export failed');
         return res.json();
@@ -208,11 +207,12 @@
       .catch(() => { });
   }
 
-  if (changePinBtn) {
-    changePinBtn.addEventListener('click', () => {
-      localStorage.removeItem('wt_pin_hash');
-      sessionStorage.removeItem('wt_unlocked');
-      location.reload();
+  if (logoutBtn) {
+    logoutBtn.addEventListener('click', () => {
+      const baseUrl = window.WT_CONFIG.apiBase || '';
+      fetch(`${baseUrl}/api/logout`, { method: 'POST', ...cred }).finally(() => {
+        location.reload();
+      });
     });
   }
 

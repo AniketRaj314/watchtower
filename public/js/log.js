@@ -1,10 +1,8 @@
 (function () {
   'use strict';
 
-  const headers = {
-    'Content-Type': 'application/json',
-    'X-API-Key': window.WT_CONFIG.apiKey,
-  };
+  const jsonHeaders = { 'Content-Type': 'application/json' };
+  const cred = { credentials: 'include' };
 
   // ── Toast ──
   const toastEl = document.getElementById('toast');
@@ -158,7 +156,7 @@
   // Fetch today's meals and render toggleable chips filtered to 3hr window
   async function loadMealChips(autoSelectId) {
     try {
-      const res = await fetch(window.WT_DEMO.apiUrl('/api/meals/today'), { headers });
+      const res = await fetch(window.WT_DEMO.apiUrl('/api/meals/today'), { ...cred });
       if (!res.ok) return;
       const meals = await res.json();
 
@@ -236,8 +234,9 @@
 
     try {
       const res = await fetch(window.WT_DEMO.apiUrl('/api/readings'), {
+        ...cred,
         method: 'POST',
-        headers,
+        headers: jsonHeaders,
         body: JSON.stringify(payload),
       });
       if (!res.ok) throw new Error();
@@ -322,8 +321,9 @@
 
     try {
       const res = await fetch(window.WT_DEMO.apiUrl('/api/meals'), {
+        ...cred,
         method: 'POST',
-        headers,
+        headers: jsonHeaders,
         body: JSON.stringify(payload),
       });
       if (!res.ok) throw new Error();
@@ -442,8 +442,8 @@
   async function smartExpandCards() {
     try {
       const [rRes, mRes] = await Promise.all([
-        fetch(window.WT_DEMO.apiUrl('/api/readings/today'), { headers }),
-        fetch(window.WT_DEMO.apiUrl('/api/meals/today'), { headers }),
+        fetch(window.WT_DEMO.apiUrl('/api/readings/today'), { ...cred }),
+        fetch(window.WT_DEMO.apiUrl('/api/meals/today'), { ...cred }),
       ]);
       const readings = rRes.ok ? await rRes.json() : [];
       const meals = mRes.ok ? await mRes.json() : [];

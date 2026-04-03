@@ -106,8 +106,8 @@
   color: var(--accent);
 }
 
-/* --- PIN screens --- */
-.pin-screen {
+/* --- Login (session cookie) --- */
+.login-screen {
   position: fixed;
   inset: 0;
   z-index: 100;
@@ -116,95 +116,63 @@
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  gap: 32px;
-  padding-top: env(safe-area-inset-top, 0);
+  gap: 20px;
+  padding: 24px 24px env(safe-area-inset-bottom, 24px);
+  padding-top: calc(env(safe-area-inset-top, 0) + 24px);
 }
 
-.pin-screen.hidden {
+.login-screen.hidden {
   display: none;
 }
 
-.pin-title {
+.login-wordmark {
   font-family: 'DM Mono', monospace;
-  font-size: 15px;
+  font-size: 18px;
   font-weight: 700;
   letter-spacing: 0.06em;
-  color: var(--text-primary);
 }
 
-.pin-subtitle {
+.login-hint {
+  margin: 0;
   font-size: 13px;
   color: var(--text-secondary);
-  margin-top: -20px;
 }
 
-.pin-dots {
+.login-form {
+  width: 100%;
+  max-width: 320px;
   display: flex;
-  gap: 16px;
-}
-
-.pin-dot {
-  width: 14px;
-  height: 14px;
-  border-radius: 50%;
-  border: 1.5px solid var(--border);
-  background: transparent;
-  transition: background 0.15s, border-color 0.15s;
-}
-
-.pin-dot.filled {
-  background: var(--accent);
-  border-color: var(--accent);
-}
-
-.pin-dot.error {
-  background: var(--reading-red);
-  border-color: var(--reading-red);
-}
-
-.pin-keypad {
-  display: grid;
-  grid-template-columns: repeat(3, 72px);
+  flex-direction: column;
   gap: 12px;
 }
 
-.pin-key {
-  width: 72px;
-  height: 52px;
+.login-label {
+  font-family: 'DM Mono', monospace;
+  font-size: 11px;
+  letter-spacing: 0.06em;
+  color: var(--text-muted);
+}
+
+.login-input {
+  width: 100%;
+  box-sizing: border-box;
+  padding: 14px 16px;
   border-radius: 12px;
   background: var(--bg-raised);
   border: 0.5px solid var(--border-subtle);
   font-family: 'DM Mono', monospace;
-  font-size: 20px;
-  font-weight: 500;
+  font-size: 15px;
   color: var(--text-primary);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  transition: background 0.1s;
 }
 
-.pin-key:active {
-  background: var(--accent-dim);
+.login-input:focus {
+  outline: none;
+  border-color: var(--accent);
 }
 
-.pin-key.empty {
-  visibility: hidden;
-}
-
-.pin-key.backspace svg {
-  width: 20px;
-  height: 20px;
-  stroke: var(--text-secondary);
-  fill: none;
-  stroke-width: 1.5;
-  stroke-linecap: round;
-  stroke-linejoin: round;
-}
-
-.pin-confirm {
+.login-submit {
   margin-top: 4px;
-  padding: 12px 48px;
+  padding: 14px 24px;
   border-radius: 12px;
   background: var(--accent);
   color: #fff;
@@ -212,15 +180,21 @@
   font-size: 13px;
   font-weight: 500;
   letter-spacing: 0.04em;
-  transition: opacity 0.15s;
+  border: none;
+  cursor: pointer;
 }
 
-.pin-confirm:disabled {
-  opacity: 0.3;
+.login-submit:active {
+  opacity: 0.9;
 }
 
-.pin-lockout {
+.login-error {
   font-family: 'DM Mono', monospace;
-  font-size: 13px;
+  font-size: 12px;
   color: var(--reading-red);
+  text-align: center;
+}
+
+.login-error.hidden {
+  display: none;
 }

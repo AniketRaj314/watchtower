@@ -1,10 +1,7 @@
 (function () {
   'use strict';
 
-  const headers = {
-    'Content-Type': 'application/json',
-    'X-API-Key': window.WT_CONFIG.apiKey,
-  };
+  const cred = { credentials: 'include' };
 
   const thresholds = {
     fasting: { green: 100, amber: 126 },
@@ -243,7 +240,7 @@
     timeline.classList.add('tl-loading');
 
     try {
-      const res = await fetch(window.WT_DEMO.apiUrl('/api/day/' + dateStr), { headers });
+      const res = await fetch(window.WT_DEMO.apiUrl('/api/day/' + dateStr), { ...cred });
       if (!res.ok) return;
       const data = await res.json();
       renderStats(data.readings);
