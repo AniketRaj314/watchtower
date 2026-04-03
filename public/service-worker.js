@@ -1,4 +1,4 @@
-const CACHE_NAME = 'watchtower-v11';
+const CACHE_NAME = 'watchtower-v12';
 const SHELL_ASSETS = [
   '/',
   '/index.html',
@@ -15,8 +15,11 @@ const SHELL_ASSETS = [
   '/js/insights.js',
   '/js/settings.js',
   '/manifest.json',
+  '/icons/icon-48.png',
   '/icons/icon-192.png',
   '/icons/icon-512.png',
+  '/icons/icon-192-light.png',
+  '/icons/icon-512-light.png',
 ];
 
 self.addEventListener('install', (e) => {
