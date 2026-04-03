@@ -7,11 +7,11 @@
   };
 
   const thresholds = {
-    fasting:     { green: 100, amber: 126 },
+    fasting: { green: 100, amber: 126 },
     'post-meal': { green: 140, amber: 200 },
-    'pre-meal':  { green: 120, amber: 160 },
-    random:      { green: 140, amber: 180 },
-    bedtime:     { green: 120, amber: 150 },
+    'pre-meal': { green: 120, amber: 160 },
+    random: { green: 140, amber: 180 },
+    bedtime: { green: 120, amber: 150 },
   };
 
   function colourClass(val, type) {
@@ -264,7 +264,7 @@
     }
   }, { passive: true });
 
-  screenEl.addEventListener('touchmove', () => {}, { passive: true });
+  screenEl.addEventListener('touchmove', () => { }, { passive: true });
 
   screenEl.addEventListener('touchend', (e) => {
     if (!pulling) return;

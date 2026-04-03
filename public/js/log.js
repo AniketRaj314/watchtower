@@ -25,11 +25,11 @@
 
   // ── Colour thresholds ──
   const thresholds = {
-    fasting:     { green: 100, amber: 126 },
+    fasting: { green: 100, amber: 126 },
     'post-meal': { green: 140, amber: 200 },
-    'pre-meal':  { green: 120, amber: 160 },
-    random:      { green: 140, amber: 180 },
-    bedtime:     { green: 120, amber: 150 },
+    'pre-meal': { green: 120, amber: 160 },
+    random: { green: 140, amber: 180 },
+    bedtime: { green: 120, amber: 150 },
   };
 
   function getColourClass(val, type) {
@@ -41,11 +41,11 @@
 
   // ── Range indicator ──
   const rangeData = {
-    fasting:     { green: [0, 99, 'Under 100'],   amber: [100, 125, '100 – 125'],  red: [126, Infinity, '126 and above'] },
-    'post-meal': { green: [0, 139, 'Under 140'],  amber: [140, 199, '140 – 199'],  red: [200, Infinity, '200 and above'] },
-    'pre-meal':  { green: [0, 119, 'Under 120'],  amber: [120, 159, '120 – 159'],  red: [160, Infinity, '160 and above'] },
-    random:      { green: [0, 139, 'Under 140'],  amber: [140, 179, '140 – 179'],  red: [180, Infinity, '180 and above'] },
-    bedtime:     { green: [0, 119, 'Under 120'],  amber: [120, 149, '120 – 149'],  red: [150, Infinity, '150 and above'] },
+    fasting: { green: [0, 99, 'Under 100'], amber: [100, 125, '100 – 125'], red: [126, Infinity, '126 and above'] },
+    'post-meal': { green: [0, 139, 'Under 140'], amber: [140, 199, '140 – 199'], red: [200, Infinity, '200 and above'] },
+    'pre-meal': { green: [0, 119, 'Under 120'], amber: [120, 159, '120 – 159'], red: [160, Infinity, '160 and above'] },
+    random: { green: [0, 139, 'Under 140'], amber: [140, 179, '140 – 179'], red: [180, Infinity, '180 and above'] },
+    bedtime: { green: [0, 119, 'Under 120'], amber: [120, 149, '120 – 149'], red: [150, Infinity, '150 and above'] },
   };
 
   const rangeEl = document.getElementById('range-indicator');

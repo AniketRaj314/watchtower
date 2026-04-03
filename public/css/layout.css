@@ -26,8 +26,14 @@
   font-weight: 700;
   letter-spacing: 0.06em;
 }
-.wordmark-watch { color: var(--text-primary); }
-.wordmark-tower { color: var(--accent); }
+
+.wordmark-watch {
+  color: var(--text-primary);
+}
+
+.wordmark-tower {
+  color: var(--accent);
+}
 
 /* --- Screens --- */
 .screen {
@@ -37,7 +43,10 @@
   padding: 0 16px 24px;
   -webkit-overflow-scrolling: touch;
 }
-.screen.active { display: block; }
+
+.screen.active {
+  display: block;
+}
 
 .screen-placeholder {
   display: flex;
@@ -70,6 +79,7 @@
   position: relative;
   transition: color 0.15s;
 }
+
 .nav-item svg {
   width: 20px;
   height: 20px;
@@ -80,14 +90,21 @@
   stroke-linejoin: round;
   transition: stroke 0.15s;
 }
+
 .nav-item span {
   font-family: 'DM Mono', monospace;
   font-size: 10px;
   color: var(--text-muted);
   transition: color 0.15s;
 }
-.nav-item.active svg { stroke: var(--accent); }
-.nav-item.active span { color: var(--accent); }
+
+.nav-item.active svg {
+  stroke: var(--accent);
+}
+
+.nav-item.active span {
+  color: var(--accent);
+}
 
 /* --- PIN screens --- */
 .pin-screen {
@@ -102,7 +119,10 @@
   gap: 32px;
   padding-top: env(safe-area-inset-top, 0);
 }
-.pin-screen.hidden { display: none; }
+
+.pin-screen.hidden {
+  display: none;
+}
 
 .pin-title {
   font-family: 'DM Mono', monospace;
@@ -111,13 +131,18 @@
   letter-spacing: 0.06em;
   color: var(--text-primary);
 }
+
 .pin-subtitle {
   font-size: 13px;
   color: var(--text-secondary);
   margin-top: -20px;
 }
 
-.pin-dots { display: flex; gap: 16px; }
+.pin-dots {
+  display: flex;
+  gap: 16px;
+}
+
 .pin-dot {
   width: 14px;
   height: 14px;
@@ -126,10 +151,12 @@
   background: transparent;
   transition: background 0.15s, border-color 0.15s;
 }
+
 .pin-dot.filled {
   background: var(--accent);
   border-color: var(--accent);
 }
+
 .pin-dot.error {
   background: var(--reading-red);
   border-color: var(--reading-red);
@@ -140,6 +167,7 @@
   grid-template-columns: repeat(3, 72px);
   gap: 12px;
 }
+
 .pin-key {
   width: 72px;
   height: 52px;
@@ -155,8 +183,15 @@
   justify-content: center;
   transition: background 0.1s;
 }
-.pin-key:active { background: var(--accent-dim); }
-.pin-key.empty { visibility: hidden; }
+
+.pin-key:active {
+  background: var(--accent-dim);
+}
+
+.pin-key.empty {
+  visibility: hidden;
+}
+
 .pin-key.backspace svg {
   width: 20px;
   height: 20px;
@@ -179,7 +214,10 @@
   letter-spacing: 0.04em;
   transition: opacity 0.15s;
 }
-.pin-confirm:disabled { opacity: 0.3; }
+
+.pin-confirm:disabled {
+  opacity: 0.3;
+}
 
 .pin-lockout {
   font-family: 'DM Mono', monospace;

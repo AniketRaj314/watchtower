@@ -139,7 +139,7 @@
             toggle.setAttribute('aria-checked', nextOn ? 'true' : 'false');
             showToast('Regimen updated.');
           })
-          .catch(() => {});
+          .catch(() => { });
       });
 
       row.appendChild(left);
@@ -205,7 +205,7 @@
         a.click();
         URL.revokeObjectURL(url);
       })
-      .catch(() => {});
+      .catch(() => { });
   }
 
   if (changePinBtn) {
