@@ -97,8 +97,8 @@
         <div class="reading-input-area">
           <div id="reading-display" class="reading-display">—</div>
           <div class="reading-unit">mg/dL</div>
-          <input id="reading-input" type="number" inputmode="numeric" pattern="[0-9]*"
-                 class="reading-hidden-input" aria-label="Blood glucose value">
+          <input id="reading-input" type="number" inputmode="numeric" pattern="[0-9]*" class="reading-hidden-input"
+            aria-label="Blood glucose value">
         </div>
 
         <div class="chip-row" id="reading-type-chips">
@@ -151,11 +151,32 @@
       </div>
 
     </div>
-    <div id="screen-today" class="screen">
+    <div id="screen-timeline" class="screen">
+      <!-- Date nav -->
+      <div class="date-nav">
+        <button id="date-prev" class="date-nav-btn" aria-label="Previous day">
+          <svg viewBox="0 0 24 24">
+            <polyline points="15 18 9 12 15 6" />
+          </svg>
+        </button>
+        <div id="date-centre" class="date-centre">
+          <div id="date-display" class="date-display"></div>
+          <div id="date-relative" class="date-relative"></div>
+          <input id="date-picker" type="date" class="date-picker-input">
+        </div>
+        <button id="date-next" class="date-nav-btn" aria-label="Next day" disabled>
+          <svg viewBox="0 0 24 24">
+            <polyline points="9 6 15 12 9 18" />
+          </svg>
+        </button>
+      </div>
+
+      <!-- Header badges -->
       <div class="today-header">
-        <div id="today-date" class="today-date"></div>
         <div id="today-header-badges" class="today-header-badges"></div>
       </div>
+
+      <!-- Stats -->
       <div id="today-stats" class="today-stats">
         <div class="stat-cell">
           <div class="stat-label">FASTING</div>
@@ -166,7 +187,7 @@
           <div class="stat-value" id="stat-postmeal">—</div>
         </div>
       </div>
-      <div class="today-section-label">TODAY'S SIGNAL</div>
+      <div id="tl-section-label" class="today-section-label">TODAY'S SIGNAL</div>
       <div id="today-timeline" class="today-timeline"></div>
     </div>
     <div id="screen-insights" class="screen">
@@ -189,7 +210,7 @@
         </div>
       </div>
 
-      <div class="insights-section-label">14-DAY SIGNAL</div>
+      <div class="insights-section-label">7-DAY SIGNAL</div>
       <div class="insights-card">
         <div class="insights-chart-wrap">
           <canvas id="insights-trend-chart"></canvas>
@@ -231,12 +252,12 @@
         </svg>
         <span>Log</span>
       </button>
-      <button class="nav-item" data-screen="today">
+      <button class="nav-item" data-screen="timeline">
         <svg viewBox="0 0 24 24">
           <circle cx="12" cy="12" r="9" />
           <polyline points="12 7 12 12 15 15" />
         </svg>
-        <span>Today</span>
+        <span>Timeline</span>
       </button>
       <button class="nav-item" data-screen="insights">
         <svg viewBox="0 0 24 24">

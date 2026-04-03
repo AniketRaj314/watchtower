@@ -14,6 +14,7 @@
   --text-primary: #F0F0F0;
   --text-secondary: #808080;
   --text-muted: #444444;
+  --insights-line: #FFFFFF;
   --reading-green: #00C896;
   --reading-amber: #F5A623;
   --reading-red: #E24B4A;
@@ -36,6 +37,8 @@
   --text-primary: #0A0A0A;
   --text-secondary: #555555;
   --text-muted: #AAAAAA;
+  /* Use the same green as elsewhere for the chart line in light mode */
+  --insights-line: #0A8F68;
   --reading-green: #0A8F68;
   --reading-amber: #C47F00;
   --reading-red: #C0392B;
@@ -65,6 +68,8 @@
     --reading-green-bg: rgba(10, 143, 104, 0.08);
     --reading-amber-bg: rgba(196, 127, 0, 0.08);
     --reading-red-bg: rgba(192, 57, 43, 0.08);
+    /* Match explicit light theme insight colour */
+    --insights-line: #0A8F68;
   }
 }
 

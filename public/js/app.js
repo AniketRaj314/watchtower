@@ -167,6 +167,9 @@
     if (target === 'log' && window.WT_LOG && typeof window.WT_LOG.onEnter === 'function') {
       window.WT_LOG.onEnter();
     }
+    if (target === 'timeline' && window.WT_TIMELINE && typeof window.WT_TIMELINE.onEnter === 'function') {
+      window.WT_TIMELINE.onEnter();
+    }
     if (target === 'insights' && window.WT_INSIGHTS && typeof window.WT_INSIGHTS.onEnter === 'function') {
       window.WT_INSIGHTS.onEnter();
     }
@@ -194,6 +197,10 @@
     document.documentElement.classList.toggle('dark');
     localStorage.setItem('wt_theme', document.documentElement.classList.contains('light') ? 'light' : 'dark');
     applyTheme();
+    const insightsScreen = document.getElementById('screen-insights');
+    if (insightsScreen && insightsScreen.classList.contains('active') && window.WT_INSIGHTS && typeof window.WT_INSIGHTS.refreshTheme === 'function') {
+      window.WT_INSIGHTS.refreshTheme();
+    }
   });
 
   // Restore saved theme

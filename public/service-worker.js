@@ -1,4 +1,4 @@
-const CACHE_NAME = 'watchtower-v3';
+const CACHE_NAME = 'watchtower-v10';
 const SHELL_ASSETS = [
   '/',
   '/index.html',
@@ -7,9 +7,11 @@ const SHELL_ASSETS = [
   '/css/layout.css',
   '/css/log.css',
   '/css/today.css',
+  '/css/insights.css',
   '/js/app.js',
   '/js/log.js',
   '/js/today.js',
+  '/js/insights.js',
   '/manifest.json',
   '/icons/icon-192.png',
   '/icons/icon-512.png',
@@ -33,7 +35,26 @@ self.addEventListener('activate', (e) => {
 
 self.addEventListener('fetch', (e) => {
   if (e.request.url.includes('/api/')) return;
+
+  // Network-first for HTML/CSS/JS so updates propagate immediately.
+  // Fall back to cache only when offline.
   e.respondWith(
-    caches.match(e.request).then((cached) => cached || fetch(e.request))
+    fetch(e.request)
+      .then((res) => {
+        const clone = res.clone();
+        caches.open(CACHE_NAME).then((cache) => {
+          // Strip query string for cache key so ?v=X assets update the base entry
+          const url = new URL(e.request.url);
+          url.search = '';
+          cache.put(url.toString(), clone);
+        });
+        return res;
+      })
+      .catch(() => {
+        // Offline — try cache with stripped query string
+        const url = new URL(e.request.url);
+        url.search = '';
+        return caches.match(url.toString()).then((cached) => cached || caches.match(e.request));
+      })
   );
 });

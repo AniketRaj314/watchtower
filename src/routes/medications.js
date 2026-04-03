@@ -14,7 +14,7 @@ router.patch('/:id', (req, res) => {
     return res.status(404).json({ error: 'Medication not found' });
   }
 
-  const allowed = ['name', 'dose', 'frequency', 'is_default', 'is_active', 'notes'];
+  const allowed = ['name', 'dose', 'frequency', 'schedule', 'is_default', 'is_active', 'notes'];
   const updates = [];
   const values = [];
 

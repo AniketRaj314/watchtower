@@ -292,7 +292,7 @@
 
 .toast {
   position: fixed;
-  top: calc(env(safe-area-inset-top, 0px) + 12px);
+  top: calc(env(safe-area-inset-top, 0px) + 54px);
   left: 16px;
   right: 16px;
   z-index: 200;
@@ -303,11 +303,18 @@
   border: 0.5px solid var(--accent);
   border-radius: 10px;
   padding: 10px 14px;
-  transform: translateY(-120%);
-  transition: transform 0.3s ease;
+  opacity: 0;
+  visibility: hidden;
+  pointer-events: none;
+  transform: translateY(-8px);
+  transition: transform 0.2s ease, opacity 0.2s ease, visibility 0.2s;
 }
 
-.toast.show { transform: translateY(0); }
+.toast.show {
+  opacity: 1;
+  visibility: visible;
+  transform: translateY(0);
+}
 
 .toast.error { border-color: var(--reading-red); }
 

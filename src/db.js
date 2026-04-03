@@ -13,6 +13,7 @@ db.exec(`
     name TEXT NOT NULL,
     dose TEXT NOT NULL,
     frequency TEXT NOT NULL,
+    schedule TEXT NOT NULL DEFAULT '1-1-1',
     is_default INTEGER NOT NULL DEFAULT 0,
     is_active INTEGER NOT NULL DEFAULT 0,
     notes TEXT
@@ -39,14 +40,50 @@ db.exec(`
   );
 `);
 
+// Migrate: add schedule column if missing (existing DBs)
+const cols = db.prepare("PRAGMA table_info(medications)").all().map(c => c.name);
+if (!cols.includes('schedule')) {
+  db.exec("ALTER TABLE medications ADD COLUMN schedule TEXT NOT NULL DEFAULT '1-1-1'");
+  // Update existing rows with correct schedules
+  db.prepare("UPDATE medications SET schedule = '1-0-1' WHERE name = 'Glycomet SR-500'").run();
+  db.prepare("UPDATE medications SET schedule = '1-0-0' WHERE name = 'Zoryl 1mg'").run();
+}
+
+// Migrate: recompute medication_snapshot on existing meals using schedules
+const needsSnapshotFix = db.prepare(
+  "SELECT id, meal_type, medication_snapshot FROM meals WHERE medication_taken = 1 AND medication_snapshot IS NOT NULL"
+).all();
+if (needsSnapshotFix.length > 0) {
+  const scheduleIndex = { breakfast: 0, lunch: 1, dinner: 2 };
+  const activeMeds = db.prepare('SELECT name, schedule FROM medications').all();
+  const update = db.prepare('UPDATE meals SET medication_snapshot = ? WHERE id = ?');
+  const fixAll = db.transaction(() => {
+    for (const meal of needsSnapshotFix) {
+      const idx = scheduleIndex[meal.meal_type];
+      let snapshot = null;
+      if (idx !== undefined) {
+        const filtered = activeMeds.filter(m => {
+          const parts = (m.schedule || '1-1-1').split('-');
+          return parts[idx] === '1';
+        });
+        snapshot = filtered.map(m => m.name).join(', ') || null;
+      }
+      if (snapshot !== meal.medication_snapshot) {
+        update.run(snapshot, meal.id);
+      }
+    }
+  });
+  fixAll();
+}
+
 // Seed medications if table is empty
 const count = db.prepare('SELECT COUNT(*) AS n FROM medications').get().n;
 if (count === 0) {
   const insert = db.prepare(
-    'INSERT INTO medications (name, dose, frequency, is_default, is_active, notes) VALUES (?, ?, ?, ?, ?, ?)'
+    'INSERT INTO medications (name, dose, frequency, schedule, is_default, is_active, notes) VALUES (?, ?, ?, ?, ?, ?, ?)'
   );
-  insert.run('Glycomet SR-500', '500mg', 'with breakfast and dinner', 1, 1, null);
-  insert.run('Zoryl 1mg', '0.5mg (half tablet)', 'before breakfast only', 0, 1, 'temporary');
+  insert.run('Glycomet SR-500', '500mg', 'with breakfast and dinner', '1-0-1', 1, 1, null);
+  insert.run('Zoryl 1mg', '0.5mg (half tablet)', 'before breakfast only', '1-0-0', 0, 1, 'temporary');
 }
 
 module.exports = db;

@@ -80,8 +80,16 @@ router.post('/', async (req, res) => {
       let medication_snapshot = null;
       const medTaken = m.medication_taken === true ? 1 : 0;
       if (medTaken) {
-        const meds = db.prepare('SELECT name FROM medications WHERE is_active = 1').all();
-        medication_snapshot = meds.map(med => med.name).join(', ') || null;
+        const scheduleIndex = { breakfast: 0, lunch: 1, dinner: 2 };
+        const idx = scheduleIndex[m.meal_type];
+        if (idx !== undefined) {
+          const meds = db.prepare('SELECT name, schedule FROM medications WHERE is_active = 1').all();
+          const filtered = meds.filter(med => {
+            const parts = (med.schedule || '1-1-1').split('-');
+            return parts[idx] === '1';
+          });
+          medication_snapshot = filtered.map(med => med.name).join(', ') || null;
+        }
       }
 
       const mealStmt = ts

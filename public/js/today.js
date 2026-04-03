@@ -22,16 +22,17 @@
     return 'red';
   }
 
-  function todayStr() {
-    const d = new Date();
+  const DAYS = ['SUN', 'MON', 'TUE', 'WED', 'THU', 'FRI', 'SAT'];
+  const MONTHS = ['JAN', 'FEB', 'MAR', 'APR', 'MAY', 'JUN', 'JUL', 'AUG', 'SEP', 'OCT', 'NOV', 'DEC'];
+
+  function dateToStr(d) {
     return `${d.getFullYear()}-${String(d.getMonth() + 1).padStart(2, '0')}-${String(d.getDate()).padStart(2, '0')}`;
   }
 
-  function formatDateHeader() {
-    const d = new Date();
-    const days = ['SUN', 'MON', 'TUE', 'WED', 'THU', 'FRI', 'SAT'];
-    const months = ['JAN', 'FEB', 'MAR', 'APR', 'MAY', 'JUN', 'JUL', 'AUG', 'SEP', 'OCT', 'NOV', 'DEC'];
-    return `${days[d.getDay()]} · ${months[d.getMonth()]} ${String(d.getDate()).padStart(2, '0')}`;
+  function todayStr() { return dateToStr(new Date()); }
+
+  function formatDateDisplay(d) {
+    return `${DAYS[d.getDay()]} · ${MONTHS[d.getMonth()]} ${String(d.getDate()).padStart(2, '0')}`;
   }
 
   function timeFromTs(ts) {
@@ -44,37 +45,104 @@
     return `<span class="reading-badge ${c}">${label} ${Math.round(val)}</span>`;
   }
 
-  // Elements
-  const dateEl = document.getElementById('today-date');
+  function escHtml(str) {
+    const d = document.createElement('div');
+    d.textContent = str;
+    return d.innerHTML;
+  }
+
+  function daysBetween(a, b) {
+    const msDay = 86400000;
+    const ua = Date.UTC(a.getFullYear(), a.getMonth(), a.getDate());
+    const ub = Date.UTC(b.getFullYear(), b.getMonth(), b.getDate());
+    return Math.round((ub - ua) / msDay);
+  }
+
+  // ── Elements ──
+  const dateDisplay = document.getElementById('date-display');
+  const dateRelative = document.getElementById('date-relative');
+  const datePicker = document.getElementById('date-picker');
+  const prevBtn = document.getElementById('date-prev');
+  const nextBtn = document.getElementById('date-next');
   const headerBadges = document.getElementById('today-header-badges');
   const statFasting = document.getElementById('stat-fasting');
   const statPostmeal = document.getElementById('stat-postmeal');
+  const statReadings = document.getElementById('stat-readings');
+  const sectionLabel = document.getElementById('tl-section-label');
   const timeline = document.getElementById('today-timeline');
-  const screenToday = document.getElementById('screen-today');
+  const screenEl = document.getElementById('screen-timeline');
 
-  dateEl.textContent = formatDateHeader();
+  // ── State ──
+  let currentDate = new Date();
 
-  // Build meal lookup for reading → meal links
+  function isToday(d) { return dateToStr(d) === todayStr(); }
+
+  function updateDateUI() {
+    dateDisplay.textContent = formatDateDisplay(currentDate);
+    datePicker.max = todayStr();
+    datePicker.value = dateToStr(currentDate);
+
+    if (isToday(currentDate)) {
+      dateRelative.textContent = 'Today';
+      dateRelative.classList.add('is-today');
+      nextBtn.disabled = true;
+      sectionLabel.textContent = "TODAY'S SIGNAL";
+    } else {
+      const diff = daysBetween(currentDate, new Date());
+      dateRelative.textContent = diff === 1 ? 'Yesterday' : `${diff} days ago`;
+      dateRelative.classList.remove('is-today');
+      nextBtn.disabled = false;
+      sectionLabel.textContent = 'SIGNAL';
+    }
+  }
+
+  // ── Navigation ──
+  function goToPrevDay() {
+    currentDate.setDate(currentDate.getDate() - 1);
+    updateDateUI();
+    loadDate();
+  }
+
+  function goToNextDay() {
+    if (isToday(currentDate)) return;
+    currentDate.setDate(currentDate.getDate() + 1);
+    updateDateUI();
+    loadDate();
+  }
+
+  function goToDate(str) {
+    const parts = str.split('-');
+    currentDate = new Date(Number(parts[0]), Number(parts[1]) - 1, Number(parts[2]));
+    updateDateUI();
+    loadDate();
+  }
+
+  prevBtn.addEventListener('click', goToPrevDay);
+  nextBtn.addEventListener('click', goToNextDay);
+  datePicker.addEventListener('change', () => {
+    if (datePicker.value) goToDate(datePicker.value);
+  });
+
+  // ── Data ──
   function buildMealMap(meals) {
     const map = {};
     meals.forEach(m => { map[m.id] = m; });
     return map;
   }
 
-  function renderTimeline(meals, readings) {
+  function renderTimeline(meals, readings, viewDate) {
     const mealMap = buildMealMap(meals);
-
-    // Merge and sort by timestamp
     const entries = [];
     meals.forEach(m => entries.push({ type: 'meal', data: m, ts: m.timestamp }));
     readings.forEach(r => entries.push({ type: 'reading', data: r, ts: r.timestamp }));
     entries.sort((a, b) => a.ts.localeCompare(b.ts));
 
     if (entries.length === 0) {
+      const today = isToday(viewDate);
       timeline.innerHTML = `
         <div class="today-empty">
-          <div class="today-empty-line">Watchtower is standing by.</div>
-          <div class="today-empty-line">Log your fasting reading to begin.</div>
+          <div class="today-empty-line">${today ? 'Watchtower is standing by.' : `No signal on ${formatDateDisplay(viewDate)}.`}</div>
+          <div class="today-empty-line">${today ? 'Log your fasting reading to begin.' : 'Nothing was logged this day.'}</div>
         </div>`;
       return;
     }
@@ -82,8 +150,8 @@
     timeline.innerHTML = entries.map((e, i) => {
       const time = timeFromTs(e.ts);
       const isLast = i === entries.length - 1;
-
       let card;
+
       if (e.type === 'meal') {
         const m = e.data;
         const mealType = m.meal_type.charAt(0).toUpperCase() + m.meal_type.slice(1);
@@ -155,66 +223,86 @@
       statPostmeal.className = 'stat-value';
     }
 
-    // Header badges: first fasting + latest post-meal
+    if (statReadings) {
+      statReadings.textContent = readings.length || '—';
+      statReadings.className = 'stat-value';
+    }
+
     let badges = '';
-    if (fasting.length) {
-      badges += badgeHtml('FASTING', fasting[0].bg_value, 'fasting');
-    }
-    if (postMeal.length) {
-      badges += badgeHtml('POST', postMeal[postMeal.length - 1].bg_value, 'post-meal');
-    }
+    if (fasting.length) badges += badgeHtml('FASTING', fasting[0].bg_value, 'fasting');
+    if (postMeal.length) badges += badgeHtml('POST', postMeal[postMeal.length - 1].bg_value, 'post-meal');
     headerBadges.innerHTML = badges;
   }
 
-  async function loadToday() {
+  async function loadDate() {
+    const dateStr = dateToStr(currentDate);
+    timeline.classList.add('tl-loading');
+
     try {
-      const res = await fetch(`${API}/api/day/${todayStr()}`, { headers });
+      const res = await fetch(`${API}/api/day/${dateStr}`, { headers });
       if (!res.ok) return;
       const data = await res.json();
       renderStats(data.readings);
-      renderTimeline(data.meals, data.readings);
+      renderTimeline(data.meals, data.readings, currentDate);
     } catch (_) { /* silent */ }
+
+    timeline.classList.remove('tl-loading');
   }
 
-  function escHtml(str) {
-    const d = document.createElement('div');
-    d.textContent = str;
-    return d.innerHTML;
-  }
-
-  // Pull to refresh
+  // ── Pull to refresh ──
   let touchStartY = 0;
   let pulling = false;
 
-  screenToday.addEventListener('touchstart', (e) => {
-    if (screenToday.scrollTop === 0) {
+  screenEl.addEventListener('touchstart', (e) => {
+    if (screenEl.scrollTop === 0) {
       touchStartY = e.touches[0].clientY;
       pulling = true;
     }
   }, { passive: true });
 
-  screenToday.addEventListener('touchmove', (e) => {
-    if (!pulling) return;
-  }, { passive: true });
+  screenEl.addEventListener('touchmove', () => {}, { passive: true });
 
-  screenToday.addEventListener('touchend', (e) => {
+  screenEl.addEventListener('touchend', (e) => {
     if (!pulling) return;
     const dy = e.changedTouches[0].clientY - touchStartY;
     pulling = false;
-    if (dy > 80) {
-      loadToday();
+    if (dy > 80) loadDate();
+  }, { passive: true });
+
+  // ── Swipe left/right for day navigation ──
+  let swipeStartX = 0;
+  let swipeStartY = 0;
+
+  screenEl.addEventListener('touchstart', (e) => {
+    swipeStartX = e.touches[0].clientX;
+    swipeStartY = e.touches[0].clientY;
+  }, { passive: true });
+
+  screenEl.addEventListener('touchend', (e) => {
+    const dx = e.changedTouches[0].clientX - swipeStartX;
+    const dy = e.changedTouches[0].clientY - swipeStartY;
+    if (Math.abs(dx) > 80 && Math.abs(dx) > Math.abs(dy) * 1.5) {
+      if (dx > 0) goToPrevDay();
+      else goToNextDay();
     }
   }, { passive: true });
 
-  // Reload when switching to Today tab
-  const observer = new MutationObserver(() => {
-    if (screenToday.classList.contains('active')) {
-      dateEl.textContent = formatDateHeader();
-      loadToday();
-    }
+  // ── Keyboard nav ──
+  document.addEventListener('keydown', (e) => {
+    if (!screenEl.classList.contains('active')) return;
+    if (e.key === 'ArrowLeft') goToPrevDay();
+    else if (e.key === 'ArrowRight') goToNextDay();
   });
-  observer.observe(screenToday, { attributes: true, attributeFilter: ['class'] });
 
-  // Initial load
-  loadToday();
+  // ── Tab enter hook ──
+  window.WT_TIMELINE = window.WT_TIMELINE || {};
+  window.WT_TIMELINE.onEnter = function () {
+    currentDate = new Date();
+    updateDateUI();
+    loadDate();
+  };
+
+  // ── Init ──
+  updateDateUI();
+  loadDate();
 })();

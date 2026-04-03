@@ -19,6 +19,7 @@
   const chartCanvas = document.getElementById('insights-trend-chart');
 
   let trendChart = null;
+  let lastReadings = null;
 
   function readingStatus(type, value) {
     if (type === 'fasting') {
@@ -189,8 +190,15 @@
   function renderStreak(readings) {
     const keys = new Set(readings.filter(r => r.dateObj).map(r => dateKeyLocal(r.dateObj)));
     let streak = 0;
-    const cursor = new Date();
-    cursor.setHours(0, 0, 0, 0);
+    const today = new Date();
+    today.setHours(0, 0, 0, 0);
+
+    // If today has readings, count it; otherwise start from yesterday
+    // (today is still in progress — don't penalise for not logging yet)
+    const cursor = new Date(today);
+    if (!keys.has(dateKeyLocal(cursor))) {
+      cursor.setDate(cursor.getDate() - 1);
+    }
 
     while (keys.has(dateKeyLocal(cursor))) {
       streak += 1;
@@ -206,32 +214,29 @@
       trendChart = null;
     }
 
-    const start = daysAgoStart(13);
+    const start = daysAgoStart(6);
     const end = new Date();
     const days = [];
-    for (let i = 0; i < 14; i++) {
+    for (let i = 0; i < 7; i++) {
       const d = new Date(start);
       d.setDate(start.getDate() + i);
       days.push(d);
     }
 
-    const dailyGroups = Array.from({ length: 14 }, () => []);
+    const dailyGroups = Array.from({ length: 7 }, () => []);
     readings.forEach(r => {
       if (!r.dateObj || r.dateObj < start || r.dateObj > end) return;
       const idx = Math.floor((new Date(r.dateObj.getFullYear(), r.dateObj.getMonth(), r.dateObj.getDate()) - new Date(start.getFullYear(), start.getMonth(), start.getDate())) / 86400000);
-      if (idx >= 0 && idx < 14) dailyGroups[idx].push(r);
+      if (idx >= 0 && idx < 7) dailyGroups[idx].push(r);
     });
 
     const points = [];
-    const pointColors = [];
     dailyGroups.forEach((group, dayIndex) => {
       group.sort((a, b) => a.dateObj - b.dateObj);
       const step = group.length > 1 ? 0.8 / (group.length - 1) : 0;
       group.forEach((r, i) => {
         const x = group.length > 1 ? dayIndex + 0.1 + i * step : dayIndex + 0.5;
         points.push({ x, y: r.bg_value, reading_type: r.reading_type, dateObj: r.dateObj });
-        const status = readingStatus(r.reading_type, r.bg_value);
-        pointColors.push(status === 'green' ? 'var(--reading-green)' : status === 'amber' ? 'var(--reading-amber)' : 'var(--reading-red)');
       });
     });
 
@@ -264,13 +269,13 @@
       data: {
         datasets: [{
           data: points,
-          borderColor: 'var(--accent)',
+          borderColor: getComputedStyle(document.documentElement).getPropertyValue('--insights-line').trim() || 'var(--accent)',
           borderWidth: 2,
           tension: 0.25,
-          pointRadius: 5,
-          pointHoverRadius: 7,
-          pointBackgroundColor: pointColors,
-          pointBorderColor: pointColors,
+          pointRadius: 3,
+          pointHoverRadius: 5,
+          pointBackgroundColor: getComputedStyle(document.documentElement).getPropertyValue('--insights-line').trim() || 'var(--accent)',
+          pointBorderColor: getComputedStyle(document.documentElement).getPropertyValue('--insights-line').trim() || 'var(--accent)',
           parsing: false,
         }]
       },
@@ -301,7 +306,7 @@
           x: {
             type: 'linear',
             min: 0,
-            max: 14,
+            max: 7,
             grid: { display: false },
             ticks: {
               stepSize: 1,
@@ -309,7 +314,7 @@
               font: { family: 'DM Mono', size: 10 },
               callback(value) {
                 const idx = Math.round(value);
-                if (idx < 0 || idx > 13) return '';
+                if (idx < 0 || idx > 6) return '';
                 return formatDayLabel(days[idx]);
               },
               maxRotation: 0,
@@ -349,12 +354,14 @@
         .sort((a, b) => a.dateObj - b.dateObj);
       const meals = mealsRaw.map(m => ({ ...m, dateObj: parseTs(m.timestamp) }));
 
+      lastReadings = readings;
       renderSummary(readings);
       renderTrendChart(readings);
       renderHba1c(readings);
       renderSpikePatterns(readings, meals);
       renderStreak(readings);
     } catch (_) {
+      lastReadings = null;
       setMetric(totalReadingsEl, '—');
       setMetric(avgFastingEl, '—');
       setMetric(avgPostMealEl, '—');
@@ -369,4 +376,9 @@
 
   window.WT_INSIGHTS = window.WT_INSIGHTS || {};
   window.WT_INSIGHTS.onEnter = loadInsights;
+  window.WT_INSIGHTS.refreshTheme = function () {
+    if (lastReadings) {
+      renderTrendChart(lastReadings);
+    }
+  };
 })();

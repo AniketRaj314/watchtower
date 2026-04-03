@@ -13,6 +13,10 @@
   let toastTimer;
 
   function showToast(msg, error) {
+    if (!msg || !String(msg).trim()) {
+      toastEl.classList.remove('show');
+      return;
+    }
     clearTimeout(toastTimer);
     toastEl.classList.toggle('error', !!error);
     toastText.textContent = msg;

@@ -20,8 +20,16 @@ router.post('/', (req, res) => {
 
   let medication_snapshot = null;
   if (medication_taken) {
-    const meds = db.prepare('SELECT name FROM medications WHERE is_active = 1').all();
-    medication_snapshot = meds.map(m => m.name).join(', ') || null;
+    const scheduleIndex = { breakfast: 0, lunch: 1, dinner: 2 };
+    const idx = scheduleIndex[meal_type];
+    if (idx !== undefined) {
+      const meds = db.prepare('SELECT name, schedule FROM medications WHERE is_active = 1').all();
+      const filtered = meds.filter(m => {
+        const parts = (m.schedule || '1-1-1').split('-');
+        return parts[idx] === '1';
+      });
+      medication_snapshot = filtered.map(m => m.name).join(', ') || null;
+    }
   }
 
   const stmt = ts

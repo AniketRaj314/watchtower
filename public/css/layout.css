@@ -3,7 +3,11 @@
   display: flex;
   flex-direction: column;
   position: fixed;
-  inset: 0;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: var(--bg-base);
 }
 
 /* --- Header --- */
@@ -73,25 +77,24 @@
   align-items: center;
   justify-content: space-around;
   flex-shrink: 0;
-  min-height: 60px;
-  background: var(--bg-base);
+  background: var(--bg-surface);
   border-top: 0.5px solid var(--border);
-  padding-bottom: env(safe-area-inset-bottom, 0);
+  padding: 4px 0 4px;
 }
 
 .nav-item {
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 3px;
+  gap: 2px;
   flex: 1;
-  padding: 6px 0;
+  padding: 0;
   position: relative;
   transition: color 0.15s;
 }
 .nav-item svg {
-  width: 22px;
-  height: 22px;
+  width: 20px;
+  height: 20px;
   stroke: var(--text-muted);
   fill: none;
   stroke-width: 1.5;
@@ -107,15 +110,6 @@
 }
 .nav-item.active svg { stroke: var(--accent); }
 .nav-item.active span { color: var(--accent); }
-.nav-item.active::after {
-  content: '';
-  position: absolute;
-  bottom: 2px;
-  width: 4px;
-  height: 4px;
-  border-radius: 50%;
-  background: var(--accent);
-}
 
 /* --- PIN screens --- */
 .pin-screen {
@@ -129,7 +123,6 @@
   justify-content: center;
   gap: 32px;
   padding-top: env(safe-area-inset-top, 0);
-  padding-bottom: env(safe-area-inset-bottom, 0);
 }
 .pin-screen.hidden { display: none; }
 
