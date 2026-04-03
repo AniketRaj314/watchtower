@@ -76,6 +76,12 @@ if (needsSnapshotFix.length > 0) {
   fixAll();
 }
 
+// Migrate: add meal_ids column to readings if missing
+const readingCols = db.prepare("PRAGMA table_info(readings)").all().map(c => c.name);
+if (!readingCols.includes('meal_ids')) {
+  db.exec("ALTER TABLE readings ADD COLUMN meal_ids TEXT");
+}
+
 // Seed medications if table is empty
 const count = db.prepare('SELECT COUNT(*) AS n FROM medications').get().n;
 if (count === 0) {

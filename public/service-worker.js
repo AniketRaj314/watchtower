@@ -1,4 +1,4 @@
-const CACHE_NAME = 'watchtower-v12';
+const CACHE_NAME = 'watchtower-v13';
 const SHELL_ASSETS = [
   '/',
   '/index.html',

@@ -66,10 +66,11 @@
   const readingTime = document.getElementById('reading-time');
   const readingTypeChips = document.getElementById('reading-type-chips');
   const mealLinkSection = document.getElementById('meal-link-section');
-  const mealLinkSelect = document.getElementById('meal-link-select');
+  const mealLinkChips = document.getElementById('meal-link-chips');
   const readingSend = document.getElementById('reading-send');
 
   let selectedReadingType = 'fasting';
+  let selectedMealIds = new Set();
 
   function getCurrentTimestamp() {
     const now = new Date();
@@ -91,7 +92,15 @@
     if (mealTime) mealTime.value = now.time;
   }
 
-  // Initial render
+  // Reload meal chips when reading timestamp changes
+  if (readingDate) readingDate.addEventListener('change', () => {
+    if (['post-meal', 'pre-meal', 'random'].includes(selectedReadingType)) loadMealChips();
+  });
+  if (readingTime) readingTime.addEventListener('change', () => {
+    if (['post-meal', 'pre-meal', 'random'].includes(selectedReadingType)) loadMealChips();
+  });
+
+  // Initial range render
   renderRange('fasting', null);
 
   // Tap area to focus hidden input
@@ -121,58 +130,88 @@
     renderRange(selectedReadingType, val ? Number(val) : null);
   });
 
+  // ── Select reading type (programmatic) ──
+  function selectReadingType(type) {
+    selectedReadingType = type;
+    readingTypeChips.querySelectorAll('.chip').forEach(c => {
+      c.classList.toggle('active', c.dataset.val === type);
+    });
+    const showLink = ['post-meal', 'pre-meal', 'random'].includes(type);
+    if (showLink) {
+      loadMealChips();
+    } else {
+      mealLinkSection.style.display = 'none';
+    }
+    const val = readingInput.value;
+    readingDisplay.classList.remove('green', 'amber', 'red');
+    if (val) readingDisplay.classList.add(getColourClass(Number(val), type));
+    renderRange(type, val ? Number(val) : null);
+  }
+
   // Reading type chips
   readingTypeChips.addEventListener('click', (e) => {
     const chip = e.target.closest('.chip');
     if (!chip) return;
-    readingTypeChips.querySelectorAll('.chip').forEach(c => c.classList.remove('active'));
-    chip.classList.add('active');
-    selectedReadingType = chip.dataset.val;
-
-    // Show/hide meal link
-    const showLink = ['post-meal', 'pre-meal', 'random'].includes(selectedReadingType);
-    mealLinkSection.style.display = showLink ? 'block' : 'none';
-
-    // Re-colour current value and update range
-    const val = readingInput.value;
-    readingDisplay.classList.remove('green', 'amber', 'red');
-    if (val) {
-      readingDisplay.classList.add(getColourClass(Number(val), selectedReadingType));
-    }
-    renderRange(selectedReadingType, val ? Number(val) : null);
-
-    // Auto-select most recent meal for post/pre-meal
-    if (['post-meal', 'pre-meal'].includes(selectedReadingType) && mealLinkSelect.options.length > 1) {
-      mealLinkSelect.selectedIndex = 1;
-    } else {
-      mealLinkSelect.selectedIndex = 0;
-    }
+    selectReadingType(chip.dataset.val);
   });
 
-  // Fetch all meals for linking (latest first)
-  async function loadMealOptions() {
+  // Fetch today's meals and render toggleable chips filtered to 3hr window
+  async function loadMealChips(autoSelectId) {
     try {
-      const res = await fetch(window.WT_DEMO.apiUrl('/api/meals'), { headers });
+      const res = await fetch(window.WT_DEMO.apiUrl('/api/meals/today'), { headers });
       if (!res.ok) return;
       const meals = await res.json();
 
-      // Clear all except first "No link" option
-      while (mealLinkSelect.options.length > 1) mealLinkSelect.remove(1);
+      const tsVal = buildTimestamp(readingDate && readingDate.value, readingTime && readingTime.value);
+      const refMs = tsVal ? new Date(tsVal).getTime() : Date.now();
+      const threeHrsMs = 3 * 60 * 60 * 1000;
 
-      meals.forEach(m => {
-        const ts = m.timestamp.endsWith('Z') ? m.timestamp : m.timestamp + 'Z';
-        const dateObj = new Date(ts);
-        const day = String(dateObj.getDate()).padStart(2, '0');
-        const month = String(dateObj.getMonth() + 1).padStart(2, '0');
-        const year = dateObj.getFullYear();
-        const dateLabel = `${day}/${month}/${year}`;
-        const type = m.meal_type.charAt(0).toUpperCase() + m.meal_type.slice(1);
-        const desc = m.description.length > 24 ? m.description.slice(0, 24) + '...' : m.description;
-        const opt = document.createElement('option');
-        opt.value = m.id;
-        opt.textContent = `[${dateLabel}] - ${type} - ${desc}`;
-        mealLinkSelect.appendChild(opt);
+      const inWindow = meals.filter(m => {
+        const mMs = new Date(m.timestamp.endsWith('Z') ? m.timestamp : m.timestamp + 'Z').getTime();
+        return mMs <= refMs && mMs >= refMs - threeHrsMs;
       });
+
+      if (!inWindow.length) {
+        mealLinkSection.style.display = 'none';
+        return;
+      }
+
+      selectedMealIds = new Set();
+      mealLinkChips.innerHTML = '';
+
+      inWindow.forEach(m => {
+        const ts = m.timestamp.endsWith('Z') ? m.timestamp : m.timestamp + 'Z';
+        const d = new Date(ts);
+        const hh = String(d.getHours()).padStart(2, '0');
+        const mm = String(d.getMinutes()).padStart(2, '0');
+        const label = `${m.meal_type.charAt(0).toUpperCase() + m.meal_type.slice(1)} · ${hh}:${mm}`;
+
+        const btn = document.createElement('button');
+        btn.type = 'button';
+        btn.className = 'meal-chip';
+        btn.dataset.id = m.id;
+        btn.textContent = label;
+
+        if (autoSelectId && String(m.id) === String(autoSelectId)) {
+          btn.classList.add('active');
+          selectedMealIds.add(m.id);
+        }
+
+        btn.addEventListener('click', () => {
+          const id = Number(btn.dataset.id);
+          if (selectedMealIds.has(id)) {
+            selectedMealIds.delete(id);
+            btn.classList.remove('active');
+          } else {
+            selectedMealIds.add(id);
+            btn.classList.add('active');
+          }
+        });
+
+        mealLinkChips.appendChild(btn);
+      });
+
+      mealLinkSection.style.display = 'block';
     } catch (_) { /* silent */ }
   }
 
@@ -187,12 +226,11 @@
     }
 
     readingSend.disabled = true;
-    const mealId = mealLinkSelect.value ? Number(mealLinkSelect.value) : null;
     const readingTimestamp = buildTimestamp(readingDate && readingDate.value, readingTime && readingTime.value);
     const payload = {
       reading_type: selectedReadingType,
       bg_value,
-      meal_id: mealId,
+      meal_ids: [...selectedMealIds].map(Number),
     };
     if (readingTimestamp) payload.timestamp = readingTimestamp;
 
@@ -210,7 +248,7 @@
       readingDisplay.classList.remove('green', 'amber', 'red');
       readingSend.disabled = true;
       renderRange(selectedReadingType, null);
-      loadMealOptions();
+      await smartExpandCards();
     } catch (_) {
       showToast('Signal lost — try again.', true);
       readingSend.disabled = false;
@@ -229,7 +267,6 @@
   let selectedMealType = null;
   let medsOn = false;
 
-  // Auto-select meal type by time
   function autoMealType() {
     const h = new Date().getHours();
     if (h >= 5 && h < 10) return 'breakfast';
@@ -238,10 +275,14 @@
     return 'snack';
   }
 
-  selectedMealType = autoMealType();
-  mealTypeChips.querySelectorAll('.chip').forEach(c => {
-    c.classList.toggle('active', c.dataset.val === selectedMealType);
-  });
+  // ── Select meal type (programmatic) ──
+  function selectMealType(type) {
+    selectedMealType = type;
+    mealTypeChips.querySelectorAll('.chip').forEach(c => {
+      c.classList.toggle('active', c.dataset.val === type);
+    });
+    updateMealSend();
+  }
 
   function updateMealSend() {
     mealSend.disabled = !selectedMealType || !mealDesc.value.trim();
@@ -250,10 +291,7 @@
   mealTypeChips.addEventListener('click', (e) => {
     const chip = e.target.closest('.chip');
     if (!chip) return;
-    mealTypeChips.querySelectorAll('.chip').forEach(c => c.classList.remove('active'));
-    chip.classList.add('active');
-    selectedMealType = chip.dataset.val;
-    updateMealSend();
+    selectMealType(chip.dataset.val);
   });
 
   mealDesc.addEventListener('input', updateMealSend);
@@ -297,17 +335,186 @@
       medsToggle.setAttribute('aria-checked', 'false');
       medsHint.style.display = 'none';
       mealSend.disabled = true;
-      loadMealOptions();
+      await smartExpandCards();
     } catch (_) {
       showToast('Signal lost — try again.', true);
       mealSend.disabled = false;
     }
   });
 
+  // ── Card collapse / expand ──
+  const readingCard = document.getElementById('reading-card');
+  const mealCard = document.getElementById('meal-card');
+  const readingCardHint = document.getElementById('reading-card-hint');
+  const mealCardHint = document.getElementById('meal-card-hint');
+  const lastSignalEl = document.getElementById('last-signal');
+
+  let readingSmartHint = 'tap to log a reading';
+  let mealSmartHint = 'tap to log a meal';
+
+  function updateHintDisplay() {
+    const readingCollapsed = readingCard.classList.contains('collapsed');
+    const mealCollapsed = mealCard.classList.contains('collapsed');
+    readingCardHint.textContent = readingCollapsed ? readingSmartHint : '↑ collapse';
+    mealCardHint.textContent = mealCollapsed ? mealSmartHint : '↑ collapse';
+  }
+
+  function collapseCard(card) {
+    card.classList.add('collapsed');
+    updateHintDisplay();
+  }
+
+  function expandCard(card) {
+    card.classList.remove('collapsed');
+    updateHintDisplay();
+  }
+
+  // Tapping a collapsed card expands it; tapping the header of an expanded card collapses it
+  function setupCardToggle(card, headerEl) {
+    card.addEventListener('click', (e) => {
+      if (card.classList.contains('collapsed')) {
+        expandCard(card);
+      } else if (headerEl.contains(e.target)) {
+        collapseCard(card);
+      }
+    });
+  }
+
+  setupCardToggle(readingCard, readingCard.querySelector('.log-card-header'));
+  setupCardToggle(mealCard, mealCard.querySelector('.log-card-header'));
+
+  // ── Time format helper ──
+  function formatTime12(ts) {
+    const d = new Date(ts.endsWith('Z') ? ts : ts + 'Z');
+    let h = d.getHours();
+    const m = String(d.getMinutes()).padStart(2, '0');
+    const ampm = h >= 12 ? 'pm' : 'am';
+    h = h % 12 || 12;
+    return `${String(h).padStart(2, '0')}:${m}${ampm}`;
+  }
+
+  // ── Last signal indicator ──
+  function updateLastSignal(readings, meals) {
+    if (!lastSignalEl) return;
+    const all = [
+      ...readings.map(r => ({ ...r, _kind: 'reading', _t: new Date(r.timestamp.endsWith('Z') ? r.timestamp : r.timestamp + 'Z') })),
+      ...meals.map(m => ({ ...m, _kind: 'meal', _t: new Date(m.timestamp.endsWith('Z') ? m.timestamp : m.timestamp + 'Z') })),
+    ].sort((a, b) => b._t - a._t);
+
+    if (!all.length) {
+      lastSignalEl.textContent = 'no signal today — start with your fasting reading';
+      return;
+    }
+    const last = all[0];
+    const t = formatTime12(last.timestamp);
+    if (last._kind === 'reading') {
+      lastSignalEl.textContent = `last signal: ${last.reading_type} ${last.bg_value} · ${t}`;
+    } else {
+      lastSignalEl.textContent = `last signal: ${last.meal_type} · ${t}`;
+    }
+  }
+
+  // ── Time-based expand fallback ──
+  function timeBasedExpand() {
+    const h = new Date().getHours();
+    if (h < 10) {
+      readingSmartHint = 'fasting reading?';
+      mealSmartHint = 'tap to log a meal';
+      selectReadingType('fasting');
+      expandCard(readingCard);
+      collapseCard(mealCard);
+    } else if (h < 16) {
+      mealSmartHint = 'log your meal';
+      readingSmartHint = 'tap to log a reading';
+      selectMealType('lunch');
+      collapseCard(readingCard);
+      expandCard(mealCard);
+    } else {
+      mealSmartHint = 'log your meal';
+      readingSmartHint = 'tap to log a reading';
+      selectMealType('dinner');
+      collapseCard(readingCard);
+      expandCard(mealCard);
+    }
+  }
+
+  // ── Smart expand ──
+  async function smartExpandCards() {
+    try {
+      const [rRes, mRes] = await Promise.all([
+        fetch(window.WT_DEMO.apiUrl('/api/readings/today'), { headers }),
+        fetch(window.WT_DEMO.apiUrl('/api/meals/today'), { headers }),
+      ]);
+      const readings = rRes.ok ? await rRes.json() : [];
+      const meals = mRes.ok ? await mRes.json() : [];
+
+      updateLastSignal(readings, meals);
+
+      const all = [
+        ...readings.map(r => ({ ...r, _kind: 'reading', _t: new Date(r.timestamp.endsWith('Z') ? r.timestamp : r.timestamp + 'Z') })),
+        ...meals.map(m => ({ ...m, _kind: 'meal', _t: new Date(m.timestamp.endsWith('Z') ? m.timestamp : m.timestamp + 'Z') })),
+      ].sort((a, b) => b._t - a._t);
+
+      if (!all.length) {
+        timeBasedExpand();
+        return;
+      }
+
+      const last = all[0];
+
+      if (last._kind === 'reading') {
+        const rt = last.reading_type;
+        if (rt === 'fasting') {
+          mealSmartHint = 'breakfast next?';
+          readingSmartHint = 'tap to log a reading';
+          selectMealType('breakfast');
+          expandCard(mealCard);
+          collapseCard(readingCard);
+        } else if (rt === 'post-meal') {
+          mealSmartHint = 'next meal?';
+          readingSmartHint = 'tap to log a reading';
+          selectMealType(autoMealType());
+          expandCard(mealCard);
+          collapseCard(readingCard);
+        } else if (rt === 'pre-meal') {
+          mealSmartHint = 'log what you ate?';
+          readingSmartHint = 'tap to log a reading';
+          selectMealType(autoMealType());
+          expandCard(mealCard);
+          collapseCard(readingCard);
+        } else {
+          // random or bedtime
+          readingSmartHint = 'another reading?';
+          mealSmartHint = 'tap to log a meal';
+          selectReadingType('random');
+          expandCard(readingCard);
+          collapseCard(mealCard);
+        }
+      } else {
+        // last entry was a meal — prompt post-meal reading
+        readingSmartHint = '2hr post-meal?';
+        mealSmartHint = 'tap to log a meal';
+        selectReadingType('post-meal');
+        // Auto-select that meal chip
+        if (last.id) {
+          await loadMealChips(last.id);
+        }
+        expandCard(readingCard);
+        collapseCard(mealCard);
+      }
+    } catch (_) {
+      updateLastSignal([], []);
+      timeBasedExpand();
+    }
+  }
+
   // ── Init ──
   window.WT_LOG = window.WT_LOG || {};
-  window.WT_LOG.onEnter = resetLogTimestamps;
-  window.WT_LOG.refreshForDemoMode = loadMealOptions;
+  window.WT_LOG.onEnter = function () {
+    resetLogTimestamps();
+    smartExpandCards();
+  };
+  window.WT_LOG.refreshForDemoMode = loadMealChips;
   resetLogTimestamps();
-  loadMealOptions();
+  smartExpandCards();
 })();

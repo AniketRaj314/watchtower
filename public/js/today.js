@@ -172,10 +172,15 @@
         const c = colourClass(r.bg_value, r.reading_type);
         const typeLabel = r.reading_type.toUpperCase();
         let linkHtml = '';
-        if (r.meal_id && mealMap[r.meal_id]) {
-          const lm = mealMap[r.meal_id];
-          const lType = lm.meal_type.charAt(0).toUpperCase() + lm.meal_type.slice(1);
-          linkHtml = `<div class="tl-reading-link">\u2191 ${lType} ${timeFromTs(lm.timestamp)}</div>`;
+        const linkedMeals = Array.isArray(r.meal_ids) && r.meal_ids.length ? r.meal_ids : [];
+        const displayMeals = linkedMeals.length === 0 && r.meal_id && mealMap[r.meal_id]
+          ? [mealMap[r.meal_id]]
+          : linkedMeals;
+        if (displayMeals.length) {
+          linkHtml = `<div class="tl-reading-links">${displayMeals.map(lm => {
+            const lType = lm.meal_type.charAt(0).toUpperCase() + lm.meal_type.slice(1);
+            return `<div class="tl-reading-link">\u2191 ${lType} \u00b7 ${timeFromTs(lm.timestamp)}</div>`;
+          }).join('')}</div>`;
         }
         card = `
           <div class="tl-reading ${c}">
