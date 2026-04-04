@@ -12,9 +12,10 @@ function validateTimestamp(ts) {
 
   const now = Date.now();
   const sevenDaysAgo = now - 7 * 24 * 60 * 60 * 1000;
-  const fiveMinFuture = now + 5 * 60 * 1000;
+  // 14 hours accommodates naive timestamps (no timezone suffix) sent from any UTC offset
+  const futureCutoff = now + 14 * 60 * 60 * 1000;
 
-  if (d.getTime() < sevenDaysAgo || d.getTime() > fiveMinFuture) {
+  if (d.getTime() < sevenDaysAgo || d.getTime() > futureCutoff) {
     return { valid: false, value: null, error: 'Invalid timestamp' };
   }
 

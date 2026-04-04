@@ -1,6 +1,11 @@
 const Anthropic = require('@anthropic-ai/sdk');
 const db = require('./db');
 
+function toIST(ts) {
+  const d = new Date(ts.endsWith('Z') ? ts : ts + 'Z');
+  return d.toLocaleTimeString('en-US', { hour: '2-digit', minute: '2-digit', hour12: true, timeZone: 'Asia/Kolkata' });
+}
+
 // --- In-memory cache ---
 // Key: "YYYY-MM-DD|meal_context", Value: { data, timestamp }
 const cache = new Map();
@@ -102,7 +107,7 @@ function buildUserPrompt(digests, todayMeals, todayReadings, todayDate, mealCont
   const todayEntries = [];
   for (const m of todayMeals) {
     const ts = m.timestamp.endsWith('Z') ? m.timestamp : m.timestamp + 'Z';
-    const time = new Date(ts).toLocaleTimeString('en-US', { hour: '2-digit', minute: '2-digit', hour12: true });
+    const time = toIST(m.timestamp);
     let text = `[${time}] Meal (${m.meal_type}): ${m.description}`;
     if (m.medication_taken && m.medication_snapshot) {
       text += ` [meds: ${m.medication_snapshot}]`;
@@ -111,7 +116,7 @@ function buildUserPrompt(digests, todayMeals, todayReadings, todayDate, mealCont
   }
   for (const r of todayReadings) {
     const ts = r.timestamp.endsWith('Z') ? r.timestamp : r.timestamp + 'Z';
-    const time = new Date(ts).toLocaleTimeString('en-US', { hour: '2-digit', minute: '2-digit', hour12: true });
+    const time = toIST(r.timestamp);
     todayEntries.push({ sort: ts, text: `[${time}] Reading (${r.reading_type}): ${r.bg_value} mg/dL` });
   }
   todayEntries.sort((a, b) => a.sort.localeCompare(b.sort));

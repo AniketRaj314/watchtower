@@ -1,6 +1,11 @@
 const Anthropic = require('@anthropic-ai/sdk');
 const db = require('./db');
 
+function toIST(ts) {
+  const d = new Date(ts.endsWith('Z') ? ts : ts + 'Z');
+  return d.toLocaleTimeString('en-US', { hour: '2-digit', minute: '2-digit', hour12: true, timeZone: 'Asia/Kolkata' });
+}
+
 const SYSTEM_PROMPT = `You are a precise glucose pattern analyst for a pre-diabetic person (not Type 2 diabetic).
 Glucose targets: fasting below 120 mg/dL, post-meal below 140 mg/dL.
 This person eats Indian food daily: chapati, dal, sabzi, dahi, paneer, eggs, South Indian dishes.
@@ -86,8 +91,7 @@ function buildUserPrompt(date, meals, readings) {
   }).join('\n  ');
 
   const mealLines = meals.map(m => {
-    const ts = m.timestamp.endsWith('Z') ? m.timestamp : m.timestamp + 'Z';
-    const time = new Date(ts).toLocaleTimeString('en-US', { hour: '2-digit', minute: '2-digit', hour12: true });
+    const time = toIST(m.timestamp);
     let line = `${m.meal_type} (${time}): ${m.description}`;
     if (m.medication_taken && m.medication_snapshot) {
       line += ` [meds: ${m.medication_snapshot}]`;

@@ -79,7 +79,7 @@
 
   function buildTimestamp(dateVal, timeVal) {
     if (!dateVal || !timeVal) return null;
-    return `${dateVal}T${timeVal}:00`;
+    return new Date(`${dateVal}T${timeVal}:00`).toISOString();
   }
 
   function resetLogTimestamps() {
