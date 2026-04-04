@@ -79,6 +79,12 @@ function fetchMedicationLines() {
   }).join('\n  ');
 }
 
+function fetchFoodInsightLines() {
+  const rows = db.prepare('SELECT food_name, pattern, evidence FROM food_insights ORDER BY updated_at DESC').all();
+  if (!rows.length) return 'None yet — still learning from your data.';
+  return rows.map(r => `${r.food_name}: ${r.pattern} (${r.evidence})`).join('\n  ');
+}
+
 function buildUserPrompt(digests, todayMeals, todayReadings, todayDate, mealContext, earnedTreat) {
   const digestLines = digests.map(d => {
     let line = `${d.date}: rating=${d.overall_rating}, fasting_avg=${d.fasting_avg ?? 'n/a'}, post_meal_avg=${d.post_meal_avg ?? 'n/a'}, best=${d.best_meal ?? 'n/a'}, worst=${d.worst_meal ?? 'n/a'}`;
@@ -112,8 +118,12 @@ function buildUserPrompt(digests, todayMeals, todayReadings, todayDate, mealCont
   const todayText = todayEntries.map(e => e.text).join('\n') || 'Nothing logged yet today.';
 
   const medicationLines = fetchMedicationLines();
+  const foodInsightLines = fetchFoodInsightLines();
 
-  return `Past 14 days of digests:
+  return `Established personal food patterns (treat these as facts, not suggestions):
+  ${foodInsightLines}
+
+Past 14 days of digests:
 ${digestLines || 'No digest data available yet.'}
 
 Today so far (${todayDate}):
@@ -136,15 +146,16 @@ Return JSON:
 }`;
 }
 
-async function generateRecommendation(currentTime) {
+async function generateRecommendation(currentTime, forceRefresh = false) {
   const now = new Date();
   const todayDate = now.toISOString().slice(0, 10);
   const timeStr = currentTime || now.toTimeString().slice(0, 5);
   const mealContext = getMealContext(timeStr);
 
-  // Check cache
-  const cached = getCached(todayDate, mealContext);
-  if (cached) return cached;
+  if (!forceRefresh) {
+    const cached = getCached(todayDate, mealContext);
+    if (cached) return cached;
+  }
 
   // Fetch data
   const digests = db.prepare(

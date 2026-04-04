@@ -50,6 +50,21 @@ curl -c cookies.txt -X POST http://localhost:3000/api/login \
 curl -b cookies.txt http://localhost:3000/api/readings
 ```
 
+**Regenerate today’s live Intel** (bypasses the server’s 30-minute recommendation cache; still needs `ANTHROPIC_API_KEY`):
+
+```bash
+curl -b cookies.txt -X POST http://localhost:3000/api/intel/recommendation \
+  -H 'Content-Type: application/json' \
+  -d '{"refresh":true}'
+
+# Optional: simulate a time-of-day bucket (24h HH:MM) for meal context
+curl -b cookies.txt -X POST http://localhost:3000/api/intel/recommendation \
+  -H 'Content-Type: application/json' \
+  -d '{"current_time":"12:30","refresh":true}'
+```
+
+The JSON response is what the Timeline Intel card uses. The browser also caches Intel in `sessionStorage` for up to 30 minutes — hard-refresh the app or clear that key if you need the UI to match immediately after a curl refresh.
+
 ### Railway
 
 Set `APP_PASSWORD` and `SESSION_SECRET` in Railway Variables. Point the HTTP health check at **`GET /health`**. Use a **volume** for the SQLite file if you need data to survive redeploys.

@@ -30,15 +30,16 @@ router.post('/generate-digest', async (req, res) => {
 });
 
 // POST /api/intel/recommendation
+// Body: { current_time?: "HH:MM", refresh?: true } — refresh skips the 30m server cache
 router.post('/recommendation', async (req, res) => {
-  const { current_time } = req.body || {};
+  const { current_time, refresh } = req.body || {};
 
   if (current_time && !/^\d{2}:\d{2}$/.test(current_time)) {
     return res.status(400).json({ error: 'current_time must be HH:MM (24hr)' });
   }
 
   try {
-    const result = await generateRecommendation(current_time || null);
+    const result = await generateRecommendation(current_time || null, !!refresh);
     res.json(result);
   } catch (err) {
     console.error('[intel] recommendation failed:', err.message);

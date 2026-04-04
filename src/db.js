@@ -100,6 +100,18 @@ if (!insightCols.includes('extra_json')) {
   db.exec("ALTER TABLE daily_insights ADD COLUMN extra_json TEXT");
 }
 
+// Create food_insights table
+db.exec(`
+  CREATE TABLE IF NOT EXISTS food_insights (
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    food_name TEXT NOT NULL UNIQUE,
+    pattern TEXT NOT NULL,
+    evidence TEXT NOT NULL,
+    created_at TEXT NOT NULL DEFAULT (strftime('%Y-%m-%dT%H:%M:%SZ', 'now')),
+    updated_at TEXT NOT NULL DEFAULT (strftime('%Y-%m-%dT%H:%M:%SZ', 'now'))
+  );
+`);
+
 // Seed medications if table is empty
 const count = db.prepare('SELECT COUNT(*) AS n FROM medications').get().n;
 if (count === 0) {
