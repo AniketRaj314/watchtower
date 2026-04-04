@@ -1,5 +1,199 @@
 /* --- Today / Timeline screen --- */
 
+/* --- Intel card --- */
+
+.intel-card {
+  background: var(--bg-surface);
+  border: 0.5px solid var(--border);
+  border-radius: 14px;
+  overflow: hidden;
+  margin-bottom: 12px;
+}
+
+.intel-header {
+  display: flex;
+  align-items: center;
+  padding: 12px 14px;
+  gap: 10px;
+  cursor: pointer;
+  -webkit-tap-highlight-color: transparent;
+}
+
+.intel-header-left {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  flex-shrink: 0;
+}
+
+.intel-type-label {
+  font-family: 'DM Mono', monospace;
+  font-size: 9px;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  color: #00C896;
+}
+
+.intel-type-label.caution { color: #F5A623; }
+.intel-type-label.treat { color: #A78BFA; }
+
+.intel-confidence {
+  font-family: 'DM Mono', monospace;
+  font-size: 8px;
+  color: var(--text-muted);
+}
+
+.intel-card.collapsed .intel-confidence {
+  display: none;
+}
+
+.intel-header-right {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  min-width: 0;
+  margin-left: auto;
+  flex-shrink: 1;
+}
+
+.intel-headline-preview {
+  font-family: 'DM Sans', system-ui, sans-serif;
+  font-size: 10px;
+  color: var(--text-muted);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  display: none;
+  max-width: 180px;
+}
+
+.intel-card.collapsed .intel-headline-preview {
+  display: block;
+}
+
+.collapse-chevron {
+  display: inline-block;
+  width: 18px;
+  height: 18px;
+  flex-shrink: 0;
+  transition: transform 0.2s ease;
+}
+
+.collapse-chevron svg {
+  width: 18px;
+  height: 18px;
+  stroke: var(--text-muted);
+  fill: none;
+  stroke-width: 2;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+.collapse-chevron.open {
+  transform: rotate(180deg);
+}
+
+.intel-card.collapsed .intel-body {
+  display: none;
+}
+
+.intel-body {
+  padding: 0 14px 12px;
+}
+
+.intel-headline {
+  font-family: 'DM Sans', system-ui, sans-serif;
+  font-size: 14px;
+  font-weight: 500;
+  color: var(--text-primary);
+  margin-bottom: 6px;
+}
+
+.intel-text {
+  font-family: 'DM Sans', system-ui, sans-serif;
+  font-size: 13px;
+  color: var(--text-secondary);
+  line-height: 1.6;
+  margin-bottom: 10px;
+}
+
+.intel-treat {
+  background: rgba(167, 139, 250, 0.1);
+  border: 0.5px solid rgba(167, 139, 250, 0.3);
+  border-radius: 10px;
+  padding: 8px 12px;
+  font-family: 'DM Sans', system-ui, sans-serif;
+  font-size: 12px;
+  color: #A78BFA;
+  margin-bottom: 10px;
+}
+
+.intel-low-notice {
+  font-family: 'DM Mono', monospace;
+  font-size: 9px;
+  color: var(--text-muted);
+  margin-bottom: 8px;
+}
+
+.intel-why-row {
+  cursor: pointer;
+  -webkit-tap-highlight-color: transparent;
+}
+
+.intel-why-toggle {
+  font-family: 'DM Mono', monospace;
+  font-size: 10px;
+  color: var(--text-muted);
+}
+
+.intel-reasoning {
+  max-height: 0;
+  overflow: hidden;
+  transition: max-height 0.2s ease;
+}
+
+.intel-reasoning.expanded {
+  max-height: 200px;
+}
+
+.intel-reasoning-text {
+  font-family: 'DM Sans', system-ui, sans-serif;
+  font-size: 12px;
+  color: var(--text-secondary);
+  line-height: 1.6;
+  padding-top: 8px;
+}
+
+/* --- Intel skeleton --- */
+
+.intel-skeleton {
+  padding: 16px 14px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.intel-skeleton-bar {
+  background: var(--bg-raised);
+  border-radius: 4px;
+  animation: intel-pulse 1.5s ease-in-out infinite;
+}
+
+.intel-skeleton-bar--short {
+  height: 16px;
+  width: 40%;
+}
+
+.intel-skeleton-bar--long {
+  height: 36px;
+  width: 90%;
+}
+
+@keyframes intel-pulse {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.4; }
+}
+
 /* --- Date navigation --- */
 
 .date-nav {
@@ -66,27 +260,13 @@
   font-size: 16px;
 }
 
-/* --- Header badges --- */
-
-.today-header {
-  display: flex;
-  align-items: center;
-  justify-content: flex-end;
-  margin-bottom: 12px;
-}
-
-.today-header-badges {
-  display: flex;
-  gap: 6px;
-}
-
 /* --- Loading state --- */
 .tl-loading { opacity: 0.4; transition: opacity 0.2s; }
 
 /* --- Full-width stat row --- */
 .today-stats-full { grid-template-columns: 1fr; }
 
-/* --- Reading badge (reusable) --- */
+/* --- Reading type pill (timeline cards only) --- */
 
 .reading-badge {
   font-family: 'DM Mono', monospace;

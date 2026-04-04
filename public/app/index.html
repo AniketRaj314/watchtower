@@ -75,7 +75,7 @@
             </div>
             <span class="log-card-type-label log-card-type-label--reading">READING</span>
           </div>
-          <div class="log-card-hint" id="reading-card-hint">↑ collapse</div>
+          <span class="collapse-chevron open" id="reading-card-chevron"><svg viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"/></svg></span>
         </div>
         <div class="log-card-body">
           <div class="ts-row">
@@ -129,7 +129,7 @@
             </div>
             <span class="log-card-type-label log-card-type-label--meal">MEAL</span>
           </div>
-          <div class="log-card-hint" id="meal-card-hint">↑ collapse</div>
+          <span class="collapse-chevron open" id="meal-card-chevron"><svg viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"/></svg></span>
         </div>
         <div class="log-card-body">
           <div class="ts-row">
@@ -184,9 +184,33 @@
         </button>
       </div>
 
-      <!-- Header badges -->
-      <div class="today-header">
-        <div id="today-header-badges" class="today-header-badges"></div>
+      <!-- Intel card -->
+      <div id="intel-card" class="intel-card" style="display:none">
+        <div class="intel-header" id="intel-header">
+          <div class="intel-header-left">
+            <div id="intel-type-label" class="intel-type-label">INTEL</div>
+            <div id="intel-confidence" class="intel-confidence"></div>
+          </div>
+          <div class="intel-header-right">
+            <span id="intel-headline-preview" class="intel-headline-preview"></span>
+            <span id="intel-collapse-btn" class="collapse-chevron"><svg viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"/></svg></span>
+          </div>
+        </div>
+        <div class="intel-body" id="intel-body">
+          <div id="intel-headline" class="intel-headline"></div>
+          <div id="intel-text" class="intel-text"></div>
+          <div id="intel-treat" class="intel-treat" style="display:none"></div>
+          <div id="intel-low-notice" class="intel-low-notice" style="display:none">Building your pattern — keep logging to unlock stronger intel.</div>
+          <div id="intel-why-row" class="intel-why-row">
+            <span id="intel-why-toggle" class="intel-why-toggle">why this? ↓</span>
+            <div id="intel-reasoning" class="intel-reasoning"></div>
+          </div>
+        </div>
+      </div>
+      <!-- Intel loading skeleton -->
+      <div id="intel-skeleton" class="intel-card intel-skeleton" style="display:none">
+        <div class="intel-skeleton-bar intel-skeleton-bar--short"></div>
+        <div class="intel-skeleton-bar intel-skeleton-bar--long"></div>
       </div>
 
       <!-- Stats -->

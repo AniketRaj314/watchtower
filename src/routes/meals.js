@@ -1,6 +1,7 @@
 const { Router } = require('express');
 const db = require('../db');
 const { validateTimestamp } = require('../middleware/timestamp');
+const { invalidateCache } = require('../recommendation');
 
 const router = Router();
 
@@ -43,6 +44,7 @@ router.post('/', (req, res) => {
   const result = stmt.run(...args);
 
   const meal = db.prepare('SELECT * FROM meals WHERE id = ?').get(result.lastInsertRowid);
+  invalidateCache();
   res.status(201).json(meal);
 });
 

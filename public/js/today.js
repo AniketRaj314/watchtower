@@ -36,11 +36,6 @@
     return d.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit', hour12: false });
   }
 
-  function badgeHtml(label, val, type) {
-    const c = colourClass(val, type);
-    return `<span class="reading-badge ${c}">${label} ${Math.round(val)}</span>`;
-  }
-
   function escHtml(str) {
     const d = document.createElement('div');
     d.textContent = str;
@@ -54,13 +49,225 @@
     return Math.round((ub - ua) / msDay);
   }
 
+  // ── Intel card ──
+  const intelCard = document.getElementById('intel-card');
+  const intelSkeleton = document.getElementById('intel-skeleton');
+  const intelTypeLabel = document.getElementById('intel-type-label');
+  const intelConfidence = document.getElementById('intel-confidence');
+  const intelHeadline = document.getElementById('intel-headline');
+  const intelText = document.getElementById('intel-text');
+  const intelTreat = document.getElementById('intel-treat');
+  const intelLowNotice = document.getElementById('intel-low-notice');
+  const intelWhyToggle = document.getElementById('intel-why-toggle');
+  const intelReasoning = document.getElementById('intel-reasoning');
+  const intelCollapseBtn = document.getElementById('intel-collapse-btn');
+  const intelHeadlinePreview = document.getElementById('intel-headline-preview');
+  const intelHeader = document.getElementById('intel-header');
+  const intelWhyRow = document.getElementById('intel-why-row');
+
+  const INTEL_CACHE_TTL = 30 * 60 * 1000; // 30 minutes
+
+  function intelCacheKey(dateStr) {
+    if (dateStr === todayStr()) {
+      return `wt_intel_${dateStr}_${new Date().getHours()}`;
+    }
+    return `wt_intel_digest_${dateStr}`;
+  }
+
+  function getIntelCache(dateStr) {
+    try {
+      const raw = sessionStorage.getItem(intelCacheKey(dateStr));
+      if (!raw) return null;
+      const entry = JSON.parse(raw);
+      if (Date.now() - entry.ts > INTEL_CACHE_TTL) {
+        sessionStorage.removeItem(intelCacheKey(dateStr));
+        return null;
+      }
+      return entry.data;
+    } catch (_) { return null; }
+  }
+
+  function setIntelCache(dateStr, data) {
+    try {
+      sessionStorage.setItem(intelCacheKey(dateStr), JSON.stringify({ data, ts: Date.now() }));
+    } catch (_) { /* silent */ }
+  }
+
+  function collapseIntel() {
+    intelCard.classList.add('collapsed');
+    intelCollapseBtn.classList.remove('open');
+  }
+
+  function expandIntel() {
+    intelCard.classList.remove('collapsed');
+    intelCollapseBtn.classList.add('open');
+  }
+
+  function hideIntel() {
+    intelCard.style.display = 'none';
+    intelSkeleton.style.display = 'none';
+  }
+
+  function renderIntel(data) {
+    // Type label colour
+    intelTypeLabel.className = 'intel-type-label';
+    if (data.type === 'caution') intelTypeLabel.classList.add('caution');
+    else if (data.type === 'treat') intelTypeLabel.classList.add('treat');
+
+    // Confidence
+    const confMap = { high: 'HIGH SIGNAL', medium: 'MEDIUM SIGNAL', low: 'LOW SIGNAL' };
+    intelConfidence.textContent = confMap[data.confidence] || '';
+
+    // Content
+    intelHeadline.textContent = data.headline || '';
+    intelHeadlinePreview.textContent = data.headline || '';
+    intelText.textContent = data.body || '';
+
+    // Treat pill
+    if (data.treat_message) {
+      intelTreat.textContent = '\u00b7 ' + data.treat_message;
+      intelTreat.style.display = 'block';
+    } else {
+      intelTreat.style.display = 'none';
+    }
+
+    // Low confidence notice
+    intelLowNotice.style.display = data.confidence === 'low' ? 'block' : 'none';
+
+    // Reasoning / why-this
+    intelReasoning.innerHTML = '';
+    intelReasoning.classList.remove('expanded');
+    intelWhyToggle.textContent = 'why this? \u2193';
+    if (data.reasoning) {
+      const p = document.createElement('div');
+      p.className = 'intel-reasoning-text';
+      p.textContent = data.reasoning;
+      intelReasoning.appendChild(p);
+      intelWhyRow.style.display = 'block';
+    } else {
+      intelWhyRow.style.display = 'none';
+    }
+
+    intelSkeleton.style.display = 'none';
+    intelCard.style.display = 'block';
+    collapseIntel();
+  }
+
+  // Convert a daily_insights digest row into the intel card data format
+  function digestToIntel(digest) {
+    const ratingMap = { good: 'encouragement', moderate: 'recommendation', poor: 'caution' };
+    return {
+      headline: digest.overall_rating === 'good' ? 'A solid day overall'
+        : digest.overall_rating === 'poor' ? 'A tough day — tomorrow is fresh'
+        : 'Room to improve',
+      body: digest.summary,
+      reasoning: null,
+      type: ratingMap[digest.overall_rating] || 'recommendation',
+      treat_message: null,
+      confidence: 'high',
+    };
+  }
+
+  // Fetch or generate digest for a past date
+  async function fetchDigestForDate(dateStr) {
+    // Try to get existing digest
+    const digestsRes = await fetch('/api/intel/digests?days=30', { credentials: 'include' });
+    if (!digestsRes.ok) return null;
+    const digests = await digestsRes.json();
+    const existing = digests.find(d => d.date === dateStr);
+    if (existing) return existing;
+
+    // Not found — generate it
+    const genRes = await fetch('/api/intel/generate-digest', {
+      method: 'POST',
+      credentials: 'include',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ date: dateStr }),
+    });
+    if (!genRes.ok) return null;
+    const result = await genRes.json();
+    if (result.skipped) return null;
+    return result;
+  }
+
+  async function loadIntel() {
+    const dateStr = dateToStr(currentDate);
+    const viewingToday = dateStr === todayStr();
+
+    // Check stale flag (only relevant for today)
+    const isStale = sessionStorage.getItem('wt_intel_stale') === 'true';
+    if (isStale) sessionStorage.removeItem('wt_intel_stale');
+
+    // Check cache
+    if (!isStale) {
+      const cached = getIntelCache(dateStr);
+      if (cached) {
+        renderIntel(cached);
+        return;
+      }
+    }
+
+    // Show skeleton
+    intelCard.style.display = 'none';
+    intelSkeleton.style.display = 'flex';
+
+    try {
+      if (viewingToday) {
+        // Live recommendation for today
+        const currentTime = new Date().toTimeString().slice(0, 5);
+        const res = await fetch('/api/intel/recommendation', {
+          method: 'POST',
+          credentials: 'include',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ current_time: currentTime }),
+        });
+        if (!res.ok) throw new Error();
+        const data = await res.json();
+        setIntelCache(dateStr, data);
+        renderIntel(data);
+      } else {
+        // Past day — fetch or generate digest
+        const digest = await fetchDigestForDate(dateStr);
+        if (!digest) {
+          hideIntel();
+          return;
+        }
+        const data = digestToIntel(digest);
+        setIntelCache(dateStr, data);
+        renderIntel(data);
+      }
+    } catch (_) {
+      hideIntel();
+    }
+  }
+
+  // Why this toggle
+  if (intelWhyRow) {
+    intelWhyRow.addEventListener('click', () => {
+      const expanded = intelReasoning.classList.toggle('expanded');
+      intelWhyToggle.textContent = expanded ? 'why this? \u2191' : 'why this? \u2193';
+    });
+  }
+
+  // Collapse / expand toggle
+  if (intelHeader) {
+    intelHeader.addEventListener('click', (e) => {
+      // Don't toggle if they clicked the why-this row
+      if (intelWhyRow && intelWhyRow.contains(e.target)) return;
+      if (intelCard.classList.contains('collapsed')) {
+        expandIntel();
+      } else {
+        collapseIntel();
+      }
+    });
+  }
+
   // ── Elements ──
   const dateDisplay = document.getElementById('date-display');
   const dateRelative = document.getElementById('date-relative');
   const datePicker = document.getElementById('date-picker');
   const prevBtn = document.getElementById('date-prev');
   const nextBtn = document.getElementById('date-next');
-  const headerBadges = document.getElementById('today-header-badges');
   const statFasting = document.getElementById('stat-fasting');
   const statPostmeal = document.getElementById('stat-postmeal');
   const statReadings = document.getElementById('stat-readings');
@@ -229,10 +436,6 @@
       statReadings.className = 'stat-value';
     }
 
-    let badges = '';
-    if (fasting.length) badges += badgeHtml('FASTING', fasting[0].bg_value, 'fasting');
-    if (postMeal.length) badges += badgeHtml('POST', postMeal[postMeal.length - 1].bg_value, 'post-meal');
-    headerBadges.innerHTML = badges;
   }
 
   async function loadDate() {
@@ -248,6 +451,7 @@
     } catch (_) { /* silent */ }
 
     timeline.classList.remove('tl-loading');
+    loadIntel();
   }
 
   // ── Pull to refresh ──

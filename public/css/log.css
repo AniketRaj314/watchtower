@@ -90,21 +90,6 @@ body.wt-demo-mode #screen-log #meds-toggle {
   color: #5DCAA5;
 }
 
-/* --- Expand / collapse hint --- */
-
-.log-card-hint {
-  font-family: 'DM Mono', monospace;
-  font-size: 9px;
-  color: var(--text-muted);
-}
-
-.log-card--reading.collapsed .log-card-hint {
-  color: #00C896;
-}
-
-.log-card--meal.collapsed .log-card-hint {
-  color: #5DCAA5;
-}
 
 /* --- Collapse / expand state --- */
 

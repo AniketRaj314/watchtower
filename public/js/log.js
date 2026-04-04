@@ -242,6 +242,7 @@
       if (!res.ok) throw new Error();
 
       showToast('Signal received.');
+      sessionStorage.setItem('wt_intel_stale', 'true');
       readingInput.value = '';
       readingDisplay.textContent = '—';
       readingDisplay.classList.remove('green', 'amber', 'red');
@@ -329,6 +330,7 @@
       if (!res.ok) throw new Error();
 
       showToast('Signal received.');
+      sessionStorage.setItem('wt_intel_stale', 'true');
       mealDesc.value = '';
       medsOn = false;
       medsToggle.classList.remove('on');
@@ -345,28 +347,23 @@
   // ── Card collapse / expand ──
   const readingCard = document.getElementById('reading-card');
   const mealCard = document.getElementById('meal-card');
-  const readingCardHint = document.getElementById('reading-card-hint');
-  const mealCardHint = document.getElementById('meal-card-hint');
+  const readingChevron = document.getElementById('reading-card-chevron');
+  const mealChevron = document.getElementById('meal-card-chevron');
   const lastSignalEl = document.getElementById('last-signal');
 
-  let readingSmartHint = 'tap to log a reading';
-  let mealSmartHint = 'tap to log a meal';
-
-  function updateHintDisplay() {
-    const readingCollapsed = readingCard.classList.contains('collapsed');
-    const mealCollapsed = mealCard.classList.contains('collapsed');
-    readingCardHint.textContent = readingCollapsed ? readingSmartHint : '↑ collapse';
-    mealCardHint.textContent = mealCollapsed ? mealSmartHint : '↑ collapse';
+  function updateChevrons() {
+    readingChevron.classList.toggle('open', !readingCard.classList.contains('collapsed'));
+    mealChevron.classList.toggle('open', !mealCard.classList.contains('collapsed'));
   }
 
   function collapseCard(card) {
     card.classList.add('collapsed');
-    updateHintDisplay();
+    updateChevrons();
   }
 
   function expandCard(card) {
     card.classList.remove('collapsed');
-    updateHintDisplay();
+    updateChevrons();
   }
 
   // Tapping a collapsed card expands it; tapping the header of an expanded card collapses it
@@ -418,20 +415,14 @@
   function timeBasedExpand() {
     const h = new Date().getHours();
     if (h < 10) {
-      readingSmartHint = 'fasting reading?';
-      mealSmartHint = 'tap to log a meal';
       selectReadingType('fasting');
       expandCard(readingCard);
       collapseCard(mealCard);
     } else if (h < 16) {
-      mealSmartHint = 'log your meal';
-      readingSmartHint = 'tap to log a reading';
       selectMealType('lunch');
       collapseCard(readingCard);
       expandCard(mealCard);
     } else {
-      mealSmartHint = 'log your meal';
-      readingSmartHint = 'tap to log a reading';
       selectMealType('dinner');
       collapseCard(readingCard);
       expandCard(mealCard);
@@ -465,35 +456,25 @@
       if (last._kind === 'reading') {
         const rt = last.reading_type;
         if (rt === 'fasting') {
-          mealSmartHint = 'breakfast next?';
-          readingSmartHint = 'tap to log a reading';
           selectMealType('breakfast');
           expandCard(mealCard);
           collapseCard(readingCard);
         } else if (rt === 'post-meal') {
-          mealSmartHint = 'next meal?';
-          readingSmartHint = 'tap to log a reading';
           selectMealType(autoMealType());
           expandCard(mealCard);
           collapseCard(readingCard);
         } else if (rt === 'pre-meal') {
-          mealSmartHint = 'log what you ate?';
-          readingSmartHint = 'tap to log a reading';
           selectMealType(autoMealType());
           expandCard(mealCard);
           collapseCard(readingCard);
         } else {
           // random or bedtime
-          readingSmartHint = 'another reading?';
-          mealSmartHint = 'tap to log a meal';
           selectReadingType('random');
           expandCard(readingCard);
           collapseCard(mealCard);
         }
       } else {
         // last entry was a meal — prompt post-meal reading
-        readingSmartHint = '2hr post-meal?';
-        mealSmartHint = 'tap to log a meal';
         selectReadingType('post-meal');
         // Auto-select that meal chip
         if (last.id) {

@@ -38,6 +38,18 @@ db.exec(`
     raw_input TEXT,
     FOREIGN KEY (meal_id) REFERENCES meals(id)
   );
+
+  CREATE TABLE IF NOT EXISTS daily_insights (
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    date TEXT UNIQUE NOT NULL,
+    summary TEXT NOT NULL,
+    best_meal TEXT,
+    worst_meal TEXT,
+    fasting_avg REAL,
+    post_meal_avg REAL,
+    overall_rating TEXT,
+    generated_at TEXT NOT NULL
+  );
 `);
 
 // Migrate: add schedule column if missing (existing DBs)
@@ -80,6 +92,12 @@ if (needsSnapshotFix.length > 0) {
 const readingCols = db.prepare("PRAGMA table_info(readings)").all().map(c => c.name);
 if (!readingCols.includes('meal_ids')) {
   db.exec("ALTER TABLE readings ADD COLUMN meal_ids TEXT");
+}
+
+// Migrate: add extra_json column to daily_insights if missing
+const insightCols = db.prepare("PRAGMA table_info(daily_insights)").all().map(c => c.name);
+if (!insightCols.includes('extra_json')) {
+  db.exec("ALTER TABLE daily_insights ADD COLUMN extra_json TEXT");
 }
 
 // Seed medications if table is empty
