@@ -11,9 +11,11 @@ const dayRouter = require('./routes/day');
 const naturalRouter = require('./routes/natural');
 const demoRouter = require('./routes/demo');
 const intelRouter = require('./routes/intel');
+const foodInsightsRouter = require('./routes/food-insights');
 const { generateDailyDigest } = require('./digest');
 
 const path = require('path');
+const { version } = require('../package.json');
 
 const app = express();
 const PORT = process.env.PORT || 3000;
@@ -25,7 +27,7 @@ app.use(express.json());
 app.get('/health', (req, res) => {
   const runtimeSec = Math.round(process.uptime());
   console.log(`[health] server=${SERVER} runtimeSec=${runtimeSec}`);
-  res.json({ watchtower: 'online', server: SERVER, runtimeSec });
+  res.json({ watchtower: 'online', version, server: SERVER, runtimeSec });
 });
 
 app.use('/api', authRouter);
@@ -37,6 +39,7 @@ app.use('/api/day', sessionAuth, dayRouter);
 app.use('/api/log/natural', sessionAuth, naturalRouter);
 app.use('/api/demo', sessionAuth, demoRouter);
 app.use('/api/intel', sessionAuth, intelRouter);
+app.use('/api/food-insights', sessionAuth, foodInsightsRouter);
 
 // Daily digest cron — 2am every day
 cron.schedule('0 2 * * *', async () => {

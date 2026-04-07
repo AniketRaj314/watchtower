@@ -64,6 +64,7 @@
   const intelHeadlinePreview = document.getElementById('intel-headline-preview');
   const intelHeader = document.getElementById('intel-header');
   const intelWhyRow = document.getElementById('intel-why-row');
+  const intelRefreshBtn = document.getElementById('intel-refresh-btn');
 
   const INTEL_CACHE_TTL = 30 * 60 * 1000; // 30 minutes
 
@@ -190,16 +191,18 @@
     return result;
   }
 
-  async function loadIntel() {
+  async function loadIntel(force = false) {
     const dateStr = dateToStr(currentDate);
     const viewingToday = dateStr === todayStr();
+
+    intelCard.classList.toggle('intel-card--today', viewingToday);
 
     // Check stale flag (only relevant for today)
     const isStale = sessionStorage.getItem('wt_intel_stale') === 'true';
     if (isStale) sessionStorage.removeItem('wt_intel_stale');
 
     // Check cache
-    if (!isStale) {
+    if (!isStale && !force) {
       const cached = getIntelCache(dateStr);
       if (cached) {
         renderIntel(cached);
@@ -210,6 +213,7 @@
     // Show skeleton
     intelCard.style.display = 'none';
     intelSkeleton.style.display = 'flex';
+    if (intelRefreshBtn) intelRefreshBtn.classList.add('spinning');
 
     try {
       if (viewingToday) {
@@ -219,7 +223,7 @@
           method: 'POST',
           credentials: 'include',
           headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({ current_time: currentTime }),
+          body: JSON.stringify({ current_time: currentTime, refresh: force }),
         });
         if (!res.ok) throw new Error();
         const data = await res.json();
@@ -238,7 +242,16 @@
       }
     } catch (_) {
       hideIntel();
+    } finally {
+      if (intelRefreshBtn) intelRefreshBtn.classList.remove('spinning');
     }
+  }
+
+  if (intelRefreshBtn) {
+    intelRefreshBtn.addEventListener('click', (e) => {
+      e.stopPropagation();
+      loadIntel(true);
+    });
   }
 
   // Why this toggle

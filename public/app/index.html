@@ -193,6 +193,9 @@
           </div>
           <div class="intel-header-right">
             <span id="intel-headline-preview" class="intel-headline-preview"></span>
+            <button id="intel-refresh-btn" class="intel-refresh-btn" type="button" aria-label="Refresh intel">
+              <svg viewBox="0 0 24 24"><path d="M23 4v6h-6"/><path d="M1 20v-6h6"/><path d="M3.51 9a9 9 0 0 1 14.85-3.36L23 10M1 14l4.64 4.36A9 9 0 0 0 20.49 15"/></svg>
+            </button>
             <span id="intel-collapse-btn" class="collapse-chevron"><svg viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"/></svg></span>
           </div>
         </div>
@@ -279,14 +282,6 @@
       <div class="settings-section-label">MEDICATIONS</div>
       <div id="settings-meds-list"></div>
 
-      <div class="settings-section-label">SESSION</div>
-      <button type="button" id="settings-logout" class="settings-row-btn">
-        <span class="settings-row-label">Log out</span>
-        <svg class="settings-chevron" viewBox="0 0 24 24" aria-hidden="true">
-          <polyline points="9 6 15 12 9 18" />
-        </svg>
-      </button>
-
       <div class="settings-section-label">APPEARANCE</div>
       <div class="settings-appearance-row">
         <span class="settings-row-label settings-appearance-label">Dark mode</span>
@@ -324,6 +319,14 @@
         </div>
         <div class="settings-about-tagline">Signal. Log. Improve.</div>
       </div>
+
+      <div class="settings-section-label">SESSION</div>
+      <button type="button" id="settings-logout" class="settings-row-btn">
+        <span class="settings-row-label">Log out</span>
+        <svg class="settings-chevron" viewBox="0 0 24 24" aria-hidden="true">
+          <polyline points="9 6 15 12 9 18" />
+        </svg>
+      </button>
     </div>
 
     <!-- Bottom nav -->

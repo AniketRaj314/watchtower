@@ -60,4 +60,43 @@ router.get('/digests', (req, res) => {
   res.json(rows);
 });
 
+// GET /api/intel/digests/:id
+router.get('/digests/:id', (req, res) => {
+  const row = db.prepare('SELECT * FROM daily_insights WHERE id = ?').get(req.params.id);
+  if (!row) return res.status(404).json({ error: 'Digest not found' });
+  res.json(row);
+});
+
+// PATCH /api/intel/digests/:id
+router.patch('/digests/:id', (req, res) => {
+  const existing = db.prepare('SELECT * FROM daily_insights WHERE id = ?').get(req.params.id);
+  if (!existing) return res.status(404).json({ error: 'Digest not found' });
+
+  const allowed = ['summary', 'best_meal', 'worst_meal', 'fasting_avg', 'post_meal_avg', 'overall_rating', 'extra_json'];
+  const updates = [];
+  const values = [];
+
+  for (const field of allowed) {
+    if (req.body[field] !== undefined) {
+      updates.push(`${field} = ?`);
+      values.push(req.body[field]);
+    }
+  }
+
+  if (updates.length === 0) return res.status(400).json({ error: 'No valid fields to update' });
+
+  values.push(req.params.id);
+  db.prepare(`UPDATE daily_insights SET ${updates.join(', ')} WHERE id = ?`).run(...values);
+
+  const updated = db.prepare('SELECT * FROM daily_insights WHERE id = ?').get(req.params.id);
+  res.json(updated);
+});
+
+// DELETE /api/intel/digests/:id
+router.delete('/digests/:id', (req, res) => {
+  const result = db.prepare('DELETE FROM daily_insights WHERE id = ?').run(req.params.id);
+  if (result.changes === 0) return res.status(404).json({ error: 'Digest not found' });
+  res.json({ deleted: true });
+});
+
 module.exports = router;

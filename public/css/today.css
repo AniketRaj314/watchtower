@@ -97,6 +97,39 @@
   display: none;
 }
 
+.intel-refresh-btn {
+  display: none;
+  align-items: center;
+  justify-content: center;
+  background: none;
+  border: none;
+  padding: 3px;
+  width: 22px;
+  height: 22px;
+  cursor: pointer;
+  flex-shrink: 0;
+  border-radius: 4px;
+  -webkit-tap-highlight-color: transparent;
+}
+.intel-refresh-btn svg {
+  width: 13px;
+  height: 13px;
+  stroke: var(--text-muted);
+  fill: none;
+  stroke-width: 2;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+.intel-card--today:not(.collapsed) .intel-refresh-btn {
+  display: flex;
+}
+@keyframes intel-spin {
+  to { transform: rotate(360deg); }
+}
+.intel-refresh-btn.spinning svg {
+  animation: intel-spin 0.7s linear infinite;
+}
+
 .intel-body {
   padding: 0 14px 12px;
 }

@@ -60,6 +60,44 @@ router.get('/today', (req, res) => {
   res.json(meals);
 });
 
+router.get('/:id', (req, res) => {
+  const meal = db.prepare('SELECT * FROM meals WHERE id = ?').get(req.params.id);
+  if (!meal) return res.status(404).json({ error: 'Meal not found' });
+  res.json(meal);
+});
+
+router.patch('/:id', (req, res) => {
+  const existing = db.prepare('SELECT * FROM meals WHERE id = ?').get(req.params.id);
+  if (!existing) return res.status(404).json({ error: 'Meal not found' });
+
+  const allowed = ['meal_type', 'description', 'medication_taken', 'medication_snapshot', 'raw_input', 'timestamp'];
+  const updates = [];
+  const values = [];
+
+  for (const field of allowed) {
+    if (req.body[field] !== undefined) {
+      if (field === 'timestamp') {
+        const result = validateTimestamp(req.body[field]);
+        if (!result.valid) return res.status(400).json({ error: result.error });
+        updates.push('timestamp = ?');
+        values.push(result.value);
+      } else {
+        updates.push(`${field} = ?`);
+        values.push(req.body[field]);
+      }
+    }
+  }
+
+  if (updates.length === 0) return res.status(400).json({ error: 'No valid fields to update' });
+
+  values.push(req.params.id);
+  db.prepare(`UPDATE meals SET ${updates.join(', ')} WHERE id = ?`).run(...values);
+
+  const updated = db.prepare('SELECT * FROM meals WHERE id = ?').get(req.params.id);
+  invalidateCache();
+  res.json(updated);
+});
+
 router.delete('/:id', (req, res) => {
   const id = req.params.id;
   const meal = db.prepare('SELECT id FROM meals WHERE id = ?').get(id);
