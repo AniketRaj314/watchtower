@@ -6,6 +6,7 @@ const sessionAuth = require('./middleware/sessionAuth');
 const authRouter = require('./routes/auth');
 const mealsRouter = require('./routes/meals');
 const readingsRouter = require('./routes/readings');
+const exercisesRouter = require('./routes/exercises');
 const medicationsRouter = require('./routes/medications');
 const dayRouter = require('./routes/day');
 const naturalRouter = require('./routes/natural');
@@ -34,6 +35,7 @@ app.use('/api', authRouter);
 
 app.use('/api/meals', sessionAuth, mealsRouter);
 app.use('/api/readings', sessionAuth, readingsRouter);
+app.use('/api/exercises', sessionAuth, exercisesRouter);
 app.use('/api/medications', sessionAuth, medicationsRouter);
 app.use('/api/day', sessionAuth, dayRouter);
 app.use('/api/log/natural', sessionAuth, naturalRouter);

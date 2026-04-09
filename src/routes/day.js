@@ -29,7 +29,11 @@ router.get('/:date', (req, res) => {
     "SELECT * FROM readings WHERE date(timestamp) = ? ORDER BY timestamp ASC"
   ).all(date);
 
-  res.json({ meals, readings: enrichReadings(rawReadings) });
+  const exercises = db.prepare(
+    "SELECT * FROM exercises WHERE date(timestamp) = ? ORDER BY timestamp ASC"
+  ).all(date);
+
+  res.json({ meals, readings: enrichReadings(rawReadings), exercises });
 });
 
 module.exports = router;

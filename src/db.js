@@ -39,6 +39,15 @@ db.exec(`
     FOREIGN KEY (meal_id) REFERENCES meals(id)
   );
 
+  CREATE TABLE IF NOT EXISTS exercises (
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    timestamp TEXT NOT NULL DEFAULT (strftime('%Y-%m-%dT%H:%M:%SZ', 'now')),
+    duration_minutes INTEGER NOT NULL,
+    activity TEXT NOT NULL,
+    notes TEXT,
+    raw_input TEXT
+  );
+
   CREATE TABLE IF NOT EXISTS daily_insights (
     id INTEGER PRIMARY KEY AUTOINCREMENT,
     date TEXT UNIQUE NOT NULL,

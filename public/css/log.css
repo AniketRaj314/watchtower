@@ -41,6 +41,10 @@ body.wt-demo-mode #screen-log #meds-toggle {
   background: rgba(93, 202, 165, 0.04);
 }
 
+.log-card--exercise .log-card-header {
+  background: rgba(96, 165, 250, 0.04);
+}
+
 .log-card:not(.collapsed) .log-card-header {
   border-bottom: 0.5px solid var(--border);
 }
@@ -73,6 +77,11 @@ body.wt-demo-mode #screen-log #meds-toggle {
   border: 0.5px solid rgba(93, 202, 165, 0.15);
 }
 
+.log-card-icon-wrap--exercise {
+  background: rgba(96, 165, 250, 0.1);
+  border: 0.5px solid rgba(96, 165, 250, 0.18);
+}
+
 /* --- Card type label --- */
 
 .log-card-type-label {
@@ -88,6 +97,10 @@ body.wt-demo-mode #screen-log #meds-toggle {
 
 .log-card-type-label--meal {
   color: #5DCAA5;
+}
+
+.log-card-type-label--exercise {
+  color: #60A5FA;
 }
 
 
@@ -429,6 +442,35 @@ body.wt-demo-mode #screen-log #meds-toggle {
 .send-btn--meal {
   background: #0F6E56;
   color: #9FE1CB;
+}
+
+.send-btn--exercise {
+  background: #1E4D8B;
+  color: #BBD7FF;
+}
+
+/* --- Exercise input --- */
+
+.exercise-input {
+  width: 100%;
+  box-sizing: border-box;
+  background: var(--bg-raised);
+  border: 0.5px solid var(--border);
+  border-radius: 8px;
+  padding: 10px 12px;
+  font-family: 'DM Sans', system-ui, sans-serif;
+  font-size: 14px;
+  color: var(--text-primary);
+  transition: border-color 0.15s;
+  -webkit-appearance: none;
+  appearance: none;
+}
+.exercise-input::placeholder { color: var(--text-muted); }
+.exercise-input:focus { border-color: #60A5FA; }
+.exercise-input[type="number"]::-webkit-inner-spin-button,
+.exercise-input[type="number"]::-webkit-outer-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
 }
 
 .send-btn:disabled {

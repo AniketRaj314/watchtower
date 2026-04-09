@@ -346,11 +346,12 @@
     return map;
   }
 
-  function renderTimeline(meals, readings, viewDate) {
+  function renderTimeline(meals, readings, exercises, viewDate) {
     const mealMap = buildMealMap(meals);
     const entries = [];
     meals.forEach(m => entries.push({ type: 'meal', data: m, ts: m.timestamp }));
     readings.forEach(r => entries.push({ type: 'reading', data: r, ts: r.timestamp }));
+    (exercises || []).forEach(e => entries.push({ type: 'exercise', data: e, ts: e.timestamp }));
     entries.sort((a, b) => a.ts.localeCompare(b.ts));
 
     if (entries.length === 0) {
@@ -383,6 +384,16 @@
             </div>
             <div class="tl-meal-desc">${escHtml(m.description)}</div>
             ${medsHtml}
+          </div>`;
+      } else if (e.type === 'exercise') {
+        const ex = e.data;
+        card = `
+          <div class="tl-exercise">
+            <div class="tl-exercise-top">
+              <span class="tl-exercise-badge">EXERCISE</span>
+              <span class="tl-exercise-time">${time}</span>
+            </div>
+            <div class="tl-exercise-desc">${escHtml(ex.activity)} · ${ex.duration_minutes} min</div>
           </div>`;
       } else {
         const r = e.data;
@@ -460,7 +471,7 @@
       if (!res.ok) return;
       const data = await res.json();
       renderStats(data.readings);
-      renderTimeline(data.meals, data.readings, currentDate);
+      renderTimeline(data.meals, data.readings, data.exercises || [], currentDate);
     } catch (_) { /* silent */ }
 
     timeline.classList.remove('tl-loading');

@@ -161,6 +161,39 @@
         </div>
       </div>
 
+      <!-- Exercise card -->
+      <div id="exercise-card" class="log-card log-card--exercise collapsed">
+        <div class="log-card-header">
+          <div class="log-card-header-left">
+            <div class="log-card-icon-wrap log-card-icon-wrap--exercise">
+              <svg width="20" height="20" viewBox="0 0 32 32" fill="none" stroke-linejoin="round">
+                <circle cx="22" cy="8" r="2.5" stroke="#60A5FA" stroke-width="1.5" fill="none" />
+                <path d="M8 26 L13 19 L17 22 L22 14" stroke="#60A5FA" stroke-width="1.5" stroke-linecap="round" fill="none" />
+                <path d="M17 22 L19 27" stroke="#60A5FA" stroke-width="1.5" stroke-linecap="round" />
+                <path d="M13 19 L10 23" stroke="#60A5FA" stroke-width="1.5" stroke-linecap="round" />
+                <line x1="6" y1="29" x2="26" y2="29" stroke="#60A5FA" stroke-width="1" stroke-linecap="round" opacity="0.35" />
+              </svg>
+            </div>
+            <span class="log-card-type-label log-card-type-label--exercise">EXERCISE</span>
+          </div>
+          <span class="collapse-chevron" id="exercise-card-chevron"><svg viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"/></svg></span>
+        </div>
+        <div class="log-card-body">
+          <div class="ts-row">
+            <input id="exercise-date" type="date" class="ts-input ts-date">
+            <input id="exercise-time" type="time" class="ts-input ts-time">
+          </div>
+
+          <div class="meal-field-label">ACTIVITY</div>
+          <input id="exercise-activity" type="text" class="exercise-input" placeholder="walk, gym, badminton, yoga...">
+
+          <div class="meal-field-label" style="margin-top:12px">DURATION (MINUTES)</div>
+          <input id="exercise-duration" type="number" inputmode="numeric" min="1" max="600" class="exercise-input" placeholder="30">
+
+          <button id="exercise-send" class="send-btn send-btn--exercise" disabled>SEND SIGNAL</button>
+        </div>
+      </div>
+
       <div id="last-signal" class="last-signal">no signal today — start with your fasting reading</div>
 
     </div>

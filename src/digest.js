@@ -10,12 +10,14 @@ const SYSTEM_PROMPT = `You are a precise glucose pattern analyst for a pre-diabe
 Glucose targets: fasting below 120 mg/dL, post-meal below 140 mg/dL.
 This person eats Indian food daily: chapati, dal, sabzi, dahi, paneer, eggs, South Indian dishes.
 Medications will be provided in the user message — use them to understand which levers are active at each meal.
+Exercise sessions will be provided when present — factor them into your reasoning. Exercise can blunt a post-meal spike, lower fasting the next morning, or explain an unusually flat reading after a heavy meal. A walk within 30-60 minutes after a meal is particularly effective.
 When no post-meal dinner reading exists, infer dinner impact from the bedtime reading and the following morning's fasting if available. State clearly that this is an inference, not a direct reading.
 
 Your job is NOT to summarise what happened. The UI already shows the log.
 Your job is to explain WHY glucose moved the way it did, and what one specific thing should change tomorrow.
 Be specific to actual foods eaten. Never give generic advice like "eat more protein" or "reduce carbs".
 Name the actual food. Explain the actual mechanism.
+If exercise clearly helped (e.g. a walk after dinner kept bedtime flat), call it out explicitly.
 Output only valid JSON, no markdown, no backticks.`;
 
 function fetchMedicationLines() {
@@ -40,7 +42,7 @@ function getMedsForMeal(mealType) {
   return filtered.length ? filtered.map(m => m.name).join(', ') : null;
 }
 
-function buildUserPrompt(date, meals, readings) {
+function buildUserPrompt(date, meals, readings, exercises = []) {
   // Sort meals by timestamp for time-gap calculation
   const sortedMeals = [...meals].sort((a, b) => a.timestamp.localeCompare(b.timestamp));
 
@@ -99,6 +101,13 @@ function buildUserPrompt(date, meals, readings) {
     return line;
   }).join('\n  ');
 
+  const exerciseLines = exercises.map(e => {
+    const time = toIST(e.timestamp);
+    let line = `${time}: ${e.activity} — ${e.duration_minutes} min`;
+    if (e.notes) line += ` (${e.notes})`;
+    return line;
+  }).join('\n  ');
+
   const medicationLines = fetchMedicationLines();
 
   // Check for next morning's fasting reading
@@ -115,6 +124,8 @@ Readings:
   ${readingLines || 'None'}
 Meals:
   ${mealLines || 'None'}
+Exercise:
+  ${exerciseLines || 'None'}
 
 Medications active today:
   ${medicationLines}
@@ -128,6 +139,7 @@ Analyse this day and return JSON:
   "summary": "2-3 sentences max. State the single most important pattern from today. Reference actual foods by name. Do not restate the log. No bullet points.",
   "why_it_spiked": "If any post-meal reading exceeded 140, explain specifically which food, what composition, or what timing caused it. If no spike, return null.",
   "tomorrow_focus": "One specific actionable change for tomorrow tied to today's actual data. Must name the actual food or meal. Not generic advice.",
+  "exercise_impact": "If any exercise happened today, briefly describe its likely impact on glucose today (e.g. 'walk after dinner likely kept bedtime flat at 112'). If no exercise, return null.",
   "best_meal": "meal_type with lowest post-meal spike, or null",
   "worst_meal": "meal_type with highest post-meal spike, or null",
   "fasting_avg": number or null,
@@ -267,13 +279,18 @@ async function generateDailyDigest(date) {
     "SELECT * FROM meals WHERE date(timestamp) = ? ORDER BY timestamp"
   ).all(date);
 
+  // Fetch exercises for the date
+  const exercises = db.prepare(
+    "SELECT * FROM exercises WHERE date(timestamp) = ? ORDER BY timestamp"
+  ).all(date);
+
   // Call Sonnet for digest (critical reasoning, runs once/day max)
   const client = new Anthropic();
   const message = await client.messages.create({
     model: 'claude-sonnet-4-6',
     max_tokens: 512,
     system: SYSTEM_PROMPT,
-    messages: [{ role: 'user', content: buildUserPrompt(date, meals, readings) }],
+    messages: [{ role: 'user', content: buildUserPrompt(date, meals, readings, exercises) }],
   });
 
   const raw = message.content[0].text;
@@ -284,6 +301,7 @@ async function generateDailyDigest(date) {
   const extraJson = JSON.stringify({
     why_it_spiked: parsed.why_it_spiked || null,
     tomorrow_focus: parsed.tomorrow_focus || null,
+    exercise_impact: parsed.exercise_impact || null,
   });
 
   // Upsert — update if exists, insert if not

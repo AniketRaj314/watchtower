@@ -88,6 +88,8 @@
     if (readingTime) readingTime.value = now.time;
     if (mealDate) mealDate.value = now.date;
     if (mealTime) mealTime.value = now.time;
+    if (exerciseDate) exerciseDate.value = now.date;
+    if (exerciseTime) exerciseTime.value = now.time;
   }
 
   // Reload meal chips when reading timestamp changes
@@ -344,16 +346,75 @@
     }
   });
 
+  // ── Exercise card ──
+  const exerciseDate = document.getElementById('exercise-date');
+  const exerciseTime = document.getElementById('exercise-time');
+  const exerciseActivity = document.getElementById('exercise-activity');
+  const exerciseDuration = document.getElementById('exercise-duration');
+  const exerciseSend = document.getElementById('exercise-send');
+
+  function updateExerciseSend() {
+    const hasActivity = exerciseActivity.value.trim().length > 0;
+    const dur = Number(exerciseDuration.value);
+    exerciseSend.disabled = !hasActivity || !Number.isFinite(dur) || dur <= 0;
+  }
+
+  exerciseActivity.addEventListener('input', updateExerciseSend);
+  exerciseDuration.addEventListener('input', () => {
+    const v = exerciseDuration.value.replace(/[^0-9]/g, '').slice(0, 3);
+    exerciseDuration.value = v;
+    updateExerciseSend();
+  });
+
+  exerciseSend.addEventListener('click', async () => {
+    const activity = exerciseActivity.value.trim();
+    const duration_minutes = Number(exerciseDuration.value);
+    if (!activity || !duration_minutes) return;
+
+    if (window.WT_DEMO && window.WT_DEMO.isDemoMode()) {
+      showToast('Demo mode — not saved.', true);
+      return;
+    }
+
+    exerciseSend.disabled = true;
+    const exerciseTimestamp = buildTimestamp(exerciseDate && exerciseDate.value, exerciseTime && exerciseTime.value);
+    const payload = { activity, duration_minutes };
+    if (exerciseTimestamp) payload.timestamp = exerciseTimestamp;
+
+    try {
+      const res = await fetch(window.WT_DEMO.apiUrl('/api/exercises'), {
+        ...cred,
+        method: 'POST',
+        headers: jsonHeaders,
+        body: JSON.stringify(payload),
+      });
+      if (!res.ok) throw new Error();
+
+      showToast('Signal received.');
+      sessionStorage.setItem('wt_intel_stale', 'true');
+      exerciseActivity.value = '';
+      exerciseDuration.value = '';
+      exerciseSend.disabled = true;
+      await smartExpandCards();
+    } catch (_) {
+      showToast('Signal lost — try again.', true);
+      exerciseSend.disabled = false;
+    }
+  });
+
   // ── Card collapse / expand ──
   const readingCard = document.getElementById('reading-card');
   const mealCard = document.getElementById('meal-card');
+  const exerciseCard = document.getElementById('exercise-card');
   const readingChevron = document.getElementById('reading-card-chevron');
   const mealChevron = document.getElementById('meal-card-chevron');
+  const exerciseChevron = document.getElementById('exercise-card-chevron');
   const lastSignalEl = document.getElementById('last-signal');
 
   function updateChevrons() {
     readingChevron.classList.toggle('open', !readingCard.classList.contains('collapsed'));
     mealChevron.classList.toggle('open', !mealCard.classList.contains('collapsed'));
+    exerciseChevron.classList.toggle('open', !exerciseCard.classList.contains('collapsed'));
   }
 
   function collapseCard(card) {
@@ -379,6 +440,7 @@
 
   setupCardToggle(readingCard, readingCard.querySelector('.log-card-header'));
   setupCardToggle(mealCard, mealCard.querySelector('.log-card-header'));
+  setupCardToggle(exerciseCard, exerciseCard.querySelector('.log-card-header'));
 
   // ── Time format helper ──
   function formatTime12(ts) {
@@ -427,6 +489,8 @@
       collapseCard(readingCard);
       expandCard(mealCard);
     }
+    // Exercise card is lowest priority — always start collapsed
+    collapseCard(exerciseCard);
   }
 
   // ── Smart expand ──
@@ -483,6 +547,8 @@
         expandCard(readingCard);
         collapseCard(mealCard);
       }
+      // Exercise card is lowest priority — always start collapsed
+      collapseCard(exerciseCard);
     } catch (_) {
       updateLastSignal([], []);
       timeBasedExpand();

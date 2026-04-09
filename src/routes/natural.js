@@ -5,11 +5,11 @@ const { validateTimestamp } = require('../middleware/timestamp');
 
 const router = Router();
 
-const SYSTEM_PROMPT = `You are a health log parser. The user will send a short natural language string describing a meal, a blood glucose reading, or both. Parse it and return ONLY valid JSON with no markdown, no explanation, no extra text.
+const SYSTEM_PROMPT = `You are a health log parser. The user will send a short natural language string describing a meal, a blood glucose reading, an exercise session, or a combination. Parse it and return ONLY valid JSON with no markdown, no explanation, no extra text.
 
 Return this exact structure:
 {
-  "entry_type": "meal" | "reading" | "both",
+  "entry_type": "meal" | "reading" | "exercise" | "both" | "meal+exercise" | "reading+exercise" | "all",
   "meal": {
     "meal_type": "breakfast" | "lunch" | "dinner" | "snack" | null,
     "description": "string or null",
@@ -18,6 +18,10 @@ Return this exact structure:
   "reading": {
     "reading_type": "fasting" | "post-meal" | "pre-meal" | "random" | "bedtime" | null,
     "bg_value": number | null
+  },
+  "exercise": {
+    "activity": "string or null",
+    "duration_minutes": number | null
   }
 }
 
@@ -31,8 +35,15 @@ Rules:
 - "bedtime 134" means a bedtime reading, entry_type "reading"
 - "random 142" means a random reading, entry_type "reading"
 - Numbers that appear alongside reading type keywords (fasting, post-meal, pre-meal, random, bedtime) are bg_value in mg/dL
-- For meal description, extract the food items only (not the reading or medication info)
-- If there is a meal mentioned along with a reading, entry_type must be "both"
+- For meal description, extract the food items only (not the reading, medication, or exercise info)
+- Exercise examples: "30 min walk" → activity: "walk", duration_minutes: 30. "gym 45 minutes" → activity: "gym", duration_minutes: 45. "badminton 1 hour this evening" → activity: "badminton", duration_minutes: 60. "went for a 20 minute run" → activity: "run", duration_minutes: 20. "did yoga for half an hour" → activity: "yoga", duration_minutes: 30
+- Convert duration phrases: "1 hour" → 60, "half an hour" / "30 min" → 30, "90 min" / "1.5 hours" → 90
+- If only exercise is mentioned → entry_type: "exercise"
+- If a meal and exercise are both mentioned → entry_type: "meal+exercise"
+- If a reading and exercise are both mentioned → entry_type: "reading+exercise"
+- If meal, reading, and exercise are all mentioned → entry_type: "all"
+- If a meal and reading (no exercise) → entry_type: "both"
+- For fields not mentioned, set them to null
 - Return ONLY the JSON object, nothing else`;
 
 router.post('/', async (req, res) => {
@@ -68,10 +79,14 @@ router.post('/', async (req, res) => {
   }
 
   try {
-    const saved = { meal: null, reading: null };
+    const saved = { meal: null, reading: null, exercise: null };
     let mealId = null;
 
-    if (parsed.entry_type === 'meal' || parsed.entry_type === 'both') {
+    const hasMeal = ['meal', 'both', 'meal+exercise', 'all'].includes(parsed.entry_type);
+    const hasReading = ['reading', 'both', 'reading+exercise', 'all'].includes(parsed.entry_type);
+    const hasExercise = ['exercise', 'meal+exercise', 'reading+exercise', 'all'].includes(parsed.entry_type);
+
+    if (hasMeal) {
       const m = parsed.meal;
       if (!m || !m.meal_type || !m.description) {
         return res.status(500).json({ signal: 'lost', error: 'Parser returned incomplete meal data' });
@@ -104,7 +119,7 @@ router.post('/', async (req, res) => {
       saved.meal = db.prepare('SELECT * FROM meals WHERE id = ?').get(mealId);
     }
 
-    if (parsed.entry_type === 'reading' || parsed.entry_type === 'both') {
+    if (hasReading) {
       const r = parsed.reading;
       if (!r || !r.reading_type || r.bg_value == null) {
         return res.status(500).json({ signal: 'lost', error: 'Parser returned incomplete reading data' });
@@ -119,6 +134,23 @@ router.post('/', async (req, res) => {
       const result = readStmt.run(...readArgs);
 
       saved.reading = db.prepare('SELECT * FROM readings WHERE id = ?').get(result.lastInsertRowid);
+    }
+
+    if (hasExercise) {
+      const ex = parsed.exercise;
+      if (!ex || !ex.activity || ex.duration_minutes == null) {
+        return res.status(500).json({ signal: 'lost', error: 'Parser returned incomplete exercise data' });
+      }
+
+      const exStmt = ts
+        ? db.prepare('INSERT INTO exercises (timestamp, activity, duration_minutes, raw_input) VALUES (?, ?, ?, ?)')
+        : db.prepare('INSERT INTO exercises (activity, duration_minutes, raw_input) VALUES (?, ?, ?)');
+      const exArgs = ts
+        ? [ts, ex.activity, Math.round(ex.duration_minutes), text]
+        : [ex.activity, Math.round(ex.duration_minutes), text];
+      const result = exStmt.run(...exArgs);
+
+      saved.exercise = db.prepare('SELECT * FROM exercises WHERE id = ?').get(result.lastInsertRowid);
     }
 
     res.status(201).json({ signal: 'received', saved });

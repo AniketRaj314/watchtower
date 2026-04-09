@@ -73,6 +73,7 @@ Key facts:
 - He tracks consistently and is data-driven. Do not explain basics he already knows.
 
 Tone: direct, specific, encouraging. Like a coach who has been watching his data for weeks. Never preachy. Never generic. Always reference his actual foods by name. If he had a good day, say so clearly and explain why it worked. If something spiked, name the food and the reason.
+If exercise is part of today or the recent pattern, factor it in. A walk after a heavy meal can blunt a spike. Consistent activity can lower fasting. Call out the connection when relevant.
 Output only valid JSON, no markdown, no backticks.`;
 
 function fetchMedicationLines() {
@@ -90,7 +91,7 @@ function fetchFoodInsightLines() {
   return rows.map(r => `${r.food_name}: ${r.pattern} (${r.evidence})`).join('\n  ');
 }
 
-function buildUserPrompt(digests, todayMeals, todayReadings, todayDate, mealContext, earnedTreat) {
+function buildUserPrompt(digests, todayMeals, todayReadings, todayDate, mealContext, earnedTreat, todayExercises = []) {
   const digestLines = digests.map(d => {
     let line = `${d.date}: rating=${d.overall_rating}, fasting_avg=${d.fasting_avg ?? 'n/a'}, post_meal_avg=${d.post_meal_avg ?? 'n/a'}, best=${d.best_meal ?? 'n/a'}, worst=${d.worst_meal ?? 'n/a'}`;
     line += `\n  Summary: ${d.summary}`;
@@ -99,6 +100,7 @@ function buildUserPrompt(digests, todayMeals, todayReadings, todayDate, mealCont
         const extra = JSON.parse(d.extra_json);
         if (extra.why_it_spiked) line += `\n  Why it spiked: ${extra.why_it_spiked}`;
         if (extra.tomorrow_focus) line += `\n  Tomorrow focus: ${extra.tomorrow_focus}`;
+        if (extra.exercise_impact) line += `\n  Exercise impact: ${extra.exercise_impact}`;
       } catch (_) { /* ignore parse errors */ }
     }
     return line;
@@ -118,6 +120,11 @@ function buildUserPrompt(digests, todayMeals, todayReadings, todayDate, mealCont
     const ts = r.timestamp.endsWith('Z') ? r.timestamp : r.timestamp + 'Z';
     const time = toIST(r.timestamp);
     todayEntries.push({ sort: ts, text: `[${time}] Reading (${r.reading_type}): ${r.bg_value} mg/dL` });
+  }
+  for (const e of todayExercises) {
+    const ts = e.timestamp.endsWith('Z') ? e.timestamp : e.timestamp + 'Z';
+    const time = toIST(e.timestamp);
+    todayEntries.push({ sort: ts, text: `[${time}] Exercise: ${e.activity} — ${e.duration_minutes} min` });
   }
   todayEntries.sort((a, b) => a.sort.localeCompare(b.sort));
   const todayText = todayEntries.map(e => e.text).join('\n') || 'Nothing logged yet today.';
@@ -175,6 +182,10 @@ async function generateRecommendation(currentTime, forceRefresh = false) {
     "SELECT * FROM readings WHERE date(timestamp) = ? ORDER BY timestamp ASC"
   ).all(todayDate);
 
+  const todayExercises = db.prepare(
+    "SELECT * FROM exercises WHERE date(timestamp) = ? ORDER BY timestamp ASC"
+  ).all(todayDate);
+
   const earnedTreat = checkEarnedTreat(digests, todayReadings);
   const confidence = getConfidence(digests.length);
 
@@ -184,7 +195,7 @@ async function generateRecommendation(currentTime, forceRefresh = false) {
     model: 'claude-haiku-4-5-20251001',
     max_tokens: 512,
     system: SYSTEM_PROMPT,
-    messages: [{ role: 'user', content: buildUserPrompt(digests, todayMeals, todayReadings, todayDate, mealContext, earnedTreat) }],
+    messages: [{ role: 'user', content: buildUserPrompt(digests, todayMeals, todayReadings, todayDate, mealContext, earnedTreat, todayExercises) }],
   });
 
   const raw = message.content[0].text;
