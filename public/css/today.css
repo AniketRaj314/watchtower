@@ -293,6 +293,34 @@
   font-size: 16px;
 }
 
+/* --- Share button --- */
+
+.share-btn svg.share-icon {
+  width: 16px;
+  height: 16px;
+  stroke: var(--text-muted);
+  fill: none;
+  stroke-width: 2;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+.share-btn svg.share-spinner {
+  width: 16px;
+  height: 16px;
+  stroke: var(--text-muted);
+  fill: none;
+  stroke-width: 2;
+  stroke-linecap: round;
+  animation: share-spin 0.8s linear infinite;
+}
+
+.share-btn:disabled { opacity: 0.5; pointer-events: none; }
+
+@keyframes share-spin {
+  to { transform: rotate(360deg); }
+}
+
 /* --- Loading state --- */
 .tl-loading { opacity: 0.4; transition: opacity 0.2s; }
 

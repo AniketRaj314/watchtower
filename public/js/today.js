@@ -333,6 +333,13 @@
     loadDate();
   }
 
+  const shareBtn = document.getElementById('share-btn');
+  if (shareBtn) {
+    shareBtn.addEventListener('click', () => {
+      if (window.WT_SHARE) window.WT_SHARE.shareDay(dateToStr(currentDate));
+    });
+  }
+
   prevBtn.addEventListener('click', goToPrevDay);
   nextBtn.addEventListener('click', goToNextDay);
   datePicker.addEventListener('change', () => {
