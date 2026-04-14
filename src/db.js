@@ -76,7 +76,7 @@ const needsSnapshotFix = db.prepare(
 ).all();
 if (needsSnapshotFix.length > 0) {
   const scheduleIndex = { breakfast: 0, lunch: 1, dinner: 2 };
-  const activeMeds = db.prepare('SELECT name, schedule FROM medications').all();
+  const activeMeds = db.prepare('SELECT name, schedule FROM medications WHERE is_active = 1').all();
   const update = db.prepare('UPDATE meals SET medication_snapshot = ? WHERE id = ?');
   const fixAll = db.transaction(() => {
     for (const meal of needsSnapshotFix) {
