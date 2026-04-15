@@ -2,6 +2,7 @@ const { Router } = require('express');
 const Anthropic = require('@anthropic-ai/sdk');
 const db = require('../db');
 const { validateTimestamp } = require('../middleware/timestamp');
+const { applyParsedTimestamps } = require('../lib/naturalTime');
 
 const router = Router();
 
@@ -13,15 +14,18 @@ Return this exact structure:
   "meal": {
     "meal_type": "breakfast" | "lunch" | "dinner" | "snack" | null,
     "description": "string or null",
-    "medication_taken": true | false | null
+    "medication_taken": true | false | null,
+    "timestamp": "ISO-8601 string or null"
   },
   "reading": {
     "reading_type": "fasting" | "post-meal" | "pre-meal" | "random" | "bedtime" | null,
-    "bg_value": number | null
+    "bg_value": number | null,
+    "timestamp": "ISO-8601 string or null"
   },
   "exercise": {
     "activity": "string or null",
-    "duration_minutes": number | null
+    "duration_minutes": number | null,
+    "timestamp": "ISO-8601 string or null"
   }
 }
 
@@ -43,11 +47,14 @@ Rules:
 - If a reading and exercise are both mentioned → entry_type: "reading+exercise"
 - If meal, reading, and exercise are all mentioned → entry_type: "all"
 - If a meal and reading (no exercise) → entry_type: "both"
+- If a clock time is clearly mentioned for an entry, set that entry's timestamp
+- If a relative phrase is used (for example "2 hours later"), resolve it from the nearest earlier explicit time in the same sentence
+- If no time is mentioned for an entry, set its timestamp to null
 - For fields not mentioned, set them to null
 - Return ONLY the JSON object, nothing else`;
 
 router.post('/', async (req, res) => {
-  const { text, timestamp } = req.body;
+  const { text, timestamp, preview } = req.body;
 
   let ts = null;
   if (timestamp) {
@@ -61,13 +68,14 @@ router.post('/', async (req, res) => {
   }
 
   let parsed;
+  const cleanText = text.trim();
   try {
     const client = new Anthropic();
     const message = await client.messages.create({
       model: 'claude-haiku-4-5-20251001',
       max_tokens: 256,
       system: SYSTEM_PROMPT,
-      messages: [{ role: 'user', content: text.trim() }],
+      messages: [{ role: 'user', content: cleanText }],
     });
 
     const raw = message.content[0].text;
@@ -81,16 +89,45 @@ router.post('/', async (req, res) => {
   try {
     const saved = { meal: null, reading: null, exercise: null };
     let mealId = null;
+    const inferredTs = applyParsedTimestamps(parsed, cleanText, { validateTimestamp });
 
-    const hasMeal = ['meal', 'both', 'meal+exercise', 'all'].includes(parsed.entry_type);
-    const hasReading = ['reading', 'both', 'reading+exercise', 'all'].includes(parsed.entry_type);
-    const hasExercise = ['exercise', 'meal+exercise', 'reading+exercise', 'all'].includes(parsed.entry_type);
+    const wantsMeal = ['meal', 'both', 'meal+exercise', 'all'].includes(parsed.entry_type);
+    const wantsReading = ['reading', 'both', 'reading+exercise', 'all'].includes(parsed.entry_type);
+    const wantsExercise = ['exercise', 'meal+exercise', 'reading+exercise', 'all'].includes(parsed.entry_type);
+
+    const hasMeal = wantsMeal
+      && !!(parsed.meal && parsed.meal.meal_type && parsed.meal.description);
+    const hasReading = wantsReading
+      && !!(parsed.reading && parsed.reading.reading_type && parsed.reading.bg_value != null);
+    const hasExercise = wantsExercise
+      && !!(parsed.exercise && parsed.exercise.activity && parsed.exercise.duration_minutes != null);
+
+    if (!hasMeal && !hasReading && !hasExercise) {
+      return res.status(422).json({ signal: 'lost', error: 'Could not parse input' });
+    }
+
+    if (preview) {
+      return res.status(200).json({
+        signal: 'parsed',
+        parsed,
+        inferred_timestamps: inferredTs,
+        parsed_flags: { hasMeal, hasReading, hasExercise },
+      });
+    }
+
+    if (wantsMeal && !hasMeal) {
+      return res.status(500).json({ signal: 'lost', error: 'Parser returned incomplete meal data' });
+    }
+    if (wantsReading && !hasReading) {
+      return res.status(500).json({ signal: 'lost', error: 'Parser returned incomplete reading data' });
+    }
+    if (wantsExercise && !hasExercise) {
+      return res.status(500).json({ signal: 'lost', error: 'Parser returned incomplete exercise data' });
+    }
 
     if (hasMeal) {
       const m = parsed.meal;
-      if (!m || !m.meal_type || !m.description) {
-        return res.status(500).json({ signal: 'lost', error: 'Parser returned incomplete meal data' });
-      }
+      const mealTs = m.timestamp || ts;
 
       let medication_snapshot = null;
       const medTaken = m.medication_taken === true ? 1 : 0;
@@ -107,11 +144,11 @@ router.post('/', async (req, res) => {
         }
       }
 
-      const mealStmt = ts
+      const mealStmt = mealTs
         ? db.prepare(`INSERT INTO meals (timestamp, meal_type, description, medication_taken, medication_snapshot, raw_input) VALUES (?, ?, ?, ?, ?, ?)`)
         : db.prepare(`INSERT INTO meals (meal_type, description, medication_taken, medication_snapshot, raw_input) VALUES (?, ?, ?, ?, ?)`);
-      const mealArgs = ts
-        ? [ts, m.meal_type, m.description, medTaken, medication_snapshot, text]
+      const mealArgs = mealTs
+        ? [mealTs, m.meal_type, m.description, medTaken, medication_snapshot, text]
         : [m.meal_type, m.description, medTaken, medication_snapshot, text];
       const result = mealStmt.run(...mealArgs);
 
@@ -121,15 +158,13 @@ router.post('/', async (req, res) => {
 
     if (hasReading) {
       const r = parsed.reading;
-      if (!r || !r.reading_type || r.bg_value == null) {
-        return res.status(500).json({ signal: 'lost', error: 'Parser returned incomplete reading data' });
-      }
+      const readingTs = r.timestamp || ts;
 
-      const readStmt = ts
+      const readStmt = readingTs
         ? db.prepare(`INSERT INTO readings (timestamp, reading_type, bg_value, meal_id, raw_input) VALUES (?, ?, ?, ?, ?)`)
         : db.prepare(`INSERT INTO readings (reading_type, bg_value, meal_id, raw_input) VALUES (?, ?, ?, ?)`);
-      const readArgs = ts
-        ? [ts, r.reading_type, r.bg_value, mealId, text]
+      const readArgs = readingTs
+        ? [readingTs, r.reading_type, r.bg_value, mealId, text]
         : [r.reading_type, r.bg_value, mealId, text];
       const result = readStmt.run(...readArgs);
 
@@ -138,15 +173,13 @@ router.post('/', async (req, res) => {
 
     if (hasExercise) {
       const ex = parsed.exercise;
-      if (!ex || !ex.activity || ex.duration_minutes == null) {
-        return res.status(500).json({ signal: 'lost', error: 'Parser returned incomplete exercise data' });
-      }
+      const exerciseTs = ex.timestamp || ts;
 
-      const exStmt = ts
+      const exStmt = exerciseTs
         ? db.prepare('INSERT INTO exercises (timestamp, activity, duration_minutes, raw_input) VALUES (?, ?, ?, ?)')
         : db.prepare('INSERT INTO exercises (activity, duration_minutes, raw_input) VALUES (?, ?, ?)');
-      const exArgs = ts
-        ? [ts, ex.activity, Math.round(ex.duration_minutes), text]
+      const exArgs = exerciseTs
+        ? [exerciseTs, ex.activity, Math.round(ex.duration_minutes), text]
         : [ex.activity, Math.round(ex.duration_minutes), text];
       const result = exStmt.run(...exArgs);
 

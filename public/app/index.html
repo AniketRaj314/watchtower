@@ -372,6 +372,83 @@
       </button>
     </div>
 
+    <button id="quick-log-fab" class="quick-log-fab" type="button" aria-label="Quick log" aria-haspopup="dialog">
+      <svg viewBox="0 0 24 24" aria-hidden="true">
+        <path d="M13.5 2L6 13h5l-1 9 8-12h-5l.5-8z" fill="#0A0A0A" />
+      </svg>
+    </button>
+
+    <div id="quick-log-overlay" class="quick-log-overlay" hidden></div>
+    <section id="quick-log-sheet" class="quick-log-sheet" role="dialog" aria-modal="true" aria-labelledby="quick-log-title" hidden>
+      <div class="quick-log-handle" aria-hidden="true"></div>
+
+      <div class="quick-log-head">
+        <div id="quick-log-title" class="quick-log-title">QUICK LOG</div>
+        <div id="quick-log-mode-toggle" class="quick-log-mode-toggle" role="group" aria-label="Input mode">
+          <button id="quick-log-mode-keyboard" class="quick-log-mode-btn active" type="button" aria-pressed="true" aria-label="Keyboard mode">
+            <svg viewBox="0 0 24 24" aria-hidden="true">
+              <rect x="3" y="6" width="18" height="12" rx="2" fill="none" stroke="currentColor" stroke-width="1.5" />
+              <line x1="6" y1="10" x2="8" y2="10" stroke="currentColor" stroke-width="1.5" />
+              <line x1="10" y1="10" x2="12" y2="10" stroke="currentColor" stroke-width="1.5" />
+              <line x1="14" y1="10" x2="16" y2="10" stroke="currentColor" stroke-width="1.5" />
+              <line x1="18" y1="10" x2="18" y2="10" stroke="currentColor" stroke-width="1.5" />
+              <line x1="6" y1="14" x2="18" y2="14" stroke="currentColor" stroke-width="1.5" />
+            </svg>
+          </button>
+          <button id="quick-log-mode-mic" class="quick-log-mode-btn" type="button" aria-pressed="false" aria-label="Microphone mode">
+            <svg viewBox="0 0 24 24" aria-hidden="true">
+              <rect x="9" y="4" width="6" height="10" rx="3" fill="none" stroke="currentColor" stroke-width="1.5" />
+              <path d="M6 11a6 6 0 0 0 12 0" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" />
+              <line x1="12" y1="17" x2="12" y2="20" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" />
+              <line x1="9" y1="20" x2="15" y2="20" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" />
+            </svg>
+          </button>
+        </div>
+      </div>
+
+      <div id="quick-log-entry" class="quick-log-entry">
+        <div class="quick-log-input-wrap">
+          <input
+            id="quick-log-input"
+            class="quick-log-input"
+            type="text"
+            placeholder="fasting 118, had idli sambar, took meds..."
+            autocomplete="off"
+          />
+          <button id="quick-log-send" class="quick-log-send" type="button" aria-label="Send quick log">
+            <svg viewBox="0 0 24 24" aria-hidden="true">
+              <line x1="12" y1="18" x2="12" y2="8" stroke="#0A0A0A" stroke-width="1.8" stroke-linecap="round" />
+              <polyline points="8,12 12,8 16,12" fill="none" stroke="#0A0A0A" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" />
+            </svg>
+          </button>
+        </div>
+
+        <button id="quick-log-mic-action" class="quick-log-mic-action" type="button" aria-label="Start voice input">
+          <div id="quick-log-mic-visual" class="quick-log-mic-visual">
+            <svg id="quick-log-mic-icon" viewBox="0 0 24 24" aria-hidden="true">
+              <rect x="9" y="4" width="6" height="10" rx="3" fill="none" stroke="#00C896" stroke-width="1.8" />
+              <path d="M6 11a6 6 0 0 0 12 0" fill="none" stroke="#00C896" stroke-width="1.8" stroke-linecap="round" />
+              <line x1="12" y1="17" x2="12" y2="20" stroke="#00C896" stroke-width="1.8" stroke-linecap="round" />
+              <line x1="9" y1="20" x2="15" y2="20" stroke="#00C896" stroke-width="1.8" stroke-linecap="round" />
+            </svg>
+            <div id="quick-log-mic-spinner" class="quick-log-mic-spinner" hidden></div>
+          </div>
+          <div id="quick-log-mic-status" class="quick-log-mic-status">tap to speak</div>
+        </button>
+      </div>
+
+      <div id="quick-log-confirm" class="quick-log-confirm" hidden>
+        <div class="quick-log-confirm-title">PARSED SIGNAL</div>
+        <div id="quick-log-confirm-content"></div>
+        <div class="quick-log-confirm-actions">
+          <button id="quick-log-edit" class="quick-log-edit" type="button">EDIT</button>
+          <button id="quick-log-confirm-btn" class="quick-log-confirm-btn" type="button">CONFIRM</button>
+        </div>
+      </div>
+
+      <div id="quick-log-error" class="quick-log-error" hidden>Could not parse — try rephrasing</div>
+    </section>
+
     <!-- Bottom nav -->
     <nav class="bottom-nav">
       <button class="nav-item active" data-screen="log">
