@@ -15,12 +15,34 @@ function datePart(ts) {
   return m ? m[1] : '';
 }
 
+// Rebase all timestamps so the latest day in the dataset maps to today
+function rebaseTimestamps(items) {
+  if (!items.length) return items;
+
+  // Find the latest date in the dataset
+  const dates = items.map(i => datePart(i.timestamp)).filter(Boolean).sort();
+  const latestDate = dates[dates.length - 1];
+
+  const latestMs = new Date(latestDate + 'T00:00:00Z').getTime();
+  const todayMs = new Date(new Date().toISOString().slice(0, 10) + 'T00:00:00Z').getTime();
+  const offsetMs = todayMs - latestMs;
+
+  if (offsetMs === 0) return items;
+
+  return items.map(item => {
+    if (!item.timestamp) return item;
+    const shifted = new Date(new Date(item.timestamp).getTime() + offsetMs);
+    return { ...item, timestamp: shifted.toISOString().replace('.000Z', 'Z') };
+  });
+}
+
 const router = Router();
 
 router.get('/readings', (req, res) => {
   try {
     const { readings } = loadDataset();
-    const sorted = [...readings].sort((a, b) => String(b.timestamp).localeCompare(String(a.timestamp)));
+    const rebased = rebaseTimestamps(readings);
+    const sorted = [...rebased].sort((a, b) => String(b.timestamp).localeCompare(String(a.timestamp)));
     res.json(sorted);
   } catch (e) {
     res.status(500).json({ error: 'Demo data unavailable' });
@@ -30,7 +52,8 @@ router.get('/readings', (req, res) => {
 router.get('/meals', (req, res) => {
   try {
     const { meals } = loadDataset();
-    const sorted = [...meals].sort((a, b) => String(b.timestamp).localeCompare(String(a.timestamp)));
+    const rebased = rebaseTimestamps(meals);
+    const sorted = [...rebased].sort((a, b) => String(b.timestamp).localeCompare(String(a.timestamp)));
     res.json(sorted);
   } catch (e) {
     res.status(500).json({ error: 'Demo data unavailable' });
@@ -53,10 +76,12 @@ router.get('/day/:date', (req, res) => {
   }
   try {
     const { meals, readings } = loadDataset();
-    const dayMeals = meals
+    const rebasedMeals = rebaseTimestamps(meals);
+    const rebasedReadings = rebaseTimestamps(readings);
+    const dayMeals = rebasedMeals
       .filter((m) => datePart(m.timestamp) === date)
       .sort((a, b) => String(a.timestamp).localeCompare(String(b.timestamp)));
-    const dayReadings = readings
+    const dayReadings = rebasedReadings
       .filter((r) => datePart(r.timestamp) === date)
       .sort((a, b) => String(a.timestamp).localeCompare(String(b.timestamp)));
     res.json({ meals: dayMeals, readings: dayReadings });
